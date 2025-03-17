@@ -1,0 +1,26 @@
+<header class="header">
+    <nav class="header--nav">
+        <li class="header--h1__nav" id="name"><a class="header--a__li">Nombre de la página</a></li>
+        <li class="header--h1__nav"><a class="header--a__li">Sobre Nosotros</a></li>
+        <li class="header--h1__nav"><a>Colaborar</a></li>
+        <li class="header--h1__nav"><a>Enviar Sugerencias</a></li>
+        <li class="header--h1__nav"><a>Ayuda</a></li>
+        <li class="header--h1__nav" *ngIf="(authService.currentUser$ | async) as user; else noUser">
+            <a class="header--a__li" id="Perfil" (click)="openDropdown($event)">Perfil</a>
+            <ul class="dropdown-menu" [class.show]="dropdownOpen">
+              <li><a routerLink="/profile">Ver Perfil</a></li>
+              <li><a routerLink="/settings">Configuración</a></li>
+              <li><a (click)="logout()">Cerrar sesión</a></li>
+            </ul>
+          </li>
+          
+          <ng-template #noUser>
+            <li class="header--h1__nav">
+              <a class="header--a__li" routerLink="/login" id="Iniciar">Iniciar Sesión</a>
+            </li>
+          </ng-template>
+          
+          
+  
+    </nav>
+  </header>

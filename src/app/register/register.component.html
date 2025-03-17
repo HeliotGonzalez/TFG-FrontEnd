@@ -1,0 +1,41 @@
+<main class="main">
+    <img src="./yellow.png" alt="" class="main__img">
+    <div class="register-container">
+        <div class="bold fs-2"> <a routerLink="/" class="Nombre">🤟🏼🤟🏽 Nombre</a></div>
+        <form>
+            <div class="mb-3 text-start">
+                <label for="nombre" class="form-label">Nombre personal</label>
+                <input type="text" class="form-control" id="nombre" #nombre>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="username" class="form-label">Nombre de usuario</label>
+                <input type="text" class="form-control" id="username" #username>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" #email>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" #password>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="Rpassword" class="form-label">Repita la contraseña</label>
+                <input type="password" class="form-control" id="Rpassword" #Rpassword>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="proveniencia" class="form-label">Proveniencia</label>
+                <select class="form-control" id="proveniencia" #proveniencia>
+                    <option value="familiar">Familiar sordo</option>
+                    <option value="sordo" selected>Sordo</option>
+                    <option value="interprete">Intérprete</option>
+                    <option value="interesado">Persona interesada</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-success w-100" (click)="obtenerValores(nombre, username, email, password, Rpassword, proveniencia)">
+                Confirmar
+            </button>
+        </form>
+        
+    </div>
+</main>

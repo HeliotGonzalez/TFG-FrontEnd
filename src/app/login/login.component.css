@@ -1,0 +1,53 @@
+.main{
+    background-color: #0A6847;
+    padding: 25.7%;
+    background-image: url(../../../public/loginMan.png);
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.Nombre{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.main__img{
+    margin-top: -35em;
+    margin-left: 40em;
+    margin-bottom: -30em;
+}
+
+.login-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 425px;
+    max-height: 500px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border-top: 5px solid #198754;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo {
+    font-size: 30px;
+}
+
+.btn-google {
+    background: white;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-google img {
+    width: 20px;
+}

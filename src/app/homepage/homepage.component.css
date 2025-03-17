@@ -1,0 +1,111 @@
+
+.main{
+    background-color: #F6E6B2;
+    background-image: url(/Pollito2.png);
+    background-repeat: no-repeat;
+    background-position: left -3.5em;
+    margin-left: -1em;
+    margin-right: -1em;
+    margin-top: -2.5em;
+    margin-bottom: 0em;
+}
+
+.main--div{
+    display: flex;
+}
+
+.main__img--div{
+    margin-left: 30em;
+    margin-top: 2em;
+}
+
+.main--div4{
+    background-color: #F3CA52;
+}
+
+.main--div2{
+    display: inline;
+}
+
+.main__p--div{
+    margin-left: 2em;
+    font-size: 2em;
+    max-width: 25em;
+    font-family: sans-serif;
+    color: white;
+}
+
+.main__p--div4{
+    margin-left: 2em;
+    font-size: 2em;
+    max-width: 25em;
+    font-family: sans-serif;
+    color: black;
+    font-weight: bold;
+}
+
+#Title{
+    margin-top: 4em;
+    color: #F6E6B2;
+    font-weight: bold;
+}
+
+.main--div3{
+    margin-top: 4em;
+    margin-left: 22em;
+}
+
+.main__input--div3{
+    width: 991px;
+    height: 56px;
+    border-radius: 20px;
+    font-size: 1.5em;
+    padding-left: 0.75em;
+    box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.75);
+    border: none;
+}
+
+.lupita{
+    font-size: 2em;
+    color: #0A6847;
+
+    margin-left: -1.5em;
+    margin-top: 0.1em;
+}
+
+.fondo{
+    min-height: 200px;
+    border-radius: 10%;
+}
+
+.option-card {
+    width: 250px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  .icon-img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .explorar-section {
+    background-color: #F3CA52;
+    padding: 20px;
+  }
+
+  .estudiante-section {
+    background-color: #F6E9B2;
+    padding: 20px;
+  }
+  .experto-section {
+    background-color: #0A6847;
+    padding: 20px;
+  }
+  

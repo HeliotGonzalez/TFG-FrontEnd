@@ -1,0 +1,107 @@
+.header {
+    margin-top: -0.5em;
+    margin-right: -0.5em;
+    margin-left: -0.5em;
+    height: 4.8em;
+    padding: 22px;
+    border-bottom: 2px solid #000;
+    background-color: hsl(0, 0%, 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+  
+  .header--nav{
+    margin-right: -1.5em;
+  }
+  
+  .header--a__li{
+    text-decoration: none;
+    color: #000000;
+  }
+  
+  .header--h1__nav{
+    font-size: 1.5em;
+    display: inline;
+    margin-left: 2em;
+    margin-right: 0;
+    font-family: sans-serif;
+  }
+  
+  #name{
+    margin-left: 2em;
+    margin-right: 23em;
+  }
+  
+  .header--h1__nav:hover{
+    text-decoration: underline;
+  }
+  
+  #Iniciar:hover{
+    text-decoration: none;
+    opacity: 80%;
+  }
+  
+  #Iniciar{
+    background-color: #0A6847;
+    padding: 23.2px 35px 22.2px 32px;
+    margin-right: -0.5em;
+    margin-left: 1.5em;
+    font-weight: bold;
+    color: white;
+    border-bottom: 2px solid black;
+  }
+
+  #Perfil{
+    background-color: #0A6847;
+    padding: 23.2px 65px 22.2px 65px;
+    margin-right: -0.5em;
+    margin-left: 2em;
+    font-weight: bold;
+    color: white;
+    border-bottom: 2px solid black;
+  }
+
+  /* Lista desplegable */
+  .dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    position: absolute;
+    top: 70px;
+    left: 105em;
+    min-width: 175px;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .dropdown-menu.show {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+
+  .header--a__li {
+    cursor: pointer;
+  }
+  
