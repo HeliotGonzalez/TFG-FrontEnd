@@ -1,0 +1,37 @@
+<br>
+<br>
+<br>
+
+<body>
+  <div class="container py-4">
+    <div class="d-flex flex-nowrap justify-content-center align-items-center">
+      <div *ngFor="let letter of letters" class="p-1">
+        <div class="card card-hover text-center"
+             [ngClass]="{'border-primary': letter === currentLetter}"
+             (click)="onLetterClick(letter)"
+             style="width: 45px; cursor: pointer;">
+          <div class="card-body p-1">
+            <h6 class="card-title m-0">{{ letter }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sección para el mensaje cuando no hay palabras -->
+  <div *ngIf="NPalabras === 0" class="container-fluid p-0 palabras">
+    <div class="d-flex align-items-center justify-content-center" style="height: 83vh;">
+      <div class="card text-center w-100" style="max-width: 800px; height: 300px;">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+          <h1 class="card-title text-black">No hay palabras registradas</h1>
+          <p class="card-text text-black">¿Quieres registrar una?</p>
+          <a class="btn btn-success" routerLink="/word-register">Registrar palabra</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  
+                 
+</body>

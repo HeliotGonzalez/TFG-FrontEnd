@@ -1,0 +1,35 @@
+<br>
+<br>
+<main class="main">
+  <div class="d-flex align-items-center justify-content-center" style="height: 94.8vh;">
+      <div class="card text-center w-100 p-4" style="max-width: 1000px;">
+        <div class="card-body">
+          <h1 class="form-label mb-3">Creación de una nueva palabra</h1>
+          <form>
+            <div class="mb-3">
+              <label for="wordName" class="form-label">Nombre de la palabra</label>
+              <input type="text" class="form-control" id="wordName" placeholder="Ingrese el nombre" style="max-width: 500px; margin: 0 auto;" #nombre>
+            </div>
+            <div class="mb-3 ms-3 me-3">
+              <label for="description" class="form-label">Descripción</label>
+              <textarea class="form-control" id="description" rows="3" placeholder="Ingrese la descripción" #descripcion></textarea>
+            </div>
+            <div class="mb-3 ms-3 me-3">
+              <label for="tags" class="form-label">Posibles etiquetas</label>        
+              <i class="bi bi-question-lg text-danger" 
+                data-bs-toggle="tooltip" 
+                data-bs-placement="top"
+              title="Las etiquetas son ámbitos de la palabra, para árbol podría ser (ej: naturaleza, vegetal)"></i>
+              <input type="text" class="form-control" id="tags" placeholder="Ingrese las etiquetas, separadas por comas" #etiquetas>
+            </div>
+            <div class="d-gridbox justify-content-between">
+              <a class="btn btn-danger" style="margin-right: 1em;" routerLink="/alphabetical"> Volver </a>
+              <button type="button" (click)="registrarPalabra(nombre, descripcion, etiquetas)" class="btn btn-success">Enviar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</main>
+  
+  

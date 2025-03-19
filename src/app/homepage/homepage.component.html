@@ -3,7 +3,7 @@
 <br>
 <br>
 <body>
-  <main class="main">
+  <main class="main" style="width: 100.8%;">
       
       <br>
       <div class="main--div">
@@ -35,15 +35,19 @@
             <h5 class="fw-bold fs-2">Explorar</h5>
             <div class="d-flex justify-content-start flex-wrap gap-3">
                 <!-- Buscar por orden alfabético -->
-                <div class="card text-center p-3 option-card">
-                <i class="bi bi-sort-alpha-down fs-2 text-secondary"></i>
-                <p class="mt-2">Buscar por orden alfabético</p>
-                </div>
+                <a class= 'alfabeto' routerLink="/alphabetical">
+                    <div class="card text-center p-3 option-card">
+                        <i class="bi bi-sort-alpha-down fs-2 text-secondary"></i>
+
+                            <p class="mt-2">Buscar por orden alfabético</p>
+                    </div>
+                 </a>
+
 
                 <!-- Buscar por temática -->
                 <div class="card text-center p-3 option-card">
-                <i class="bi bi-chat-quote-fill fs-2 text-secondary"></i>
-                <p class="mt-2">Buscar por temática</p>
+                    <i class="bi bi-chat-quote-fill fs-2 text-secondary"></i>
+                    <p class="mt-2">Buscar por temática</p>
                 </div>
 
                 <!-- Subido recientemente -->

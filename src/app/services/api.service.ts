@@ -32,5 +32,9 @@ export class ApiService {
   resetPassword(payload: { email: string, password: string }) {
     return this.http.post(`${this.apiUrl}/reset-password`, { data: [payload.email, payload.password] });
   }
+
+  storeWord(data: { nombre: string; descripcion: string; etiquetas: string[] }) {
+    return this.http.post(`${this.apiUrl}/registerWord`, data);
+  }
     
 }
