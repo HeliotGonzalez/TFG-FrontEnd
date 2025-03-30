@@ -40,5 +40,15 @@ export class ApiService {
   getWords(letter: string){
     return this.http.get(`${this.apiUrl}/getWords/${letter}`);
   }
+
+  getVideos(descripcion: string){
+    return this.http.get(`${this.apiUrl}/getVideos/${descripcion}`);
+  }
+
+  sendVideoLikes(id: number, likes: number, dislikes: number, action: string, userID: number) {
+    const data = { id, likes, dislikes, action, userID };
+    console.log(data);
+    return this.http.post(`${this.apiUrl}/videoLikes`, {data});
+  }
     
 }

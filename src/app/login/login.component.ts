@@ -51,19 +51,19 @@ export class LoginComponent {
     // 1. Solicitar el correo electrónico y enviar el correo de verificación
     const email = await this.askEmail.call(this);
     if (!email) {
-      return; // Cancelado o error en el primer paso
+      return;
     }
   
     // 2. Solicitar y verificar el código OTP
     const otpValid = await this.verifyOtp.call(this, email);
     if (!otpValid) {
-      return; // Cancelado o error en la verificación OTP
+      return;
     }
   
     // 3. Solicitar al usuario la nueva contraseña
     const newPassword = await this.askNewPassword.call(this);
     if (!newPassword) {
-      return; // Cancelado o error al ingresar la contraseña
+      return;
     }
   
     // 4. Enviar la nueva contraseña al backend para actualizarla

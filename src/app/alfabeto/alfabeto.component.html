@@ -1,8 +1,8 @@
 <br>
 <br>
-<br>
-<body class="body">
-  <div class="container py-4">
+
+<body class="body palabras">
+  <div class="container py-4 mt-4">
     <div class="d-flex flex-nowrap justify-content-center align-items-center">
       @for(letter of letters; track letter){
         <div class="p-1">
@@ -40,12 +40,12 @@
     <div class="container-fluid p-0 palabras" style="min-height: 100vh;">
       <div class="row">
         @for (word of (words | slice:0:wordLimit); track word){
-          
+
           <div class="d-flex justify-content-center align-items-center mt-4 mb-2">
           </div>
 
           <div class="col-12">
-            <div class="card mt-3 mx-auto" style="max-width: 170vh;">
+            <div class="card mt-3 mx-auto py-2 mb-4" style="max-width: 170vh;">
               <div class="card-body">
                 <h3 class="card-title">{{ word.nombre }}</h3>
                 <div class="row">
@@ -60,9 +60,9 @@
                     @if (word.significado.highest_voted_video) {
                       <div class="embed-responsive embed-responsive-16by9 mb-3">
                         <iframe class="embed-responsive-item" 
-                                [src]="getSafeUrl(getEmbedUrl(word.significado.highest_voted_video.url))" 
-                                width="400"
-                                height="300"
+                                [src]="word.significado.highest_voted_video.embedUrl" 
+                                width="450"
+                                height="350"
                                 allowfullscreen>
                         </iframe>
                       </div>
@@ -79,7 +79,7 @@
                   </div>
                   <div class="d-flex justify-content-center align-items-center mt-4 mb-2">
                     <a href="" class="btn btn-success me-2" routerLink="/word-register">Añadir palabra</a>
-                    <a href="" class="btn btn-primary">Ver más vídeos</a>
+                    <a href="" class="btn btn-primary" routerLink="/videoLoader"  [queryParams]="{ nombre: word.nombre, descripcion: word.significado.descripcion }" >Ver más vídeos</a>
                   </div>
                 </div>
               </div>
