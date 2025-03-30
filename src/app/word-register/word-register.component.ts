@@ -40,7 +40,7 @@ export class WordRegisterComponent implements AfterViewInit{
           Swal.fire({
             icon: 'success',
             title: 'Palabra registrada',
-            text: 'La palabra ha sido registrada con éxito.' + response.message
+            text: 'La palabra ha sido registrada con éxito.'
           });
           this.router.navigate(['/']);
         },
@@ -48,7 +48,7 @@ export class WordRegisterComponent implements AfterViewInit{
           Swal.fire({
             icon: 'error',
             title: 'Error al registrar la palabra',
-            text: 'Ha ocurrido un error al registrar la palabra. Por favor, inténtelo de nuevo.' + error.message
+            text: 'Ha ocurrido un error al registrar la palabra. Por favor, inténtelo de nuevo.'
           });
         }
       });

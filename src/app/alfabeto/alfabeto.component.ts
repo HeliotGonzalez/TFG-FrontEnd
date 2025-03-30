@@ -1,25 +1,84 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { ApiService } from '../../app/services/api.service';
+import { Palabra } from '../models/palabra';
+import { Video } from '../models/video';
+import Swal from 'sweetalert2';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-alfabeto',
   imports: [RouterModule, CommonModule],
   templateUrl: './alfabeto.component.html',
-  styleUrl: './alfabeto.component.css'
+  styleUrls: ['./alfabeto.component.css']
 })
-export class AlfabetoComponent {
-  // Array con el alfabeto
+
+export class AlfabetoComponent implements OnInit {
   letters = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
   currentLetter = 'A';
-  NPalabras = 0;
+  NPalabras: number = -1;
+  words: Palabra[] = [];
+  wordLimit: number = 5;
 
-  onLetterClick(letter: string) {
-    console.log('Letra seleccionada:', letter);
-    this.currentLetter = letter;
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private sanitizer: DomSanitizer
+  ) {}
+
+  ngOnInit(): void {
+    this.loadWords();
   }
 
-  onRegisterWord(){
-    return;
+  loadMore(): void {
+    this.wordLimit += 5;
+  }
+
+  onLetterClick(letter: string): void {
+    this.currentLetter = letter;
+    this.loadWords();
+  }
+
+  loadWords(): void {
+    this.apiService.getWords(this.currentLetter).subscribe({
+      next: (response: any) => {
+        this.words = response;
+        this.NPalabras = this.words.length;
+        console.log(this.words);
+      },
+      error: (error: any) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ha ocurrido un error: ' + error
+        });
+      }
+    });
+  }
+
+  /**
+   * Transforma una URL normal de YouTube a la URL de embed.
+   * Por ejemplo, convierte:
+   * https://www.youtube.com/watch?v=VIDEO_ID
+   * en:
+   * https://www.youtube.com/embed/VIDEO_ID
+   */
+  getEmbedUrl(url: string): string {
+    let videoId = '';
+    const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    if (match && match[2] && match[2].length === 11) {
+      videoId = match[2];
+    }
+    return 'https://www.youtube.com/embed/' + videoId;
+  }
+  
+
+  /**
+   * Utiliza el sanitizer de Angular para evitar problemas de seguridad con las URLs de vídeo.
+   */
+  getSafeUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

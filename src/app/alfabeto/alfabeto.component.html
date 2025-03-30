@@ -1,37 +1,98 @@
 <br>
 <br>
 <br>
-
-<body>
+<body class="body">
   <div class="container py-4">
     <div class="d-flex flex-nowrap justify-content-center align-items-center">
-      <div *ngFor="let letter of letters" class="p-1">
-        <div class="card card-hover text-center"
-             [ngClass]="{'border-primary': letter === currentLetter}"
-             (click)="onLetterClick(letter)"
-             style="width: 45px; cursor: pointer;">
-          <div class="card-body p-1">
-            <h6 class="card-title m-0">{{ letter }}</h6>
+      @for(letter of letters; track letter){
+        <div class="p-1">
+          <div class="card card-hover text-center"
+               [ngClass]="{'border-primary': letter === currentLetter}"
+               (click)="onLetterClick(letter)"
+               style="width: 51px; cursor: pointer;">
+            <div class="card-body p-1">
+              <h6 class="card-title m-0">{{ letter }}</h6>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  
+  <!-- Sección para el mensaje cuando no hay palabras -->
+  @if (NPalabras === 0){
+    <div class="container-fluid p-0 palabras">
+      <div class="d-flex align-items-center justify-content-center" style="height: 83vh;">
+        <div class="card text-center w-100" style="max-width: 800px; height: 300px;">
+          <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+            <h1 class="card-title text-black">No hay palabras registradas</h1>
+            <p class="card-text text-black">¿Quieres registrar una?</p>
+            <a class="btn btn-success" routerLink="/word-register">Registrar palabra</a>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- Sección para el mensaje cuando no hay palabras -->
-  <div *ngIf="NPalabras === 0" class="container-fluid p-0 palabras">
-    <div class="d-flex align-items-center justify-content-center" style="height: 83vh;">
-      <div class="card text-center w-100" style="max-width: 800px; height: 300px;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-          <h1 class="card-title text-black">No hay palabras registradas</h1>
-          <p class="card-text text-black">¿Quieres registrar una?</p>
-          <a class="btn btn-success" routerLink="/word-register">Registrar palabra</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  }
 
-  
-  
-                 
+  <!-- Sección para mostrar palabras con su significado -->
+  @if (NPalabras > 0){
+    <div class="container-fluid p-0 palabras" style="min-height: 100vh;">
+      <div class="row">
+        @for (word of (words | slice:0:wordLimit); track word){
+          
+          <div class="d-flex justify-content-center align-items-center mt-4 mb-2">
+          </div>
+
+          <div class="col-12">
+            <div class="card mt-3 mx-auto" style="max-width: 170vh;">
+              <div class="card-body">
+                <h3 class="card-title">{{ word.nombre }}</h3>
+                <div class="row">
+                  <!-- Columna para el significado -->
+                  <div class="col-md-8">
+                    <p class="card-text">
+                      {{ word.significado.descripcion }}
+                    </p>
+                  </div>
+                  <!-- Columna para el vídeo -->
+                  <div class="col-md-4">
+                    @if (word.significado.highest_voted_video) {
+                      <div class="embed-responsive embed-responsive-16by9 mb-3">
+                        <iframe class="embed-responsive-item" 
+                                [src]="getSafeUrl(getEmbedUrl(word.significado.highest_voted_video.url))" 
+                                width="400"
+                                height="300"
+                                allowfullscreen>
+                        </iframe>
+                      </div>
+                    } @else {
+                      <div class="no-video-container text-center d-flex flex-column justify-content-center align-items-center">
+                        <h5 class="mb-3">Video</h5>
+                        <p class="mb-2">Aún no tenemos video de este signo :/</p>
+                        <button class="btn btn-light d-flex flex-column align-items-center">
+                          <span class="fs-1">+</span>
+                          <span>Añadir Video</span>
+                        </button>
+                      </div>
+                    }
+                  </div>
+                  <div class="d-flex justify-content-center align-items-center mt-4 mb-2">
+                    <a href="" class="btn btn-success me-2" routerLink="/word-register">Añadir palabra</a>
+                    <a href="" class="btn btn-primary">Ver más vídeos</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <!-- Botón para cargar más palabras (solo si existen más) -->
+      @if (words.length > wordLimit) {
+        <div class="d-flex justify-content-center my-4">
+          <button class="btn btn-primary" (click)="loadMore()">Cargar más palabras</button>
+        </div>
+      }
+    </div>
+  }  
 </body>
