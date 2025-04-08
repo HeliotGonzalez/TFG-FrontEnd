@@ -41,14 +41,22 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/getWords/${letter}`);
   }
 
-  getVideos(descripcion: string){
-    return this.http.get(`${this.apiUrl}/getVideos/${descripcion}`);
+  getVideos(descripcion: string, userID: number) {
+    return this.http.get(`${this.apiUrl}/getVideos/${descripcion}/${userID}`);
   }
 
   sendVideoLikes(id: number, likes: number, dislikes: number, action: string, userID: number) {
     const data = { id, likes, dislikes, action, userID };
-    console.log(data);
     return this.http.post(`${this.apiUrl}/videoLikes`, {data});
+  }
+
+  storeVideoInDictionary(data: { videoID: number, userID: number }) {
+    console.log('Data to be sent:', data);
+    return this.http.post(`${this.apiUrl}/storeVideoInDictionary`, data);
+  }
+
+  deleteVideoFromDictionary(data: { videoID: number, userID: number }) {
+    return this.http.post(`${this.apiUrl}/deleteVideoFromDictionary`, data);
   }
     
 }

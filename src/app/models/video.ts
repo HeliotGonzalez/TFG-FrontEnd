@@ -5,6 +5,7 @@ export interface Video {
     descripcion: string;
     etiquetas: string[];
     authorName: string;
+    isInDictionary: boolean;
     url: string;
     embedUrl: any;
 }

@@ -76,12 +76,18 @@
                                                 </button>
                                                 <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton' + video.id">
                                                     <li>
-                                                        <a class="dropdown-item" href="#" (click)="saveToDictionary(video)">
-                                                            Guardar en mi diccionario
-                                                        </a>
+                                                        @if (video.isInDictionary == true) {
+                                                            <a class="dropdown-item" style="cursor: pointer" (click)="removeFromDictionary(video)">
+                                                                Eliminar de mi diccionario
+                                                            </a>
+                                                        } @else {
+                                                            <a class="dropdown-item" style="cursor: pointer" (click)="saveToDictionary(video)">
+                                                                Añadir a mi diccionario
+                                                            </a>
+                                                        }
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="#" (click)="reportVideo(video)">
+                                                        <a class="dropdown-item" style="cursor: pointer" (click)="reportVideo(video)">
                                                             Denunciar vídeo
                                                         </a>
                                                     </li>

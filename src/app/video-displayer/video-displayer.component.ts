@@ -5,6 +5,7 @@ import { Video } from '../models/video';
 import { ApiService } from '../services/api.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from '../services/auth-service.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class VideoDisplayerComponent {
   }
 
   getVideos(descripcion: string) {
-    this.apiService.getVideos(descripcion).subscribe({
+    this.apiService.getVideos(descripcion, this.ensureAuthenticated()).subscribe({
       next: (response: any) => {
         console.log('Respuesta de la API:', response);
         if (response && Array.isArray(response)) {
@@ -45,8 +46,8 @@ export class VideoDisplayerComponent {
             etiquetas: video.significado?.etiquetas ? JSON.parse(video.significado.etiquetas) : [],
             likes: video.likes,
             dislikes: video.dislikes,
+            isInDictionary:  video.inDictionary|| false,
             authorName: video.user?.username || 'Desconocido',
-
           }));
           console.log('Videos mapeados:', this.videos);
         } else {
@@ -188,6 +189,48 @@ export class VideoDisplayerComponent {
   }
 
   saveToDictionary(video: Video): void {
+    this.apiService.storeVideoInDictionary({ videoID: video.id, userID: this.ensureAuthenticated() }).subscribe({
+      next: (response: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Guardado',
+          text: 'El video ha sido guardado en tu diccionario.',
+          timer: 2000
+        })
+        video.isInDictionary = true;
+      },
+      error: (error: any) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Guardado',
+          text: 'El video no ha podido ser guardado en tu diccionario. Inténtelo más tarde.',
+          timer: 2000
+        })
+      }
+    });
+    return;
+  }
+
+  removeFromDictionary(video: Video){
+    this.apiService.deleteVideoFromDictionary({ videoID: video.id, userID: this.ensureAuthenticated() }).subscribe({
+      next: (response: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado',
+          text: 'El video ha sido eliminado de tu diccionario.',
+          timer: 2000
+        })
+        video.isInDictionary = false;
+      },
+      error: (error: any) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Eliminado',
+          text: 'El video no ha podido ser eliminado de tu diccionario. Inténtelo más tarde.',
+          timer: 2000
+        })
+      }
+    });
     return;
   }
 
