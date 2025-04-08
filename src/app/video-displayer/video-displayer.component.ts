@@ -5,22 +5,21 @@ import { Video } from '../models/video';
 import { ApiService } from '../services/api.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from '../services/auth-service.service';
+import { VideoListComponent } from '../video-list/video-list.component';
 import Swal from 'sweetalert2';
 
 
 @Component({
   selector: 'app-video-displayer',
-  imports: [CommonModule],
+  imports: [CommonModule, VideoListComponent],
   templateUrl: './video-displayer.component.html',
   styleUrl: './video-displayer.component.css'
 })
 
 export class VideoDisplayerComponent {
-  descripcion: string = '';
   nombre: string = '';
+  descripcion: string = '';
   videos: Video[] = [];
-  liked: { [key: number]: boolean } = {};
-  disliked: { [key: number]: boolean } = {};
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private sanitizer: DomSanitizer, private authService: AuthService, private router: Router) {}
 
@@ -62,24 +61,7 @@ export class VideoDisplayerComponent {
     });
   }
 
-  toggleLike(id: number): void {
-    const ID = this.ensureAuthenticated();
-    const video = this.findVideo(id);
-    if (!video) return;
-
-    this.updateLikeState(video);
-    this.sendVideoReaction(id, video.likes, video.dislikes, true , 'like', ID);
-  }
   
-  toggleDislike(id: number): void {
-    const ID = this.ensureAuthenticated();
-    const video = this.findVideo(id);
-    if (!video) return;
-
-    this.updateDislikeState(video);
-    this.sendVideoReaction(id, video.likes, video.dislikes, false, 'dislike', ID);
-  }
-
   // Verifica que el usuario esté autenticado y redirige en caso contrario.
   private ensureAuthenticated(): number {
     let userID = -1;
@@ -89,215 +71,30 @@ export class VideoDisplayerComponent {
     });
     return userID;
   }
-  
-  // Busca el video por id y retorna el objeto; en caso de no existir, loguea el error.
-  private findVideo(id: number): Video | undefined {
-    const video = this.videos.find(v => v.id === id);
-    if (!video) {
-      console.error(`Video con id ${id} no encontrado`);
-      return undefined;
+
+    /**
+     * Transforma una URL normal de YouTube a la URL de embed.
+     * Por ejemplo, convierte:
+     * https://www.youtube.com/watch?v=VIDEO_ID
+     * en:
+     * https://www.youtube.com/embed/VIDEO_ID
+     */
+    getEmbedUrl(url: string): string {
+      let videoId = '';
+      const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2] && match[2].length === 11) {
+        videoId = match[2];
+      }
+      return 'https://www.youtube.com/embed/' + videoId;
     }
-    return video;
-  }
-  
-  /**
-   * Actualiza el estado de "like" del video.
-   * @param video -> video al que se le va a dar dislike
-   */
-  private updateLikeState(video: Video): void {
-    // Inicializa el estado si no existe aún
-    if (this.liked[video.id] === undefined) {
-      this.liked[video.id] = false;
-    }
-    if (this.disliked[video.id] === undefined) {
-      this.disliked[video.id] = false;
+    
+    /**
+     * Utiliza el sanitizer de Angular para evitar problemas de seguridad con las URLs de vídeo.
+     */
+    getSafeUrl(url: string): SafeResourceUrl {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
-    if (this.liked[video.id]) {
-      // Si ya tenía like, se desactiva y se decrementa el contador.
-      this.liked[video.id] = false;
-      video.likes--;
-    } else {
-      // Si estaba en dislike, se remueve y se decrementa.
-      if (this.disliked[video.id]) {
-        video.dislikes--;
-        this.disliked[video.id] = false;
-      }
-      // Activa el like y actualiza el contador.
-      this.liked[video.id] = true;
-      video.likes++;
-    }
-  }
-
-  /**
-   * Actualiza el estado de "dislike" del video.
-   * @param video -> video al que se le va a dar dislike
-   */
-  private updateDislikeState(video: Video): void {
-    // Inicializa el estado si no existe aún
-    if (this.liked[video.id] === undefined) {
-      this.liked[video.id] = false;
-    }
-    if (this.disliked[video.id] === undefined) {
-      this.disliked[video.id] = false;
-    }
-
-    if (this.disliked[video.id]) {
-      // Si ya tenía dislike, se desactiva y se decrementa el contador.
-      this.disliked[video.id] = false;
-      video.dislikes--;
-    } else {
-      // Si estaba en like, se remueve y se decrementa.
-      if (this.liked[video.id]) {
-        video.likes--;
-        this.liked[video.id] = false;
-      }
-      // Activa el dislike y actualiza el contador.
-      this.disliked[video.id] = true;
-      video.dislikes++;
-    }
-  }
-  
-  /**
-   * Función que envía la reacción del usuario al servidor.
-   * @param id -> id del video
-   * @param likes -> cantidad de likes actual
-   * @param dislikes -> cantidad de dislikes actual
-   * @param isLike -> booleano que indica si el usuario ha dado like
-   * @param action -> ¿Qué hizo el usuario? like o dislike
-   * @param userID -> id del usuario que ha dado like o dislike
-   */
-  private sendVideoReaction(id: number, likes: number, dislikes: number, isLike: boolean, action: string, userID: number): void {
-    const serviceCall = this.apiService.sendVideoLikes(id, likes, dislikes, action, userID);
-  
-    serviceCall.subscribe({
-      next: (response: any) => {
-        console.log(`${isLike ? 'Like' : 'Dislike'} toggled successfully:`, response);
-      },
-      error: (error: any) => {
-        console.error(`Error toggling ${isLike ? 'like' : 'dislike'}:`, error);
-      }
-    });
-  }
-  
-  /**
-   * Transforma una URL normal de YouTube a la URL de embed.
-   * Por ejemplo, convierte:
-   * https://www.youtube.com/watch?v=VIDEO_ID
-   * en:
-   * https://www.youtube.com/embed/VIDEO_ID
-   */
-  getEmbedUrl(url: string): string {
-    let videoId = '';
-    const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    if (match && match[2] && match[2].length === 11) {
-      videoId = match[2];
-    }
-    return 'https://www.youtube.com/embed/' + videoId;
-  }
-  
-  /**
-   * Utiliza el sanitizer de Angular para evitar problemas de seguridad con las URLs de vídeo.
-   */
-  getSafeUrl(url: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
-  /**
-   * Esta función guarda el video en el diccionario del usuario.
-   * @param video 
-   * @returns 
-   */
-  saveToDictionary(video: Video): void {
-    this.apiService.storeVideoInDictionary({ videoID: video.id, userID: this.ensureAuthenticated() }).subscribe({
-      next: (response: any) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Guardado',
-          text: 'El video ha sido guardado en tu diccionario.',
-          timer: 2000
-        })
-        video.isInDictionary = true;
-      },
-      error: (error: any) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Guardado',
-          text: 'El video no ha podido ser guardado en tu diccionario. Inténtelo más tarde.',
-          timer: 2000
-        })
-      }
-    });
-    return;
-  }
-
-  /**
-   * Esta función elimina el video en el diccionario del usuario.
-   * @param video 
-   * @returns 
-   */
-  removeFromDictionary(video: Video){
-    this.apiService.deleteVideoFromDictionary({ videoID: video.id, userID: this.ensureAuthenticated() }).subscribe({
-      next: (response: any) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado',
-          text: 'El video ha sido eliminado de tu diccionario.',
-          timer: 2000
-        })
-        video.isInDictionary = false;
-      },
-      error: (error: any) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Eliminado',
-          text: 'El video no ha podido ser eliminado de tu diccionario. Inténtelo más tarde.',
-          timer: 2000
-        })
-      }
-    });
-    return;
-  }
-
-  reportVideo(video: Video): void {
-    Swal.fire({
-      title: 'Razón del reporte',
-      input: 'textarea',
-      inputLabel: 'Ingresa la razón del reporte',
-      inputPlaceholder: 'Escribe aquí la razón...',
-      showCancelButton: true,
-      confirmButtonText: 'Enviar',
-      cancelButtonText: 'Cancelar',
-      inputValidator: (value) => {
-        if (!value) {
-          return 'Debes ingresar una razón'
-        }
-        return null;
-      }
-    }).then((result) => {
-      if (result.isConfirmed && result.value) {
-        this.apiService.reportAVideo({ videoID: video.id, userID: this.ensureAuthenticated(), reason: result.value }).subscribe({
-          next: (response: any) => {
-            console.log('Respuesta del reporte:', response);
-            Swal.fire({
-              icon: 'success',
-              title: 'Reportado',
-              text: 'El video ha sido reportado.',
-              timer: 2000
-            })
-          },
-          error: (error: any) => {
-            console.error('Error al reportar el video:', error);
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'El video no ha podido ser reportado. Inténtelo más tarde.',
-              timer: 2000
-            })
-          }
-        });
-      }
-    });
-  }
+ 
 }

@@ -1,0 +1,14 @@
+.author-name {
+    color: rgba(128, 128, 128, 0.6); 
+    transition: color 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.author-name:hover {
+    color: rgb(13, 13, 13);
+}
+
+.carta{
+    background-color: #C5B98E;
+}

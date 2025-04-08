@@ -1,119 +1,18 @@
 <body class="body mt-5">
     <main class="main">
         <!-- Título con la descripción obtenida -->
+        <br>
         <div class="row my-5">
             <div class="col-12">
                 <h2 class="text-center fw-bold">{{ nombre }}: {{ descripcion }}</h2>
             </div>
         </div>
 
-        <div class="container-fluid my-4 videos">
-            <!-- Si existen videos, se muestran en tarjetas -->
-            @if(videos.length > 0) {
-                <div class="row">
-                    @for(video of videos; track video) {
-                        <div class="col-md-4">
-                            <div class="card mb-4 p-2 carta">
-                                <div class="ratio ratio-16x9">
-                                    <iframe class="rounded" [src]="video.embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                </div>
-                            
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <!-- Columna 1: Autor -->
-                                        <div class="col-auto">
-                                            <a class="card-title author-name" routerLink="">{{ video.authorName }}</a>
-                                        </div>
-                            
-                                        <!-- Columna 2: Etiquetas -->
-                                        <div class="col d-flex align-items-center">
-                                            <strong class="me-2">Etiquetas:</strong>
-                                            @for(etiqueta of video.etiquetas; track etiqueta) {
-                                                <span class="badge bg-light text-dark border border-secondary me-1">
-                                                    {{ etiqueta }}
-                                                </span>
-                                            }
-                                        </div>
-                            
-                                        <!-- Columna 3: Like / Dislike -->
-                                        <div class="col-auto d-flex align-items-center">
-                                            @if (video.didIlikeIt) {
-                                                <button type="button" class="btn btn-link p-0 me-2" (click)="toggleLike(video.id)" style="cursor: pointer;">
-                                                  <i class="bi bi-hand-thumbs-up-fill text-secondary"></i>
-                                                </button>
-                                                <span class="me-2">{{ video.likes }}</span>
-                                            } @else {
-                                                <button type="button" class="btn btn-link p-0 me-2" (click)="toggleLike(video.id)" style="cursor: pointer;">
-                                                    <i class="bi" [ngClass]="liked[video.id] ? 'bi-hand-thumbs-up-fill text-secondary' : 'bi-hand-thumbs-up text-secondary'"></i>
-                                                </button>
-                                                <span class="me-2">{{ video.likes }}</span>
-                                            }
+        <app-video-list
+            [videos]="videos"
+        ></app-video-list>
 
-                                            @if (video.didIDislikeIt) {
-                                                <button
-                                                  type="button"
-                                                  class="btn btn-link p-0"
-                                                  (click)="toggleDislike(video.id)"
-                                                  style="cursor: pointer;"
-                                                >
-                                                  <i class="bi bi-hand-thumbs-down-fill text-secondary"></i>
-                                                </button>
-                                                <span>{{ video.dislikes }}</span>
-                                              } @else {
-                                                <button
-                                                  type="button"
-                                                  class="btn btn-link p-0"
-                                                  (click)="toggleDislike(video.id)"
-                                                  style="cursor: pointer;"
-                                                >
-                                                  <i class="bi" [ngClass]="disliked[video.id] ? 'bi-hand-thumbs-down-fill text-secondary' : 'bi-hand-thumbs-down text-secondary'"></i>
-                                                </button>
-                                                <span>{{ video.dislikes }}</span>
-                                              }
-                                        </div>
-                            
-                                        <!-- Columna 4: Botón de tres puntos (dropdown) -->
-                                        <div class="col-auto">
-                                            <div class="dropdown">
-                                                <button 
-                                                    class="btn btn-link p-0" 
-                                                    type="button" 
-                                                    id="dropdownMenuButton{{video.id}}" 
-                                                    data-bs-toggle="dropdown" 
-                                                    aria-expanded="false"
-                                                    style="cursor: pointer;"
-                                                >
-                                                    <i class="bi bi-three-dots-vertical"></i>
-                                                </button>
-                                                <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton' + video.id">
-                                                    <li>
-                                                        @if (video.isInDictionary == true) {
-                                                            <a class="dropdown-item" style="cursor: pointer" (click)="removeFromDictionary(video)">
-                                                                Eliminar de mi diccionario
-                                                            </a>
-                                                        } @else {
-                                                            <a class="dropdown-item" style="cursor: pointer" (click)="saveToDictionary(video)">
-                                                                Añadir a mi diccionario
-                                                            </a>
-                                                        }
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" style="cursor: pointer" (click)="reportVideo(video)">
-                                                            Denunciar vídeo
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    }
-                </div>
-            }
-        </div>
+
     </main>
 </body>
   
