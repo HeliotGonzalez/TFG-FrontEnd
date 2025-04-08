@@ -58,5 +58,9 @@ export class ApiService {
   deleteVideoFromDictionary(data: { videoID: number, userID: number }) {
     return this.http.post(`${this.apiUrl}/deleteVideoFromDictionary`, data);
   }
+
+  reportAVideo(data: { videoID: number, userID: number, reason: string }) {
+    return this.http.post(`${this.apiUrl}/reportVideo`, data);
+  }
     
 }

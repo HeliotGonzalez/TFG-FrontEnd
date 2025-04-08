@@ -55,6 +55,7 @@ export class AlfabetoComponent implements OnInit {
         this.NPalabras = this.words.length;
       },
       error: (error: any) => {
+        console.error('Error al cargar las palabras:', error);
         Swal.fire({
           icon: 'error',
           title: 'Error',

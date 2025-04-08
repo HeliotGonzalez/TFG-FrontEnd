@@ -37,28 +37,39 @@
                             
                                         <!-- Columna 3: Like / Dislike -->
                                         <div class="col-auto d-flex align-items-center">
-                                            <button
-                                                type="button"
-                                                class="btn btn-link p-0 me-2"
-                                                (click)="toggleLike(video.id)"
-                                                style="cursor: pointer;"
-                                            >
-                                                <i class="bi"
-                                                   [ngClass]="liked[video.id] ? 'bi-hand-thumbs-up-fill text-secondary' : 'bi-hand-thumbs-up text-secondary'">
-                                                </i>
-                                            </button>
-                                            <span class="me-2">{{ video.likes }}</span>
-                                            <button
-                                                type="button"
-                                                class="btn btn-link p-0"
-                                                (click)="toggleDislike(video.id)"
-                                                style="cursor: pointer;"
-                                            >
-                                                <i class="bi"
-                                                   [ngClass]="disliked[video.id] ? 'bi-hand-thumbs-down-fill text-secondary' : 'bi-hand-thumbs-down text-secondary'">
-                                                </i>
-                                            </button>
-                                            <span>{{ video.dislikes }}</span>
+                                            @if (video.didIlikeIt) {
+                                                <button type="button" class="btn btn-link p-0 me-2" (click)="toggleLike(video.id)" style="cursor: pointer;">
+                                                  <i class="bi bi-hand-thumbs-up-fill text-secondary"></i>
+                                                </button>
+                                                <span class="me-2">{{ video.likes }}</span>
+                                            } @else {
+                                                <button type="button" class="btn btn-link p-0 me-2" (click)="toggleLike(video.id)" style="cursor: pointer;">
+                                                    <i class="bi" [ngClass]="liked[video.id] ? 'bi-hand-thumbs-up-fill text-secondary' : 'bi-hand-thumbs-up text-secondary'"></i>
+                                                </button>
+                                                <span class="me-2">{{ video.likes }}</span>
+                                            }
+
+                                            @if (video.didIDislikeIt) {
+                                                <button
+                                                  type="button"
+                                                  class="btn btn-link p-0"
+                                                  (click)="toggleDislike(video.id)"
+                                                  style="cursor: pointer;"
+                                                >
+                                                  <i class="bi bi-hand-thumbs-down-fill text-secondary"></i>
+                                                </button>
+                                                <span>{{ video.dislikes }}</span>
+                                              } @else {
+                                                <button
+                                                  type="button"
+                                                  class="btn btn-link p-0"
+                                                  (click)="toggleDislike(video.id)"
+                                                  style="cursor: pointer;"
+                                                >
+                                                  <i class="bi" [ngClass]="disliked[video.id] ? 'bi-hand-thumbs-down-fill text-secondary' : 'bi-hand-thumbs-down text-secondary'"></i>
+                                                </button>
+                                                <span>{{ video.dislikes }}</span>
+                                              }
                                         </div>
                             
                                         <!-- Columna 4: Botón de tres puntos (dropdown) -->
