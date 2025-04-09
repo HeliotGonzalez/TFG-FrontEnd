@@ -60,41 +60,41 @@ export class VideoListComponent {
     return video;
   }
   
-/**
- * Actualiza el estado de reacción ("like" o "dislike") del video.
- * - Si se activa una reacción, se elimina la contraria (si existe) y se actualizan los contadores.
- * - Si se desactiva, simplemente se decrementa el contador.
- * 
- * @param video  Video a actualizar.
- * @param reaction  Tipo de reacción: 'like' o 'dislike'.
- */
-private updateReactionState(video: Video, reaction: 'like' | 'dislike'): void {
-  if (reaction === 'like') {
-    if (video.didIlikeIt) {
-      video.didIlikeIt = false;
-      video.likes--;
-    } else {
-      if (video.didIDislikeIt) {
-        video.didIDislikeIt = false;
-        video.dislikes--;
-      }
-      video.didIlikeIt = true;
-      video.likes++;
-    }
-  } else if (reaction === 'dislike') {
-    if (video.didIDislikeIt) {
-      video.didIDislikeIt = false;
-      video.dislikes--;
-    } else {
+  /**
+   * Actualiza el estado de reacción ("like" o "dislike") del video.
+   * - Si se activa una reacción, se elimina la contraria (si existe) y se actualizan los contadores.
+   * - Si se desactiva, simplemente se decrementa el contador.
+   * 
+   * @param video  Video a actualizar.
+   * @param reaction  Tipo de reacción: 'like' o 'dislike'.
+   */
+  private updateReactionState(video: Video, reaction: 'like' | 'dislike'): void {
+    if (reaction === 'like') {
       if (video.didIlikeIt) {
         video.didIlikeIt = false;
         video.likes--;
+      } else {
+        if (video.didIDislikeIt) {
+          video.didIDislikeIt = false;
+          video.dislikes--;
+        }
+        video.didIlikeIt = true;
+        video.likes++;
       }
-      video.didIDislikeIt = true;
-      video.dislikes++;
+    } else if (reaction === 'dislike') {
+      if (video.didIDislikeIt) {
+        video.didIDislikeIt = false;
+        video.dislikes--;
+      } else {
+        if (video.didIlikeIt) {
+          video.didIlikeIt = false;
+          video.likes--;
+        }
+        video.didIDislikeIt = true;
+        video.dislikes++;
+      }
     }
   }
-}
   
   /**
    * Función que envía la reacción del usuario al servidor.
@@ -118,11 +118,7 @@ private updateReactionState(video: Video, reaction: 'like' | 'dislike'): void {
     });
   }
 
-  /**
-   * Esta función guarda el video en el diccionario del usuario.
-   * @param video 
-   * @returns 
-   */
+
   saveToDictionary(video: Video): void {
     this.apiService.storeVideoInDictionary({ videoID: video.id, userID: this.ensureAuthenticated() }).subscribe({
       next: (response: any) => {
@@ -146,11 +142,7 @@ private updateReactionState(video: Video, reaction: 'like' | 'dislike'): void {
     return;
   }
 
-  /**
-   * Esta función elimina el video en el diccionario del usuario.
-   * @param video 
-   * @returns 
-   */
+
   removeFromDictionary(video: Video){
     this.apiService.deleteVideoFromDictionary({ videoID: video.id, userID: this.ensureAuthenticated() }).subscribe({
       next: (response: any) => {

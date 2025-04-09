@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../app/services/api.service';
 import { Palabra } from '../models/palabra';
-import { Video } from '../models/video';
+import { WordListComponent } from '../word-list/word-list.component';
 import Swal from 'sweetalert2';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-alfabeto',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, WordListComponent],
   templateUrl: './alfabeto.component.html',
   styleUrls: ['./alfabeto.component.css']
 })
@@ -29,10 +29,6 @@ export class AlfabetoComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadWords();
-  }
-
-  loadMore(): void {
-    this.wordLimit += 5;
   }
 
   onLetterClick(letter: string): void {

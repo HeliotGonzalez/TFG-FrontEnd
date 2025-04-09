@@ -1,0 +1,58 @@
+<div class="container-fluid p-0 palabras" style="min-height: 100vh;">
+    <div class="row">
+      @for (word of (words | slice:0:wordLimit); track word){
+
+        <div class="d-flex justify-content-center align-items-center mt-4 mb-2">
+        </div>
+
+        <div class="col-12">
+          <div class="card mt-3 mx-auto py-2 mb-4" style="max-width: 170vh;">
+            <div class="card-body">
+              <h3 class="card-title">{{ word.nombre }}</h3>
+              <div class="row">
+                <!-- Columna para el significado -->
+                <div class="col-md-8">
+                  <p class="card-text">
+                    {{ word.significado.descripcion }}
+                  </p>
+                </div>
+                <!-- Columna para el vídeo -->
+                <div class="col-md-4">
+                  @if (word.significado.highest_voted_video) {
+                    <div class="embed-responsive embed-responsive-16by9 mb-3">
+                      <iframe class="embed-responsive-item" 
+                              [src]="word.significado.highest_voted_video.embedUrl" 
+                              width="450"
+                              height="350"
+                              allowfullscreen>
+                      </iframe>
+                    </div>
+                  } @else {
+                    <div class="no-video-container text-center d-flex flex-column justify-content-center align-items-center">
+                      <h5 class="mb-3">Video</h5>
+                      <p class="mb-2">Aún no tenemos video de este signo :/</p>
+                      <button class="btn btn-light d-flex flex-column align-items-center">
+                        <span class="fs-1">+</span>
+                        <span>Añadir Video</span>
+                      </button>
+                    </div>
+                  }
+                </div>
+                <div class="d-flex justify-content-center align-items-center mt-4 mb-2">
+                  <a href="" class="btn btn-success me-2" routerLink="/word-register">Añadir palabra</a>
+                  <a href="" class="btn btn-primary" routerLink="/videoLoader"  [queryParams]="{ nombre: word.nombre, descripcion: word.significado.descripcion }" >Ver más vídeos</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    
+    <!-- Botón para cargar más palabras (solo si existen más) -->
+    @if (words.length > wordLimit) {
+      <div class="d-flex justify-content-center my-4">
+        <button class="btn btn-primary" (click)="loadMore()">Cargar más palabras</button>
+      </div>
+    }
+  </div>
