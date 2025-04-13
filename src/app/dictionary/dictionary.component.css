@@ -1,0 +1,9 @@
+body {
+    min-height: 100vh;
+    background-color: #F6E6B2;
+}
+
+.body{
+    overflow-x: hidden;
+    overflow-y: visible;
+}

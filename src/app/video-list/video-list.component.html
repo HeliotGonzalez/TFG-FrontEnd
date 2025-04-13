@@ -5,6 +5,12 @@
             @for(video of videos; track video) {
                 <div class="col-md-4">
                     <div class="card mb-4 p-2 carta">
+                        @if (video.nombre){
+                            <div class="d-flex align-items-center">
+                                <p> {{ video.nombre}} </p>
+                            </div> 
+                        }
+
                         <div class="ratio ratio-16x9">
                             <iframe class="rounded" [src]="video.embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>

@@ -1,0 +1,32 @@
+<body class="body mt-5">
+    <br><br>
+    <!-- Bloque de búsqueda avanzada -->
+    <div class="container mb-4">
+        <div class="row g-3 align-items-center">
+            <!-- Selección para ordenar por likes -->
+            <div class="col-md-4">
+                <label for="sortLikes" class="form-label">Ordenar por likes:</label>
+                <select id="sortLikes" class="form-select" (change)="onSortChange($event)">
+                <option value="asc">Ascendente</option>
+                <option value="desc" selected>Descendente</option>
+                </select>
+            </div>
+            <!-- Input para búsqueda por etiqueta -->
+            <div class="col-md-4">
+                <label for="searchTag" class="form-label">Buscar por etiqueta:</label>
+                <input id="searchTag" type="text" class="form-control" [(ngModel)]="searchTag" placeholder="Ingrese etiqueta" (input)="applyAdvancedFilters()">
+            </div>
+            <!-- Input para búsqueda por nombre de palabra -->
+            <div class="col-md-4">
+                <label for="searchName" class="form-label">Buscar por nombre:</label>
+                <input id="searchName" type="text" class="form-control" [(ngModel)]="searchName" placeholder="Ingrese el nombre de la palabra" (input)="applyAdvancedFilters()">
+            </div>
+        </div>
+    </div>
+  
+    <!-- Contenido existente -->
+    <app-video-list [videos]="videos"></app-video-list>
+</body>
+
+  
+  

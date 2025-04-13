@@ -9,5 +9,6 @@ export interface Video {
     didIlikeIt:boolean;
     didIDislikeIt:boolean;
     url: string;
+    nombre: string;
     embedUrl: any;
 }

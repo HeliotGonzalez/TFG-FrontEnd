@@ -66,5 +66,9 @@ export class ApiService {
   cancelMyAction(data: { videoID: number, userID: number, action: string }) {
     return this.http.post(`${this.apiUrl}/cancelMyAction`, {data});
   }
+
+  getPersonalDictionary(userID: number) { 
+    return this.http.get(`${this.apiUrl}/getPersonalDictionary/${userID}`);
+  }
     
 }

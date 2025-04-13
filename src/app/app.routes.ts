@@ -5,6 +5,8 @@ import { RegisterComponent } from './register/register.component';
 import { AlfabetoComponent } from './alfabeto/alfabeto.component';
 import { WordRegisterComponent } from './word-register/word-register.component';
 import { VideoDisplayerComponent } from './video-displayer/video-displayer.component';
+import { DictionaryComponent } from './dictionary/dictionary.component';
+import { authDictionaryGuard } from './guards/auth-dictionary.guard';
 
 export const routes: Routes = [
     { path: '', component: HomepageComponent },
@@ -13,5 +15,6 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'alphabetical', component: AlfabetoComponent },
     { path: 'videoLoader', component: VideoDisplayerComponent },
+    { path: 'dictionary', component: DictionaryComponent, canActivate: [authDictionaryGuard] },
     { path: '**', redirectTo: '' }
 ];
