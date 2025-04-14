@@ -8,6 +8,8 @@ import { VideoDisplayerComponent } from './video-displayer/video-displayer.compo
 import { DictionaryComponent } from './dictionary/dictionary.component';
 import { authDictionaryGuard } from './guards/auth-dictionary.guard';
 import { VideoCreatorComponent } from './video-creator/video-creator.component';
+import { WordListComponent } from './word-list/word-list.component';
+import { WordsBySearchComponent } from './words-by-search/words-by-search.component';
 
 export const routes: Routes = [
     { path: '', component: HomepageComponent },
@@ -18,5 +20,7 @@ export const routes: Routes = [
     { path: 'videoLoader', component: VideoDisplayerComponent },
     { path: 'dictionary', component: DictionaryComponent, canActivate: [authDictionaryGuard] },
     { path:'createVideo', component: VideoCreatorComponent },
+    {path: 'word-list', component: WordListComponent},
+    {path: 'words-by-search', component: WordsBySearchComponent},
     { path: '**', redirectTo: '' }
 ];

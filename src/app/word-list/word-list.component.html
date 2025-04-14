@@ -31,7 +31,7 @@
                     <div class="no-video-container text-center d-flex flex-column justify-content-center align-items-center">
                       <h5 class="mb-3">Video</h5>
                       <p class="mb-2">Aún no tenemos video de este signo :/</p>
-                      <button class="btn btn-light d-flex flex-column align-items-center">
+                      <button class="btn btn-light d-flex flex-column align-items-center" routerLink="/createVideo">
                         <span class="fs-1">+</span>
                         <span>Añadir Video</span>
                       </button>
@@ -57,6 +57,20 @@
     @if (words.length > wordLimit) {
       <div class="d-flex justify-content-center my-4">
         <button class="btn btn-primary" (click)="loadMore()">Cargar más palabras</button>
+      </div>
+    }
+
+    @if (words.length === 0){
+      <div class="container-fluid p-0 palabras">
+        <div class="d-flex align-items-center justify-content-center" style="height: 83vh;">
+          <div class="card text-center w-100" style="max-width: 800px; height: 300px;">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+              <h1 class="card-title text-black">Esta palabra o frase aún no está registrada</h1>
+              <h2 class="card-text text-black mt-2">¿Deseas añadirla?</h2>
+              <a class="btn btn-success mt-2" routerLink="/word-register">Añadir palabra</a>
+            </div>
+          </div>
+        </div>
       </div>
     }
   </div>

@@ -3,69 +3,58 @@
 <br>
 <br>
 <body>
-  <main class="main" style="width: 100.8%;">
-      
-      <br>
-      <div class="main--div">
-          <div class="main--div2">
-              <p class="main__p--div" id="Title">¡Rompamos las barreras comunicativas!</p>
-              <p class="main__p--div">
-                  Nombre busca unir personas que desean <br>
-                  aprender y enseñar lengua de signos, haciendo<br>
-                  que la lengua de signos sea accesible para todos.<br>
-                  <br>
-                  Queremos empoderar a las personas sordas y oyentes, facilitando la comunicación y el entendimiento mutuo.
-              </p>
-          </div>
-          <img src="/LSETalking.png" alt="Personas hablando en LSE" class="main__img--div" width="360px" height="360px">
-      </div>
-      
-      <div class="main--div3">
-          <form>
-              <input type="text" placeholder="Buscar palabra o frase" class="main__input--div3">
-              <a routerLink="/"><i class="bi bi-search lupita"></i></a>
-          </form>
-      </div>
+    <main class="main" style="width: 100.8%;">
+        <br>
+        <div class="main--div">
+            <div class="main--div2">
+                <p class="main__p--div" id="Title">¡Rompamos las barreras comunicativas!</p>
+                <p class="main__p--div">
+                    Nombre busca unir personas que desean <br>
+                    aprender y enseñar lengua de signos, haciendo<br>
+                    que la lengua de signos sea accesible para todos.<br>
+                    <br>
+                    Queremos empoderar a las personas sordas y oyentes, facilitando la comunicación y el entendimiento mutuo.
+                </p>
+            </div>
+            <img src="/LSETalking.png" alt="Personas hablando en LSE" class="main__img--div" width="360px" height="360px">
+        </div>
+        
+        <div class="main--div3">
+            <app-searching-bar (searchResults)="onSearchResults($event)" styleVariant="main__input--div3"></app-searching-bar>
+        </div>
 
-<br>
-<br><br>
-  </main>
+        <br>
+        <br><br>
+    </main>
     <div class="explorar-section">
         <div class="container-fluid mt-4 fondo">
             <h5 class="fw-bold fs-2">Explorar</h5>
             <div class="d-flex justify-content-start flex-wrap gap-3">
-                <!-- Buscar por orden alfabético -->
-                <a class= 'alfabeto' routerLink="/alphabetical">
+                <a class='alfabeto' routerLink="/alphabetical">
                     <div class="card text-center p-3 option-card">
                         <i class="bi bi-sort-alpha-down fs-2 text-secondary"></i>
-
-                            <p class="mt-2">Buscar por orden alfabético</p>
+                        <p class="mt-2">Buscar por orden alfabético</p>
                     </div>
-                 </a>
+                </a>
 
-
-                <!-- Buscar por temática -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-chat-quote-fill fs-2 text-secondary"></i>
                     <p class="mt-2">Buscar por temática</p>
                 </div>
 
-                <!-- Subido recientemente -->
                 <div class="card text-center p-3 option-card">
-                <i class="bi bi-clock-history fs-2 text-secondary"></i>
-                <p class="mt-2">Subido recientemente</p>
+                    <i class="bi bi-clock-history fs-2 text-secondary"></i>
+                    <p class="mt-2">Subido recientemente</p>
                 </div>
 
-                <!-- Buscar contactos -->
                 <div class="card text-center p-3 option-card">
-                <i class="bi bi-people fs-2 text-secondary"></i>
-                <p class="mt-2">Buscar contactos</p>
+                    <i class="bi bi-people fs-2 text-secondary"></i>
+                    <p class="mt-2">Buscar contactos</p>
                 </div>
 
-                <!-- Subido por tus contactos -->
                 <div class="card text-center p-3 option-card">
-                <i class="bi bi-cloud-arrow-up fs-2 text-secondary"></i>
-                <p class="mt-2">Subido por tus contactos</p>
+                    <i class="bi bi-cloud-arrow-up fs-2 text-secondary"></i>
+                    <p class="mt-2">Subido por tus contactos</p>
                 </div>
             </div>
         </div>
@@ -74,31 +63,26 @@
         <div class="container-fluid mt-4 fondo">
             <h5 class="fw-bold fs-2">Estudiante</h5>
             <div class="d-flex justify-content-start flex-wrap gap-3">
-                <!-- Estudiar -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-book fs-2 text-success"></i>
                     <p class="mt-2">Estudiar</p>
                 </div>
 
-                <!-- Diccionario personal -->
                 <div class="card text-center p-3 option-card" routerLink="/dictionary">
                     <i class="bi bi-journal-text fs-2 text-success"></i>
                     <p class="mt-2">Diccionario personal</p>
                 </div>
 
-                <!-- Preguntar a la comunidad -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-chat-dots-fill fs-2 text-success"></i>
-                    <p class="mt-2">Preguntar a la comunidad</p>
+                    <p class="mt-2">Solicitar palabra o frase</p>
                 </div>
 
-                <!-- Subir vídeo -->
                 <div class="card text-center p-3 option-card">
-                    <i class="bi bi-camera-reels fs-2 text-success"></i>
-                    <p class="mt-2">Subir vídeo</p>
+                    <i class="bi bi-shuffle fs-2 text-success"></i>
+                    <p class="mt-2">Palabra aleatoria</p>
                 </div>
 
-                <!-- Competir -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-controller fs-2 text-success"></i>
                     <p class="mt-2">Competir</p>
@@ -110,37 +94,31 @@
         <div class="container-fluid mt-4 fondo">
             <h5 class="fw-bold fs-2">Experto</h5>
             <div class="d-flex justify-content-start flex-wrap gap-3">
-                <!-- Puntuar vídeo -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-clipboard2-pulse fs-2 text-warning"></i>
-                    <p class="mt-2">Puntuar vídeo</p>
+                    <p class="mt-2">Corregir vídeo</p>
                 </div>
 
-                <!-- Añadir nueva palabra o frase -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-upload fs-2 text-warning"></i>
                     <p class="mt-2">Añadir nueva palabra o frase</p>
                 </div>
 
-                <!-- Responder a la comunidad -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-chat-square-text fs-2 text-warning"></i>
-                    <p class="mt-2">Responder a la comunidad</p>
+                    <p class="mt-2">Palabras solicitadas por la comunidad</p>
                 </div>
 
-                <!-- Subir vídeo -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-camera-reels fs-2 text-warning"></i>
                     <p class="mt-2">Subir vídeo</p>
                 </div>
 
-                <!-- Subir foto -->
                 <div class="card text-center p-3 option-card">
                     <i class="bi bi-camera fs-2 text-warning"></i>
                     <p class="mt-2">Subir foto</p>
                 </div>
             </div>
         </div>
-    </div>     
-  
+    </div>
 </body>

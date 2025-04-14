@@ -6,6 +6,7 @@ import { Palabra } from '../models/palabra';
 import { WordListComponent } from '../word-list/word-list.component';
 import Swal from 'sweetalert2';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { VideoManagerService } from '../services/video-manager.service';
 
 @Component({
   selector: 'app-alfabeto',
@@ -24,7 +25,8 @@ export class AlfabetoComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private videoManager: VideoManagerService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class AlfabetoComponent implements OnInit {
         this.words = response.map((word: any) => {
           if (word.significado?.highest_voted_video) {
             const video = word.significado.highest_voted_video;
-            video.embedUrl = this.getSafeUrl(this.getEmbedUrl(video.url));
+            video.embedUrl = this.videoManager.getSafeUrl(this.videoManager.getEmbedUrl(video.url));
           }
           return word;
         });
@@ -53,34 +55,9 @@ export class AlfabetoComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Ha ocurrido un error: ' + error
+          text: 'Ha ocurrido un error: '
         });
       }
     });
-  }
-
-  /**
-   * Transforma una URL normal de YouTube a la URL de embed.
-   * Por ejemplo, convierte:
-   * https://www.youtube.com/watch?v=VIDEO_ID
-   * en:
-   * https://www.youtube.com/embed/VIDEO_ID
-   */
-  getEmbedUrl(url: string): string {
-    let videoId = '';
-    const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    if (match && match[2] && match[2].length === 11) {
-      videoId = match[2];
-    }
-    return 'https://www.youtube.com/embed/' + videoId;
-  }
-  
-
-  /**
-   * Utiliza el sanitizer de Angular para evitar problemas de seguridad con las URLs de vídeo.
-   */
-  getSafeUrl(url: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

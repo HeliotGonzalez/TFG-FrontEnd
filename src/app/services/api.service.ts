@@ -51,7 +51,6 @@ export class ApiService {
   }
 
   storeVideoInDictionary(data: { videoID: number, userID: number }) {
-    console.log('Data to be sent:', data);
     return this.http.post(`${this.apiUrl}/storeVideoInDictionary`, data);
   }
 
@@ -74,6 +73,10 @@ export class ApiService {
   storeVideo(videoUrl: string, significado: string, userID: number) {
     let data = { videoUrl, significado, userID };
     return this.http.post(`${this.apiUrl}/storeVideo`, data);
-  }  
+  }
+  
+  getVideosByWord(word: string) {
+    return this.http.get(`${this.apiUrl}/getVideosByWord/${word}`);
+  }
     
 }

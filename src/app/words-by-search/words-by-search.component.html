@@ -1,0 +1,11 @@
+<br><br>
+<!-- words-by-search.component.html -->
+<body class="body">
+    <!-- Incluimos la misma barra de búsqueda -->
+    <br><br>
+    <app-searching-bar (searchResults)="onSearchResults($event)" styleVariant="main__input--div2"></app-searching-bar>
+
+    <!-- Componente para mostrar la lista -->
+    <app-word-list [words]="words"></app-word-list>
+</body>
+  
