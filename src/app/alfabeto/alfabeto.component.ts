@@ -40,10 +40,8 @@ export class AlfabetoComponent implements OnInit {
     this.apiService.getWords(this.currentLetter).subscribe({
       next: (response: any) => {
         this.words = response.map((word: any) => {
-          // Si existe un video en highest_voted_video, calculamos embedUrl
           if (word.significado?.highest_voted_video) {
             const video = word.significado.highest_voted_video;
-            // Asignamos embedUrl al video usando getSafeUrl y getEmbedUrl
             video.embedUrl = this.getSafeUrl(this.getEmbedUrl(video.url));
           }
           return word;

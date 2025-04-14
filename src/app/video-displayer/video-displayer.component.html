@@ -8,6 +8,10 @@
             </div>
         </div>
 
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-success me-2" style="max-width: 12em; margin-top: -2em;" [routerLink]="['/createVideo', { significado: descripcion }]">Añadir nuevo vídeo</a>
+        </div>
+
         <app-video-list
             [videos]="videos"
         ></app-video-list>

@@ -3,7 +3,8 @@ import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth-service.service';
 import { Video } from '../models/video';
 import { Router } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { AfterViewInit } from '@angular/core';
 import { VideoListComponent } from '../video-list/video-list.component';
 import { FormsModule } from '@angular/forms';
 import { VideoManagerService } from '../services/video-manager.service';
@@ -15,7 +16,7 @@ import Swal from 'sweetalert2';
   templateUrl: './dictionary.component.html',
   styleUrl: './dictionary.component.css'
 })
-export class DictionaryComponent implements OnInit {
+export class DictionaryComponent implements OnInit, AfterViewInit {
   videos: Video[] = [];
   userID: number = -1;
   searchTag: string = '';
@@ -29,6 +30,10 @@ export class DictionaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPersonalDictionary();
+  }
+
+  ngAfterViewInit(): void {
+    window.scrollTo(0, 0); 
   }
 
   getPersonalDictionary(): void{

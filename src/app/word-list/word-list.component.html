@@ -39,9 +39,13 @@
                   }
                 </div>
                 <div class="d-flex justify-content-center align-items-center mt-4 mb-2">
-                  <a href="" class="btn btn-success me-2" routerLink="/word-register">Añadir palabra</a>
-                  <a href="" class="btn btn-primary" routerLink="/videoLoader"  [queryParams]="{ nombre: word.nombre, descripcion: word.significado.descripcion }" >Ver más vídeos</a>
-                </div>
+                  <button class="btn btn-success" 
+                    routerLink="/videoLoader"  
+                    [queryParams]="{ nombre: word.nombre, descripcion: word.significado.descripcion }" 
+                    style="border: none;">
+                    Ver más vídeos
+                  </button>
+                </div>                
               </div>
             </div>
           </div>

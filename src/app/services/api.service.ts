@@ -70,5 +70,10 @@ export class ApiService {
   getPersonalDictionary(userID: number) { 
     return this.http.get(`${this.apiUrl}/getPersonalDictionary/${userID}`);
   }
+
+  storeVideo(videoUrl: string, significado: string, userID: number) {
+    let data = { videoUrl, significado, userID };
+    return this.http.post(`${this.apiUrl}/storeVideo`, data);
+  }  
     
 }

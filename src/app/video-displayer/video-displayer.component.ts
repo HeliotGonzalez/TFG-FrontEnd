@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Video } from '../models/video';
 import { VideoListComponent } from '../video-list/video-list.component';
 import { VideoManagerService } from '../services/video-manager.service';
+import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-video-displayer',
-  imports: [CommonModule, VideoListComponent],
+  imports: [CommonModule, VideoListComponent, RouterModule],
   templateUrl: './video-displayer.component.html',
   styleUrl: './video-displayer.component.css'
 })
