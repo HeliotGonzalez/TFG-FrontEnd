@@ -34,6 +34,7 @@ export class ApiService {
   }
 
   storeWord(data: { nombre: string; descripcion: string; etiquetas: string[] }) {
+    console.log(data);
     return this.http.post(`${this.apiUrl}/registerWord`, data);
   }
 

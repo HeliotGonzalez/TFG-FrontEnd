@@ -8,6 +8,7 @@ import { AfterViewInit } from '@angular/core';
 import { VideoListComponent } from '../video-list/video-list.component';
 import { FormsModule } from '@angular/forms';
 import { VideoManagerService } from '../services/video-manager.service';
+import { Etiqueta } from '../models/etiqueta';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -65,8 +66,8 @@ export class DictionaryComponent implements OnInit, AfterViewInit {
     if (this.searchTag && this.searchTag.trim() !== '') {
       filtered = filtered.filter(video =>
         // Se asume que 'etiquetas' es un arreglo de strings
-        video.etiquetas && video.etiquetas.some((tag: string) =>
-          tag.toLowerCase().includes(this.searchTag.toLowerCase())
+        video.etiquetas && video.etiquetas.some((tag: Etiqueta) =>
+          tag.nombre.toLowerCase().includes(this.searchTag.toLowerCase())
         )
       );
     }

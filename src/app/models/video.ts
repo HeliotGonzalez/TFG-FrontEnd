@@ -1,9 +1,11 @@
+import { Etiqueta } from "./etiqueta";
+
 export interface Video {
     id: number;
     likes: number;
     dislikes: number;
     descripcion: string;
-    etiquetas: string[];
+    etiquetas: Etiqueta[];
     authorName: string;
     isInDictionary: boolean;
     didIlikeIt:boolean;

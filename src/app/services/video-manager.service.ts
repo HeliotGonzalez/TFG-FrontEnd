@@ -26,7 +26,8 @@ export class VideoManagerService {
             descripcion: video.significado?.descripcion || '',
             url: video.url,
             embedUrl: this.getSafeUrl(this.getEmbedUrl(video.url)),
-            etiquetas: video.significado?.etiquetas ? JSON.parse(video.significado.etiquetas) : [],
+            etiquetas: video.significado?.etiquetas ? (video.significado.etiquetas as any[]).map((tag: any) => ({ nombre: tag.nombre }))
+            : [],
             likes: video.likes,
             dislikes: video.dislikes,
             isInDictionary: video.inDictionary || false,
@@ -59,7 +60,8 @@ export class VideoManagerService {
             descripcion: video.significado?.descripcion || '',
             url: video.url,
             embedUrl: this.getSafeUrl(this.getEmbedUrl(video.url)),
-            etiquetas: video.significado?.etiquetas ? JSON.parse(video.significado.etiquetas) : [],
+            etiquetas: video.significado?.etiquetas ? (video.significado.etiquetas as any[]).map((tag: any) => ({ nombre: tag.nombre }))
+            : [],
             likes: video.likes,
             dislikes: video.dislikes,
             isInDictionary: video.inDictionary || false,
