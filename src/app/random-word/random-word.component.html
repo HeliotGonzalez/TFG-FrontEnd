@@ -1,0 +1,10 @@
+<body class="body">
+    <br><br>
+    <br><br>
+    <div class="d-flex align-items-center justify-content-center">
+        <button class="btn btn-success" (click)="loadMore()" style="font-size: 1rem; cursor: pointer;">Otra palabra</button>
+    </div>
+
+    <app-word-list [words]="words.slice(0,1)"></app-word-list>
+
+</body>

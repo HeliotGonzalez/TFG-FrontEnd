@@ -79,5 +79,9 @@ export class ApiService {
   getVideosByWord(word: string) {
     return this.http.get(`${this.apiUrl}/getVideosByWord/${word}`);
   }
+
+  getRandomWords(){
+    return this.http.get(`${this.apiUrl}/getRandomWords`);
+  }
     
 }

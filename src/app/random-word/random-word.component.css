@@ -1,0 +1,9 @@
+.body{
+    background-color: #F6E6B2;
+    min-height: 60em;
+}
+
+.bi-plus-circle {
+    font-size: 2rem;
+    z-index: 1000em;
+}
