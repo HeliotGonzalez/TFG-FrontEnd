@@ -23,7 +23,7 @@ export const routes: Routes = [
     { path: 'alphabetical', component: AlfabetoComponent },
     { path: 'videoLoader', component: VideoDisplayerComponent },
     { path: 'dictionary', component: DictionaryComponent, canActivate: [wordRegisterGuardGuard] },
-    { path:'createVideo', component: VideoCreatorComponent },
+    { path:'createVideo', component: VideoCreatorComponent, canActivate: [wordRegisterGuardGuard] },
     { path: 'word-list', component: WordListComponent },
     { path: 'words-by-search', component: WordsBySearchComponent },
     { path: 'randomWord', component: RandomWordComponent },

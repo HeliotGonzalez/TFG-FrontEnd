@@ -31,7 +31,7 @@
                     <div class="no-video-container text-center d-flex flex-column justify-content-center align-items-center">
                       <h5 class="mb-3">Video</h5>
                       <p class="mb-2">Aún no tenemos video de este signo :/</p>
-                      <button class="btn btn-light d-flex flex-column align-items-center" routerLink="/createVideo">
+                      <button class="btn btn-light d-flex flex-column align-items-center" [routerLink]="['/createVideo', { significado: word.significado.descripcion}]">
                         <span class="fs-1">+</span>
                         <span>Añadir Video</span>
                       </button>
