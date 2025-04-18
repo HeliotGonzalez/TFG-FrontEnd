@@ -12,6 +12,8 @@ import { WordListComponent } from './word-list/word-list.component';
 import { WordsBySearchComponent } from './words-by-search/words-by-search.component';
 import { wordRegisterGuardGuard } from './guards/word-register-guard.guard';
 import { RandomWordComponent } from './random-word/random-word.component';
+import { StudyComponent } from './study/study.component';
+import { FlashccardsComponent } from './flashccards/flashccards.component';
 
 export const routes: Routes = [
     { path: '', component: HomepageComponent },
@@ -25,5 +27,7 @@ export const routes: Routes = [
     { path: 'word-list', component: WordListComponent },
     { path: 'words-by-search', component: WordsBySearchComponent },
     { path: 'randomWord', component: RandomWordComponent },
+    { path: 'study', component: StudyComponent, canActivate: [wordRegisterGuardGuard] },
+    { path: 'flashcards', component: FlashccardsComponent, canActivate: [wordRegisterGuardGuard] },
     { path: '**', redirectTo: '' }
 ];

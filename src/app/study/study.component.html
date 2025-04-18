@@ -1,0 +1,49 @@
+
+<body class="body">
+    <br><br>
+    <br><br>
+    <br><br>
+
+    <div class="container py-5 pollito">
+        <div class="text-center mb-4">
+            <h1 class="text-white text-shadow">¿Qué deseas hacer?</h1>
+        </div>
+      
+        <div class="row g-4">
+          <!-- Cuestionario Personal -->
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border-primary">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Cuestionario personal</h5>
+                <p class="card-text flex-grow-1">Pon a prueba los signos que has guardado en tu diccionario personal.</p>
+                <button class="btn btn-acento mt-3" (click)="testYourself('flashcards')">Iniciar</button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Cuestionario Diario -->
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border-success">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Cuestionario diario</h5>
+                <p class="card-text flex-grow-1">Ejercicios diarios con signos nuevos y repaso de los anteriores.</p>
+                <button class="btn btn-success mt-3" (click)="iniciarCuestionarioDiario()">Iniciar</button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Repasar con Flashcards -->
+          <div class="col-12 col-md-4">
+            <div class="card h-100 border-warning">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Repasar con cartas</h5>
+                <p class="card-text flex-grow-1">Revisa tus signos con tarjetas de estudio y repeticiones espaciadas.</p>
+                <button class="btn btn-warning mt-3" (click)="testYourself('/flashcards')">Repasar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+
+  

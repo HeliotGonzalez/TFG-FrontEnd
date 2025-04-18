@@ -5,7 +5,7 @@ import { AuthService } from './auth-service.service';
 import { Video } from '../models/video';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap} from 'rxjs/operators';
 
 
 @Injectable({
@@ -16,72 +16,52 @@ export class VideoManagerService {
 
   constructor(private router: Router, private apiService: ApiService, private sanitizer: DomSanitizer, private authService: AuthService) { }
 
-  getVideos(descripcion: string): Observable<Video[]> {
-    return this.apiService.getVideos(descripcion, this.ensureAuthenticated()).pipe(
-      map((response: any) => {
-        console.log('Respuesta de la API:', response);
-        if (response && Array.isArray(response)) {
-          this.videos = response.map((video: any) => ({
-            id: video.id,
-            descripcion: video.significado?.descripcion || '',
-            url: video.url,
-            embedUrl: this.getSafeUrl(this.getEmbedUrl(video.url)),
-            etiquetas: video.significado?.etiquetas ? (video.significado.etiquetas as any[]).map((tag: any) => ({ nombre: tag.nombre }))
-            : [],
-            likes: video.likes,
-            dislikes: video.dislikes,
-            isInDictionary: video.inDictionary || false,
-            didIlikeIt: video.myReaction === 'like',
-            didIDislikeIt: video.myReaction === 'dislike',
-            authorName: video.user?.username || 'Desconocido',
-            nombre: video.palabra
-          }));
-          console.log('Videos mapeados:', this.videos);
-          return this.videos;
-        } else {
-          console.error('La respuesta no es un arreglo:', response);
-          return [];
-        }
-      }),
-      catchError((error) => {
-        console.error('Error fetching videos:', error);
+  /** Método genérico que aplica map, log y catchError */
+  private handleVideosStream(stream$: Observable<any>, fuente: string): Observable<Video[]> {
+    return stream$.pipe(
+      tap(response => console.log(`Respuesta de ${fuente}:`, response)),
+      map((response: any) => Array.isArray(response)
+        ? this.mapVideos(response)
+        : []),
+      catchError(error => {
+        console.error(`Error en ${fuente}:`, error);
         return of([]);
       })
     );
   }
 
+  /** Extrae el mapeo de cada vídeo a tu modelo Video */
+  private mapVideos(raw: any[]): Video[] {
+    return raw.map(video => ({
+      id:               video.id,
+      descripcion:      video.significado?.descripcion  || '',
+      url:              video.url,
+      embedUrl:         this.getSafeUrl(this.getEmbedUrl(video.url)),
+      etiquetas:        (video.significado?.etiquetas ?? [])
+                          .map((tag: any) => ({ nombre: tag.nombre })),
+      likes:            video.likes,
+      dislikes:         video.dislikes,
+      isInDictionary:   video.inDictionary  || false,
+      didIlikeIt:       video.myReaction === 'like',
+      didIDislikeIt:    video.myReaction === 'dislike',
+      authorName:       video.user?.username  || 'Desconocido',
+      nombre:           video.palabra
+    }));
+  }
+
+  getVideos(descripcion: string): Observable<Video[]> {
+    const stream$ = this.apiService.getVideos(descripcion, this.ensureAuthenticated());
+    return this.handleVideosStream(stream$, 'getVideos');
+  }
+
   getPersonalDictionary(): Observable<Video[]> {
-    return this.apiService.getPersonalDictionary(this.ensureAuthenticated()).pipe(
-      map((response: any) => {
-        console.log('Respuesta de la API:', response);
-        if (response && Array.isArray(response)) {
-          this.videos = response.map((video: any) => ({
-            id: video.id,
-            descripcion: video.significado?.descripcion || '',
-            url: video.url,
-            embedUrl: this.getSafeUrl(this.getEmbedUrl(video.url)),
-            etiquetas: video.significado?.etiquetas ? (video.significado.etiquetas as any[]).map((tag: any) => ({ nombre: tag.nombre }))
-            : [],
-            likes: video.likes,
-            dislikes: video.dislikes,
-            isInDictionary: video.inDictionary || false,
-            didIlikeIt: video.myReaction === 'like',
-            didIDislikeIt: video.myReaction === 'dislike',
-            authorName: video.user?.username || 'Desconocido',
-            nombre: video.palabra
-          }));
-          console.log('Videos mapeados:', this.videos);
-          return this.videos;
-        } else {
-          console.error('La respuesta no es un arreglo:', response);
-          return [];
-        }
-      }),
-      catchError((error) => {
-        console.error('Error fetching videos:', error);
-        return of([]);
-      })
-    );
+    const stream$ = this.apiService.getPersonalDictionary(this.ensureAuthenticated());
+    return this.handleVideosStream(stream$, 'getPersonalDictionary');
+  }
+
+  testYourself(): Observable<Video[]> {
+    const stream$ = this.apiService.testYourself(this.ensureAuthenticated());
+    return this.handleVideosStream(stream$, 'testYourself');
   }
 
   // Verifica que el usuario esté autenticado y redirige en caso contrario.

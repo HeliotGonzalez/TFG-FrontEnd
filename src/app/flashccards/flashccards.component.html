@@ -1,0 +1,57 @@
+<!-- flashcards.component.html -->
+<body class="body">
+  <br><br>
+  <div class="container py-5 body">
+    <!-- Usamos sintaxis @if para condición de existencia de cartas -->
+    @if (cartas.length === 0) {
+      <div class="text-center text-muted">
+        No hay flashcards disponibles.
+      </div>
+    } @else {
+      <!-- Encabezado de la sección -->
+      <div class="text-center mb-4">
+        <h2 class="text-dark">Repasar con tarjetas</h2>
+        <p class="text-dark">Haz clic en "Girar" para ver el significado y navega con las flechas.</p>
+      </div>
+
+      <!-- Contenedor centrado de la tarjeta -->
+      <div class="d-flex justify-content-center mb-4">
+        <!-- Tarjeta sin evento de clic para evitar conflictos; flip solo por botón -->
+        <div class="card flashcard bg-transparent border-0" [class.is-flipped]="flipped">
+          <!-- Cara frontal: vídeo en 16:9 -->
+          <div class="card-front d-flex align-items-center justify-content-center p-0">
+            <div class="ratio ratio-16x9 w-100">
+              <iframe class="rounded w-100 h-100"
+                      [src]="cartas[iActual].videoUrl"
+                      title="Vídeo LSE"
+                      frameborder="0"
+                      allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+
+          <!-- Cara trasera: palabra asociada -->
+          <div class="card-back d-flex align-items-center justify-content-center p-3 bg-light">
+            <p class="h2 text-center mb-0">{{ cartas[iActual].palabra }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de control: flip y navegación -->
+      <div class="d-flex justify-content-between">
+        <!-- Anterior -->
+        <button class="btn btn-outline-danger" (click)="anterior()" [disabled]="iActual === 0">
+          ← Anterior
+        </button>
+        <!-- Girar: flip control separado -->
+        <button class="btn btn-outline-dark" (click)="voltear()">
+          Girar
+        </button>
+        <!-- Siguiente -->
+        <button class="btn btn-outline-secondary" (click)="siguiente()" [disabled]="iActual === cartas.length - 1">
+          Siguiente →
+        </button>
+      </div>
+    }
+  </div>
+</body>

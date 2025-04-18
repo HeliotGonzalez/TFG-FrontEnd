@@ -73,6 +73,7 @@ export class ApiService {
 
   storeVideo(videoUrl: string, significado: string, userID: number) {
     let data = { videoUrl, significado, userID };
+    console.log(data);
     return this.http.post(`${this.apiUrl}/storeVideo`, data);
   }
   
@@ -82,6 +83,10 @@ export class ApiService {
 
   getRandomWords(){
     return this.http.get(`${this.apiUrl}/getRandomWords`);
+  }
+
+  testYourself($userID: number){
+    return this.http.get(`${this.apiUrl}/testYourself/${$userID}`);
   }
     
 }

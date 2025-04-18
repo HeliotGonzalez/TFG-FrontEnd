@@ -1,0 +1,32 @@
+.body{
+    background-color: #F6E6B2;
+    background-image: url(/Pollito2.png);
+    background-repeat: no-repeat;
+    background-position: left 7em;
+    margin-left: -1em;
+    margin-right: -1em;
+    margin-top: -5em;
+    margin-bottom: 0em;
+    min-height: 70em;
+    overflow-x: hidden;
+}
+
+.pollito{
+    margin-top: 10em;
+}
+
+.text-shadow {
+  /* sombra muy ligera para mejorar la legibilidad en fondos claros y oscuros */
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+  /* en tu styles.css o global */
+.btn-acento {
+  background-color: #D97706;   /* naranja cálido */
+  border-color: #D97706;
+  color: #ffffff;
+}
+.btn-acento:hover {
+  background-color: #B45309;   /* variante más oscura al pasar el ratón */
+  border-color: #B45309;
+}
