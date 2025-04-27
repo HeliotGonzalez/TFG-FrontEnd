@@ -6,7 +6,6 @@ import { AlfabetoComponent } from './alfabeto/alfabeto.component';
 import { WordRegisterComponent } from './word-register/word-register.component';
 import { VideoDisplayerComponent } from './video-displayer/video-displayer.component';
 import { DictionaryComponent } from './dictionary/dictionary.component';
-import { authDictionaryGuard } from './guards/auth-dictionary.guard';
 import { VideoCreatorComponent } from './video-creator/video-creator.component';
 import { WordListComponent } from './word-list/word-list.component';
 import { WordsBySearchComponent } from './words-by-search/words-by-search.component';
@@ -16,6 +15,7 @@ import { StudyComponent } from './study/study.component';
 import { FlashccardsComponent } from './flashccards/flashccards.component';
 import { PersonalQuizzComponent } from './personal-quizz/personal-quizz.component';
 import { RecentlyUploadedComponent } from './recently-uploaded/recently-uploaded.component';
+import { ThemesComponent } from './themes/themes.component';
 
 export const routes: Routes = [
     { path: '', component: HomepageComponent },
@@ -32,6 +32,7 @@ export const routes: Routes = [
     { path: 'study', component: StudyComponent, canActivate: [wordRegisterGuardGuard] },
     { path: 'flashcards', component: FlashccardsComponent, canActivate: [wordRegisterGuardGuard] },
     { path: 'personalQuizz', component: PersonalQuizzComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'recentlyUploaded', component: RecentlyUploadedComponent, canActivate: [wordRegisterGuardGuard] },
+    { path: 'recentlyUploaded', component: RecentlyUploadedComponent },
+    { path: 'themes', component: ThemesComponent },
     { path: '**', redirectTo: '' }
 ];
