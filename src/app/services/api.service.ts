@@ -88,5 +88,9 @@ export class ApiService {
   testYourself($userID: number){
     return this.http.get(`${this.apiUrl}/testYourself/${$userID}`);
   }
+
+  getRecentlyUploadedVideos(userID: number) {
+    return this.http.get(`${this.apiUrl}/getRecentlyUploadedVideos/${userID}`);
+  }
     
 }

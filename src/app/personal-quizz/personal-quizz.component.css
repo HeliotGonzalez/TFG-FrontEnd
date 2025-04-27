@@ -1,0 +1,43 @@
+.quiz-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.list-group-item {
+    background-color: transparent;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.body{
+    background-color: #F6E6B2;
+    min-height: 70em;
+}
+
+
+.quiz-container .card {
+    background-color: #C5B98E;
+    border-color: #BBA47A;
+}
+  
+.quiz-container .card-header,
+.quiz-container .card-body {
+    background-color: transparent;
+}
+  

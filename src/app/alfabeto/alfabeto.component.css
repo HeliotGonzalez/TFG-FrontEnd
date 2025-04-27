@@ -12,9 +12,9 @@
 }
 
 .card-active {
-    background-color: #ffffff;  /* Color de fondo para la letra seleccionada */
-    color: black;               /* Color del texto */
-    border: 2px solid #0A6847;  /* Borde para destacar */
+    background-color: #ffffff; 
+    color: black;   
+    border: 2px solid #0A6847; 
 }
 
 .palabras{
@@ -22,7 +22,7 @@
 }
   
 .no-video-container {
-    background-color: #F6E6B2; /* Ajusta el color a tu preferencia */
+    background-color: #F6E6B2;
     width: 100%;
     height: 100%;
     padding: 2rem;

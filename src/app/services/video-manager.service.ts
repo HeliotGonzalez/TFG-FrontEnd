@@ -64,6 +64,11 @@ export class VideoManagerService {
     return this.handleVideosStream(stream$, 'testYourself');
   }
 
+  getRecentlyUploadedVideos(): Observable<Video[]> {
+    const stream$ = this.apiService.getRecentlyUploadedVideos(this.ensureAuthenticated());
+    return this.handleVideosStream(stream$, 'getRecentlyUploadedVideos');
+  }
+
   // Verifica que el usuario esté autenticado y redirige en caso contrario.
   public ensureAuthenticated(): number {
     let userID = -1;
