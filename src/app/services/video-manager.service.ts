@@ -63,6 +63,10 @@ export class VideoManagerService {
     const stream$ = this.apiService.testYourself(this.ensureAuthenticated());
     return this.handleVideosStream(stream$, 'testYourself');
   }
+  getVideosUncorrected(): Observable<Video[]> {
+    const stream$ = this.apiService.getVideosUncorrected();
+    return this.handleVideosStream(stream$, 'getVideosUncorrected');
+  }
 
   getRecentlyUploadedVideos(): Observable<Video[]> {
     const stream$ = this.apiService.getRecentlyUploadedVideos(this.ensureAuthenticated());

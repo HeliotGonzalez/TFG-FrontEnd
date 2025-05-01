@@ -20,7 +20,8 @@ export class VideoCreatorComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private videoManager: VideoManagerService, private route: ActivatedRoute, private location: Location) {
     this.videoForm = this.fb.group({
-      videoUrl: ['', [Validators.required, Validators.pattern('https?://.+')]]
+      videoUrl: ['', [Validators.required, Validators.pattern('https?://.+')]],
+      corregir: [false]
     });
   }
 
@@ -31,7 +32,7 @@ export class VideoCreatorComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     if (this.videoForm.valid) {
-      this.apiService.storeVideo(this.videoForm.value.videoUrl, this.significado, this.videoManager.ensureAuthenticated()).subscribe({
+      this.apiService.storeVideo(this.videoForm.value.videoUrl, this.videoForm.value.corregir, this.significado, this.videoManager.ensureAuthenticated()).subscribe({
         next: (response) => {
           console.log('Video stored successfully:', response);
           Swal.fire({

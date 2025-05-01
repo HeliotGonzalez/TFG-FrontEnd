@@ -14,15 +14,19 @@
                         </label>
                         <input type="url" id="videoUrl" formControlName="videoUrl" class="form-control" placeholder="Introduce la dirección web del video">
                         
-                        <!-- Mensaje de error si la URL es inválida -->
                         <div *ngIf="videoForm.get('videoUrl')?.invalid && (videoForm.get('videoUrl')?.touched || submitted)" class="text-danger mt-1">
                             <small>Por favor, ingresa una URL válida.</small>
                         </div>
                         
-                        <!-- Información adicional sobre qué es una URL -->
                         <small class="form-text text-muted">
                             Una URL (Localizador Uniforme de Recursos) es la dirección que identifica dónde se encuentra un recurso en la web. En la parte superior de la página actual podrá ver una
                         </small>
+                        <div class="form-check">
+                            <input class="form-check-input form-control" formControlName="corregir" type="checkbox" value="" id="corregir">
+                            <label class="form-check-label ms-2" for="flexCheckDefault">
+                              ¿Quieres que el vídeo sea corregido por un experto?
+                            </label>
+                        </div>
                     </div>
                     
                     <div class="d-grid">

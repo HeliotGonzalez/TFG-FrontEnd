@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ApiService } from '../../app/services/api.service';
 import { Palabra } from '../models/palabra';
 import { WordListComponent } from '../word-list/word-list.component';
 import Swal from 'sweetalert2';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { VideoManagerService } from '../services/video-manager.service';
 
 @Component({
@@ -24,8 +23,6 @@ export class AlfabetoComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private router: Router,
-    private sanitizer: DomSanitizer,
     private videoManager: VideoManagerService
   ) {}
 

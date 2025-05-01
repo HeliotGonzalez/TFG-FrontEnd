@@ -72,8 +72,8 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/getPersonalDictionary/${userID}`);
   }
 
-  storeVideo(videoUrl: string, significado: string, userID: number) {
-    let data = { videoUrl, significado, userID };
+  storeVideo(videoUrl: string, corregido: boolean = false, significado: string, userID: number) {
+    let data = { videoUrl, corregido, significado, userID };
     console.log(data);
     return this.http.post(`${this.apiUrl}/storeVideo`, data);
   }
@@ -100,6 +100,14 @@ export class ApiService {
 
   getTagsFromApi(): Observable<string[]>{
     return this.http.get<string[]>(`${this.apiUrl}/getTags`);
+  }
+
+  getVideosUncorrected(){
+    return this.http.get(`${this.apiUrl}/getVideosUncorrected`);
+  }
+
+  correctVideo(data: { videoId: number, action: 'accept' | 'deny', comment: string }) {
+    return this.http.post(`${this.apiUrl}/correctVideo`, data);
   }
     
 }

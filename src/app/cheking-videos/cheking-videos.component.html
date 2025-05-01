@@ -1,0 +1,49 @@
+<body class="body">
+    <div class="container py-4">
+        <br><br><br><br>
+        <div *ngFor="let video of videos" class="card mb-4 shadow-sm">
+          <div class="row g-0 align-items-stretch">
+      
+            <div class="col-md-4">
+              <div class="ratio ratio-16x9">
+                <iframe [src]="video.embedUrl" title="video-{{ video.id }}" allowfullscreenloading="lazy"></iframe>
+              </div>
+            </div>
+      
+            <div class="col-md-5 d-flex">
+              <div class="card-body">
+                <p class="card-text mb-0">{{ video.descripcion }}</p>
+              </div>
+            </div>
+      
+            <div class="col-md-3 d-flex flex-column justify-content-center align-items-center gap-3 p-3">
+      
+              <button type="button" class="btn btn-outline-success rounded-circle fs-4" (click)="openComment(video,'accept')">
+                <i class="bi bi-check-lg"></i>
+              </button>
+      
+              <button type="button" class="btn btn-outline-danger rounded-circle fs-4" (click)="openComment(video,'deny')">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          </div>
+      
+          <div *ngIf="activeVideo?.id === video.id" class="border-top p-3 bg-light">
+            <div class="mb-3">
+              <label class="form-label">
+                Motivo de la {{ activeAction === 'accept' ? 'aceptación' : 'denegación' }}
+              </label>
+              <textarea [(ngModel)]="commentText" rows="3" class="form-control"></textarea>
+            </div>
+      
+            <div class="text-end">
+              <button type="button" class="btn btn-primary" (click)="sendDecision()">
+                Enviar
+              </button>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+
+  
