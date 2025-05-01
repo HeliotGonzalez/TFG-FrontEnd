@@ -13,4 +13,5 @@ export interface Video {
     url: string;
     nombre: string;
     embedUrl: any;
+    comentario: string;
 }

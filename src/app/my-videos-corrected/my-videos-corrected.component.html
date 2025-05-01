@@ -1,0 +1,27 @@
+<body class="body">
+    <br><br><br>
+    <div class="container py-4">
+        <div *ngFor="let video of videos" class="card mb-4 shadow-sm">
+          <div class="row g-0 align-items-stretch">
+      
+            <!-- Vídeo embebido -->
+            <div class="col-md-5">
+              <div class="ratio ratio-16x9">
+                <iframe [src]="video.embedUrl" title="video-{{ video.id }}" allowfullscreen loading="lazy"></iframe>
+              </div>
+            </div>
+      
+            <!-- Comentario de corrección -->
+            <div class="col-md-7">
+              <div class="card-body d-flex flex-column h-100">
+                <h5 class="card-title mb-3">Comentario de corrección</h5>
+                <p class="card-text flex-grow-1">{{ video.comentario }}</p>
+              </div>
+            </div>
+      
+          </div>
+        </div>
+    </div>   
+</body>
+
+  

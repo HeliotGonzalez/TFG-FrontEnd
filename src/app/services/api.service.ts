@@ -109,5 +109,9 @@ export class ApiService {
   correctVideo(data: { videoId: number, action: 'accept' | 'deny', comment: string }) {
     return this.http.post(`${this.apiUrl}/correctVideo`, data);
   }
+
+  getVideosCorrected(userID: number) {
+    return this.http.get(`${this.apiUrl}/getVideosCorrected/${userID}`);
+  }
     
 }

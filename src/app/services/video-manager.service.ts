@@ -16,7 +16,6 @@ export class VideoManagerService {
 
   constructor(private router: Router, private apiService: ApiService, private sanitizer: DomSanitizer, private authService: AuthService) { }
 
-  /** Método genérico que aplica map, log y catchError */
   private handleVideosStream(stream$: Observable<any>, fuente: string): Observable<Video[]> {
     return stream$.pipe(
       tap(response => console.log(`Respuesta de ${fuente}:`, response)),
@@ -30,7 +29,6 @@ export class VideoManagerService {
     );
   }
 
-  /** Extrae el mapeo de cada vídeo a tu modelo Video */
   private mapVideos(raw: any[]): Video[] {
     return raw.map(video => ({
       id:               video.id,
@@ -45,7 +43,8 @@ export class VideoManagerService {
       didIlikeIt:       video.myReaction === 'like',
       didIDislikeIt:    video.myReaction === 'dislike',
       authorName:       video.user?.username  || 'Desconocido',
-      nombre:           video.palabra
+      nombre:           video.palabra,
+      comentario: video.comentario || '',
     }));
   }
 
@@ -63,9 +62,15 @@ export class VideoManagerService {
     const stream$ = this.apiService.testYourself(this.ensureAuthenticated());
     return this.handleVideosStream(stream$, 'testYourself');
   }
+
   getVideosUncorrected(): Observable<Video[]> {
     const stream$ = this.apiService.getVideosUncorrected();
     return this.handleVideosStream(stream$, 'getVideosUncorrected');
+  }
+
+  getVideosCorrected(): Observable<Video[]> {
+    const stream$ = this.apiService.getVideosCorrected(this.ensureAuthenticated());
+    return this.handleVideosStream(stream$, 'getVideosCorrected');
   }
 
   getRecentlyUploadedVideos(): Observable<Video[]> {
@@ -77,6 +82,7 @@ export class VideoManagerService {
     const stream$ = this.apiService.getVideosByThemes(this.ensureAuthenticated(), tags);
     return this.handleVideosStream(stream$, 'getVideosByThemes');
   }
+
 
   // Verifica que el usuario esté autenticado y redirige en caso contrario.
   public ensureAuthenticated(): number {
