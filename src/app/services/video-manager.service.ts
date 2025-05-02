@@ -29,7 +29,7 @@ export class VideoManagerService {
     );
   }
 
-  private mapVideos(raw: any[]): Video[] {
+  public mapVideos(raw: any[]): Video[] {
     return raw.map(video => ({
       id:               video.id,
       descripcion:      video.significado?.descripcion  || '',

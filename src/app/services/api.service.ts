@@ -117,5 +117,13 @@ export class ApiService {
   getRequiredWords(){
     return this.http.get(`${this.apiUrl}/getRequiredWords`);
   }
+
+  getUserData(ownerID: number, userID: number){
+    return this.http.get(`${this.apiUrl}/getUserData/${ownerID}/${userID}`);
+  }
+
+  updateProfile(formData: FormData, userID: number) {
+    return this.http.patch(`${this.apiUrl}/updateProfile/${userID}`, formData);
+  }
     
 }

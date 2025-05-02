@@ -1,0 +1,61 @@
+<body>
+    <br><br><br><br>
+    <div class="tab-content">
+        <div class="card mb-4 profile-card" style="background-color: #F6E6B2;">
+            <div class="card-body text-center">
+            <!-- Avatar -->
+            <div class="avatar-wrapper mb-3">
+                <img [src]="userData.avatarUrl || 'assets/default-avatar.png'" class="rounded-circle avatar-img" alt="User Avatar">
+            </div>
+
+            <p class="text-muted mb-2">{{ userData.username }}</p>
+            @if (this.userID == this.userData.id){
+                <button class="btn btn-secondary btn-sm" routerLink="/modify-profile" [state]="{ userData: userData }">
+                    <i class="bi bi-pencil-square"></i> Editar perfil
+                </button>
+            }   
+        
+            <!-- Bio/Description -->
+            <p class="card-text bio-text mt-3" *ngIf="userData.descricion; else noBio">
+                {{ userData.descricion }}
+            </p>
+            <ng-template #noBio>
+                <p class="card-text text-muted fst-italic">Este usuario no ha escrito una biografía.</p>
+            </ng-template>
+        
+             @if (this.userID != this.userData.id){
+                <button class="btn btn-primary btn-sm me-2">Agregar</button>
+                <button class="btn btn-outline-secondary btn-sm">Mensaje</button>
+             }
+
+            <!-- Stats -->
+            <div class="d-flex justify-content-center mt-3 stats">
+                <div class="px-3">
+                    <strong>{{ userData.followersCount || 0 }}</strong>
+                    <div class="text-muted small">Amigos</div>
+                </div>
+                <div class="px-3">
+                    <strong>{{ userData.uploadsCount || userVideos.length }}</strong>
+                    <div class="text-muted small">Vídeos</div>
+                </div>
+            </div>
+        
+            <!-- Additional Info -->
+            <ul class="list-group list-group-flush mt-0 text-start" style="margin-top: -10px;">
+                <li class="list-group-item d-flex justify-content-center gap-5" style="background-color: #F6E6B2;">
+                    <span><i class="bi bi-calendar" style="font-weight: bold;"></i> Se unió:</span>
+                    <span style="font-weight: bold;">{{ userData.created_at | date:'longDate' }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-center gap-5" *ngIf="userData.proveniencia" style="background-color: #F6E6B2;">
+                    <span><i class="bi bi-geo-alt"></i> Procedencia:</span>
+                    <span style="font-weight: bold;">{{ userData.proveniencia }}</span>
+                </li>
+            </ul>
+
+            <app-video-list [videos]="this.userVideos"></app-video-list>
+            </div>
+        </div>
+    </div>
+</body>
+
+  
