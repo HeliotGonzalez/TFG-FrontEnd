@@ -18,6 +18,7 @@ import { RecentlyUploadedComponent } from './recently-uploaded/recently-uploaded
 import { ThemesComponent } from './themes/themes.component';
 import { ChekingVideosComponent } from './cheking-videos/cheking-videos.component';
 import { MyVideosCorrectedComponent } from './my-videos-corrected/my-videos-corrected.component';
+import { WordsRequiredComponent } from './words-required/words-required.component';
 
 export const routes: Routes = [
     { path: '', component: HomepageComponent },
@@ -36,7 +37,8 @@ export const routes: Routes = [
     { path: 'personalQuizz', component: PersonalQuizzComponent, canActivate: [wordRegisterGuardGuard] },
     { path: 'recentlyUploaded', component: RecentlyUploadedComponent },
     { path: 'themes', component: ThemesComponent },
-    { path: 'checkingVideo', component: ChekingVideosComponent, canActivate: [wordRegisterGuardGuard]},
-    { path: 'myVideosCorrected', component: MyVideosCorrectedComponent, canActivate: [wordRegisterGuardGuard]},
+    { path: 'checkingVideo', component: ChekingVideosComponent, canActivate: [wordRegisterGuardGuard] },
+    { path: 'myVideosCorrected', component: MyVideosCorrectedComponent, canActivate: [wordRegisterGuardGuard] },
+    { path: 'wordRequested', component: WordsRequiredComponent, canActivate: [wordRegisterGuardGuard] },
     { path: '**', redirectTo: '' }
 ];

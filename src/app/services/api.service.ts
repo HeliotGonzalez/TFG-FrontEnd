@@ -113,5 +113,9 @@ export class ApiService {
   getVideosCorrected(userID: number) {
     return this.http.get(`${this.apiUrl}/getVideosCorrected/${userID}`);
   }
+
+  getRequiredWords(){
+    return this.http.get(`${this.apiUrl}/getRequiredWords`);
+  }
     
 }
