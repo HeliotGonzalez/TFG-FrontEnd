@@ -8,7 +8,7 @@
         <li class="header--h1__nav" *ngIf="(authService.currentUser$ | async) as user; else noUser">
             <a class="header--a__li" id="Perfil" (click)="openDropdown($event)">Perfil</a>
             <ul class="dropdown-menu" [class.show]="dropdownOpen">
-              <li><a routerLink="/profile">Ver Perfil</a></li>
+              <li><a [routerLink]="['/profile', this.userID]">Ver Perfil</a></li>
               <li><a routerLink="/settings">Configuración</a></li>
               <li><a (click)="logout()">Cerrar sesión</a></li>
             </ul>

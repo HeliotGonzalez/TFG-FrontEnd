@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth-service.service';
+import { VideoManagerService } from '../services/video-manager.service';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +13,11 @@ import { AuthService } from '../services/auth-service.service';
 })
 export class HeaderComponent {
   dropdownOpen = false;
+  userID: number = 0;
 
-  constructor(public authService: AuthService, private router: Router, private el: ElementRef) {}
+  constructor(public authService: AuthService, private router: Router, private el: ElementRef, private videoManager: VideoManagerService) {
+    this.userID = this.videoManager.ensureAuthenticated();
+  }
 
   // Abre el dropdown y evita la propagación para que no se cierre inmediatamente.
   openDropdown(event: Event): void {

@@ -6,6 +6,7 @@ import { ApiService } from '../services/api.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../services/auth-service.service';
 import Swal from 'sweetalert2';
+import { VideoManagerService } from '../services/video-manager.service';
 
 @Component({
   selector: 'app-video-list',
@@ -20,7 +21,7 @@ export class VideoListComponent {
   liked: { [key: number]: boolean } = {};
   disliked: { [key: number]: boolean } = {};
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private sanitizer: DomSanitizer, private authService: AuthService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private sanitizer: DomSanitizer, private authService: AuthService, private router: Router, private videoManager: VideoManagerService) {}
 
   toggleLike(id: number): void {
     const userID = this.ensureAuthenticated();
@@ -60,14 +61,6 @@ export class VideoListComponent {
     return video;
   }
   
-  /**
-   * Actualiza el estado de reacción ("like" o "dislike") del video.
-   * - Si se activa una reacción, se elimina la contraria (si existe) y se actualizan los contadores.
-   * - Si se desactiva, simplemente se decrementa el contador.
-   * 
-   * @param video  Video a actualizar.
-   * @param reaction  Tipo de reacción: 'like' o 'dislike'.
-   */
   private updateReactionState(video: Video, reaction: 'like' | 'dislike'): void {
     if (reaction === 'like') {
       if (video.didIlikeIt) {
@@ -96,15 +89,6 @@ export class VideoListComponent {
     }
   }
   
-  /**
-   * Función que envía la reacción del usuario al servidor.
-   * @param id -> id del video
-   * @param likes -> cantidad de likes actual
-   * @param dislikes -> cantidad de dislikes actual
-   * @param isLike -> booleano que indica si el usuario ha dado like
-   * @param action -> ¿Qué hizo el usuario? like o dislike
-   * @param userID -> id del usuario que ha dado like o dislike
-   */
   private sendVideoReaction(id: number, likes: number, dislikes: number, isLike: boolean, action: string, userID: number): void {
     const serviceCall = this.apiService.sendVideoLikes(id, likes, dislikes, action, userID);
   
@@ -117,7 +101,6 @@ export class VideoListComponent {
       }
     });
   }
-
 
   saveToDictionary(video: Video): void {
     this.apiService.storeVideoInDictionary({ videoID: video.id, userID: this.ensureAuthenticated() }).subscribe({
@@ -141,7 +124,6 @@ export class VideoListComponent {
     });
     return;
   }
-
 
   removeFromDictionary(video: Video){
     this.apiService.deleteVideoFromDictionary({ videoID: video.id, userID: this.ensureAuthenticated() }).subscribe({
@@ -226,6 +208,21 @@ export class VideoListComponent {
       }
     });
     return;
+  }
+
+  goToUserProfile(name: string){
+    this.apiService.getUserDataByName(name, this.videoManager.ensureAuthenticated()).subscribe({
+      next: (response: any) => {
+        let userDataFrom = response.user;
+        let userVideosFrom = this.videoManager.mapVideos(response.videos);
+        console.log('hola', userDataFrom, userVideosFrom);
+
+        this.router.navigate(['/profile', userDataFrom.id], {state: { userDataFrom, userVideosFrom }});
+      },
+      error: (err: any) =>{
+        console.log(err);
+      }
+    });
   }
 
   

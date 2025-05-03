@@ -42,7 +42,7 @@ export const routes: Routes = [
     { path: 'checkingVideo', component: ChekingVideosComponent, canActivate: [wordRegisterGuardGuard] },
     { path: 'myVideosCorrected', component: MyVideosCorrectedComponent, canActivate: [wordRegisterGuardGuard] },
     { path: 'wordRequested', component: WordsRequiredComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'profile', component: ProfileComponent, canActivate: [wordRegisterGuardGuard] },
+    { path: 'profile/:id', component: ProfileComponent, canActivate: [wordRegisterGuardGuard] },
     { path: 'modify-profile', component: ModifyProfileComponent, canActivate: [wordRegisterGuardGuard] },
     { path: '**', redirectTo: '' }
 ];

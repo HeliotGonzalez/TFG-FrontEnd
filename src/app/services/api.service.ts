@@ -125,5 +125,9 @@ export class ApiService {
   updateProfile(formData: FormData, userID: number) {
     return this.http.patch(`${this.apiUrl}/updateProfile/${userID}`, formData);
   }
+
+  getUserDataByName(username: string, userID: number){
+    return this.http.get(`${this.apiUrl}/getUserDataByName/${username}/${userID}`);
+  }
     
 }
