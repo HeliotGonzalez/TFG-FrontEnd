@@ -158,5 +158,9 @@ export class ApiService {
   getNotFriendsUsers(userID: number){
     return this.http.get(`${this.apiUrl}/getNotFriendsUsers/${userID}`);
   }
+
+  getMyFriendsVideos(userID: number){
+    return this.http.get(`${this.apiUrl}/getMyFriendsVideos/${userID}`);
+  }
     
 }

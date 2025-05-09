@@ -83,6 +83,11 @@ export class VideoManagerService {
     return this.handleVideosStream(stream$, 'getVideosByThemes');
   }
 
+  getMyFriendsVideos(): Observable<Video[]>{
+    const stream$ = this.apiService.getMyFriendsVideos(this.ensureAuthenticated());
+    return this.handleVideosStream(stream$, 'getMyFriendsVideos');
+  }
+
 
   // Verifica que el usuario esté autenticado y redirige en caso contrario.
   public ensureAuthenticated(): number {

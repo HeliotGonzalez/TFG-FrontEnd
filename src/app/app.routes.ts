@@ -21,6 +21,7 @@ import { WordsRequiredComponent } from './words-required/words-required.componen
 import { ProfileComponent } from './profile/profile.component';
 import { ModifyProfileComponent } from './modify-profile/modify-profile.component';
 import { SearchContactsComponent } from './search-contacts/search-contacts.component';
+import { UploadedByMyFriendsComponent } from './uploaded-by-my-friends/uploaded-by-my-friends.component';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 
@@ -52,6 +53,8 @@ export const routes: Routes = [
   { path: 'profile/:id',     component: ProfileComponent,          canActivate: [authGuard] },
   { path: 'modify-profile',  component: ModifyProfileComponent,    canActivate: [authGuard] },
   { path: 'search',          component: SearchContactsComponent,   canActivate: [authGuard] },
+  { path: 'uploadedByMyFriends', component: UploadedByMyFriendsComponent, canActivate: [authGuard] },
+
 
   // Wildcard
   { path: '**', redirectTo: '' }
