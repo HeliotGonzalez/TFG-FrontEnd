@@ -13,6 +13,7 @@ import { VideoManagerService } from '../services/video-manager.service';
 })
 export class HeaderComponent {
   dropdownOpen = false;
+  menuOpen = false;
   userID: number = 0;
 
   constructor(public authService: AuthService, private router: Router, private el: ElementRef, private videoManager: VideoManagerService) {
@@ -36,7 +37,6 @@ export class HeaderComponent {
   // Cierra el dropdown si se hace click fuera del componente
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-    // Si el click se hace fuera del header, cierra el dropdown
     if (!this.el.nativeElement.contains(event.target)) {
       this.dropdownOpen = false;
     }

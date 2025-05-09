@@ -9,7 +9,7 @@
             </div>
 
             <p class="text-muted mb-2">{{ userData.username }}</p>
-            @if (this.userID == this.userData.id){
+            @if (this.currentUserId == this.profileUserId){
                 <button class="btn btn-secondary btn-sm" routerLink="/modify-profile" [state]="{ userData: userData }">
                     <i class="bi bi-pencil-square"></i> Editar perfil
                 </button>
@@ -23,10 +23,15 @@
                 <p class="card-text text-muted fst-italic">Este usuario no ha escrito una biografía.</p>
             </ng-template>
         
-             @if (this.userID != this.userData.id){
-                <button class="btn btn-primary btn-sm me-2">Agregar</button>
+            @if (this.currentUserId != this.profileUserId){
+                @if (this.beingAdded) {
+                    <button class="btn btn-success btn-sm me-2" (click)="accept()">Aceptar</button>
+                    <button class="btn btn-danger btn-sm me-2" (click)="deny()">Recahazar</button>
+                } @else if(!this.isFriend) {
+                    <button class="btn btn-primary btn-sm me-2" (click)="sendFriendRequest()">Agregar</button>
+                }
                 <button class="btn btn-outline-secondary btn-sm">Mensaje</button>
-             }
+            }
 
             <!-- Stats -->
             <div class="d-flex justify-content-center mt-3 stats">

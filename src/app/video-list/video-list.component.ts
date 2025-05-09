@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Video } from '../models/video';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../services/auth-service.service';
 import Swal from 'sweetalert2';
 import { VideoManagerService } from '../services/video-manager.service';
@@ -21,7 +20,7 @@ export class VideoListComponent {
   liked: { [key: number]: boolean } = {};
   disliked: { [key: number]: boolean } = {};
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private sanitizer: DomSanitizer, private authService: AuthService, private router: Router, private videoManager: VideoManagerService) {}
+  constructor(private apiService: ApiService, private authService: AuthService, private router: Router, private videoManager: VideoManagerService) {}
 
   toggleLike(id: number): void {
     const userID = this.ensureAuthenticated();
@@ -215,7 +214,6 @@ export class VideoListComponent {
       next: (response: any) => {
         let userDataFrom = response.user;
         let userVideosFrom = this.videoManager.mapVideos(response.videos);
-        console.log('hola', userDataFrom, userVideosFrom);
 
         this.router.navigate(['/profile', userDataFrom.id], {state: { userDataFrom, userVideosFrom }});
       },

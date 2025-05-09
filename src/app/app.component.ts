@@ -1,13 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common'; 
-import { ApiService } from './services/api.service';
 import { HeaderVisibilityService } from './services/header-visibility.service';
 import { RouterOutlet, RouterModule, Router, NavigationStart, NavigationEnd, NavigationCancel,NavigationError } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { WebsocketService } from './services/websocket-service.service';
+import { VideoManagerService } from './services/video-manager.service';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +21,10 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
     CommonModule,
     RouterOutlet,
     RouterModule,
-    LoadingBarModule,                // Módulo base
-    LoadingBarRouterModule,          // Para cambiar rutas
-    LoadingBarHttpClientModule       // Para peticiones HTTP
+    LoadingBarModule,
+    LoadingBarRouterModule,
+    LoadingBarHttpClientModule, 
+    NotificationsComponent
   ],
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -29,10 +32,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private progressInterval: any;
 
   constructor(
-    private apiService: ApiService,
     private headerService: HeaderVisibilityService,
     private router: Router,
-    private loadingBar: LoadingBarService
+    private loadingBar: LoadingBarService,
+    private websocketService: WebsocketService,
+    private videoManagerService: VideoManagerService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
     });
 
+    // TODO: Cambiar funciones deprecated
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // Inicia la barra de carga
@@ -63,6 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.loadingBar.complete();
       }
     });
+  
   }
 
   ngOnDestroy(): void {

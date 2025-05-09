@@ -129,5 +129,30 @@ export class ApiService {
   getUserDataByName(username: string, userID: number){
     return this.http.get(`${this.apiUrl}/getUserDataByName/${username}/${userID}`);
   }
+
+  sendFriendRequest(userID: number, friendID: number) {
+    console.log('Enviando');
+    return this.http.post(`${this.apiUrl}/sendFriendRequest`, { userID, friendID });
+  }
+
+  getPendingFriendRequest(to: number){
+    return this.http.get(`${this.apiUrl}/getPendingFriendRequest/${to}`);
+  }
+
+  amIBeingAddedByOwner(from: number, to: number){
+    return this.http.get(`${this.apiUrl}/amIBeingAddedByOwner/${from}/${to}`);
+  }
+
+  isMyFriend(from: number, to: number){
+    return this.http.get(`${this.apiUrl}/isMyFriend/${from}/${to}`);
+  }
+
+  acceptFriend(from: number, to: number){
+    return this.http.post(`${this.apiUrl}/acceptFriend`, {from, to});
+  }
+
+  denyRequest(from: number, to: number){
+    return this.http.post(`${this.apiUrl}/denyRequest`, {from, to});
+  }
     
 }
