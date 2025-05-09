@@ -7,6 +7,7 @@ export interface User {
   name: string;
   username: string;
   email: string;
+  descricion: string;
   proveniencia: string;
   role_id: number;
 }

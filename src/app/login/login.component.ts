@@ -32,6 +32,7 @@ export class LoginComponent {
   ){
     this.apiService.logIn(email.value, password.value).subscribe({
       next: (response: any) => {
+        console.log(response);
         const user: User = response;
         this.authService.setUser(user);
         if (response instanceof Object) this.router.navigate(['/']);
@@ -48,25 +49,21 @@ export class LoginComponent {
   }
 
   async forgotPassword() {
-    // 1. Solicitar el correo electrónico y enviar el correo de verificación
     const email = await this.askEmail.call(this);
     if (!email) {
       return;
     }
   
-    // 2. Solicitar y verificar el código OTP
     const otpValid = await this.verifyOtp.call(this, email);
     if (!otpValid) {
       return;
     }
   
-    // 3. Solicitar al usuario la nueva contraseña
     const newPassword = await this.askNewPassword.call(this);
     if (!newPassword) {
       return;
     }
   
-    // 4. Enviar la nueva contraseña al backend para actualizarla
     await this.sendResetPassword.call(this, email, newPassword);
   }
 
@@ -79,7 +76,6 @@ export class LoginComponent {
       confirmButtonText: 'Enviar',
       preConfirm: async (email) => {
         try {
-          // Se asume que forgotPassword retorna un Observable
           await firstValueFrom(this.apiService.forgotPassword(email));
           return email;
         } catch (error: any) {
@@ -152,7 +148,6 @@ export class LoginComponent {
         title: 'Contraseña restablecida',
         text: 'Su contraseña ha sido actualizada correctamente'
       });
-      // Redirigir al usuario, por ejemplo, a la página de login
       this.router.navigate(['/login']);
       return true;
     } catch (error: any) {

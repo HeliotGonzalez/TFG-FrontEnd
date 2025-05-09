@@ -1,0 +1,36 @@
+<body class="body">
+    <div class="container my-4">
+        <h2 class="mb-3">Buscar nuevos contactos</h2>
+
+        <!-- Si hay usuarios, los mostramos en tarjetas -->
+         @if (users.length){
+            <div class="col col-rows-1 col-rows-md-2 col-rows-lg-3 g-4">
+                <div class="row">
+                @for (user of this.users; track $index) {
+                    <div class="card h-100 shadow-sm mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title mb-2">{{ user.username }}</h5>
+                            <p class="card-text mb-1">
+                                @if (user.descricion){
+                                    {{ user.descricion }}
+                                }
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0 text-end">
+                            <button class="btn btn-sm btn-success" (click)="goToUserProfile(user.id)">
+                                <i class="bi bi-eye-fill me-2"></i>Ver perfil
+                            </button>
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
+         } @else {
+            <div class="alert alert-info">
+                No hay usuarios disponibles para agregar.
+            </div>
+         }
+
+    </div>
+</body>
+

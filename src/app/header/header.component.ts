@@ -20,7 +20,6 @@ export class HeaderComponent {
     this.userID = this.videoManager.ensureAuthenticated();
   }
 
-  // Abre el dropdown y evita la propagación para que no se cierre inmediatamente.
   openDropdown(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
@@ -31,10 +30,11 @@ export class HeaderComponent {
 
   logout(): void {
     this.authService.logout();
+    this.dropdownOpen = false;
+    this.menuOpen     = false;
     this.router.navigate(['/login']);
   }
 
-  // Cierra el dropdown si se hace click fuera del componente
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     if (!this.el.nativeElement.contains(event.target)) {

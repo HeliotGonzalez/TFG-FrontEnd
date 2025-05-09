@@ -3,7 +3,7 @@ import { ApiService } from './api.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from './auth-service.service';
 import { Video } from '../models/video';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap} from 'rxjs/operators';
 
@@ -88,7 +88,6 @@ export class VideoManagerService {
   public ensureAuthenticated(): number {
     let userID = -1;
     this.authService.currentUser$.subscribe(user => {
-        if (!user) this.router.navigate(['/login']);
         if (user) userID = user.id;
     });
     return userID;

@@ -9,7 +9,6 @@ import { DictionaryComponent } from './dictionary/dictionary.component';
 import { VideoCreatorComponent } from './video-creator/video-creator.component';
 import { WordListComponent } from './word-list/word-list.component';
 import { WordsBySearchComponent } from './words-by-search/words-by-search.component';
-import { wordRegisterGuardGuard } from './guards/word-register-guard.guard';
 import { RandomWordComponent } from './random-word/random-word.component';
 import { StudyComponent } from './study/study.component';
 import { FlashccardsComponent } from './flashccards/flashccards.component';
@@ -21,28 +20,39 @@ import { MyVideosCorrectedComponent } from './my-videos-corrected/my-videos-corr
 import { WordsRequiredComponent } from './words-required/words-required.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ModifyProfileComponent } from './modify-profile/modify-profile.component';
+import { SearchContactsComponent } from './search-contacts/search-contacts.component';
+import { authGuard } from './guards/auth.guard';
+import { guestGuard } from './guards/guest.guard';
 
 export const routes: Routes = [
-    { path: '', component: HomepageComponent },
-    { path: 'word-register', component: WordRegisterComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'alphabetical', component: AlfabetoComponent },
-    { path: 'videoLoader', component: VideoDisplayerComponent },
-    { path: 'dictionary', component: DictionaryComponent, canActivate: [wordRegisterGuardGuard] },
-    { path:'createVideo', component: VideoCreatorComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'word-list', component: WordListComponent },
-    { path: 'words-by-search', component: WordsBySearchComponent },
-    { path: 'randomWord', component: RandomWordComponent },
-    { path: 'study', component: StudyComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'flashcards', component: FlashccardsComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'personalQuizz', component: PersonalQuizzComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'recentlyUploaded', component: RecentlyUploadedComponent },
-    { path: 'themes', component: ThemesComponent },
-    { path: 'checkingVideo', component: ChekingVideosComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'myVideosCorrected', component: MyVideosCorrectedComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'wordRequested', component: WordsRequiredComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'profile/:id', component: ProfileComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: 'modify-profile', component: ModifyProfileComponent, canActivate: [wordRegisterGuardGuard] },
-    { path: '**', redirectTo: '' }
+  // Rutas públicas sólo para invitados
+  { path: 'login',    component: LoginComponent, canActivate: [guestGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [guestGuard] },
+
+  // Rutas públicas (no requieren sesión)
+  { path: '',                component: HomepageComponent },
+  { path: 'word-list',       component: WordListComponent },
+  { path: 'words-by-search', component: WordsBySearchComponent },
+  { path: 'randomWord',      component: RandomWordComponent },
+  { path: 'alphabetical',    component: AlfabetoComponent },
+  { path: 'videoLoader',     component: VideoDisplayerComponent },
+  { path: 'recentlyUploaded', component: RecentlyUploadedComponent },
+  { path: 'themes',          component: ThemesComponent },
+
+  // Rutas que requieren estar autenticado
+  { path: 'word-register',   component: WordRegisterComponent,   canActivate: [authGuard] },
+  { path: 'dictionary',      component: DictionaryComponent,     canActivate: [authGuard] },
+  { path: 'createVideo',     component: VideoCreatorComponent,    canActivate: [authGuard] },
+  { path: 'study',           component: StudyComponent,           canActivate: [authGuard] },
+  { path: 'flashcards',      component: FlashccardsComponent,     canActivate: [authGuard] },
+  { path: 'personalQuizz',   component: PersonalQuizzComponent,    canActivate: [authGuard] },
+  { path: 'checkingVideo',   component: ChekingVideosComponent,   canActivate: [authGuard] },
+  { path: 'myVideosCorrected', component: MyVideosCorrectedComponent, canActivate: [authGuard] },
+  { path: 'wordRequested',   component: WordsRequiredComponent,    canActivate: [authGuard] },
+  { path: 'profile/:id',     component: ProfileComponent,          canActivate: [authGuard] },
+  { path: 'modify-profile',  component: ModifyProfileComponent,    canActivate: [authGuard] },
+  { path: 'search',          component: SearchContactsComponent,   canActivate: [authGuard] },
+
+  // Wildcard
+  { path: '**', redirectTo: '' }
 ];

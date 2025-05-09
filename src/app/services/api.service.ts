@@ -154,5 +154,9 @@ export class ApiService {
   denyRequest(from: number, to: number){
     return this.http.post(`${this.apiUrl}/denyRequest`, {from, to});
   }
+
+  getNotFriendsUsers(userID: number){
+    return this.http.get(`${this.apiUrl}/getNotFriendsUsers/${userID}`);
+  }
     
 }
