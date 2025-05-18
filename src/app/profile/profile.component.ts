@@ -60,6 +60,7 @@ export class ProfileComponent implements OnInit {
   sendFriendRequest(){
     this.apiService.sendFriendRequest(this.currentUserId, this.profileUserId).subscribe({
       next: (response: any) => {
+        this.isFriend = !this.isFriend
         console.log(response);
       },
       error: (err: any) => {

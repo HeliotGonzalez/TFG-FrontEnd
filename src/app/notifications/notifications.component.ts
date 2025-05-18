@@ -148,7 +148,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   acceptFriend(request: Notification) {
     this.notifications = this.notifications.filter(n => !(n.type === 'FRIEND_REQUEST' && n.from === request.from));
-
     this.friendService.acceptFriend(request, this.me);
   }
 
