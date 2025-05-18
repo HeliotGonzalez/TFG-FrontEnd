@@ -54,7 +54,31 @@ export class ProfileComponent implements OnInit {
       });
     }
 
+    // Comprueba que se haya aceptado nada desde notificacions
+    this.checkAcceptViaNotificacions();
+
+    // Compruba que se haya rechazado vía notificacions
+    this.checkDenyViaNotificacions();
+
     this.amIBeingAddedByOwner();
+  }
+
+  checkAcceptViaNotificacions(){
+    this.friendService.accepted$.subscribe(({ from, to }) => {
+      if (from === this.profileUserId && to === this.currentUserId) {
+        this.beingAdded = false;
+        this.isFriend   = true;
+      }
+    });
+  }
+
+  checkDenyViaNotificacions(){
+    this.friendService.rejected$.subscribe(({ from, to }) => {
+      if (from === this.profileUserId && to === this.currentUserId) {
+        this.beingAdded = false;
+        this.isFriend   = false;
+      }
+    });
   }
 
   sendFriendRequest(){

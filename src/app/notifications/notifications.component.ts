@@ -59,6 +59,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     // Escuchar por peticiones acpetadas
     this.getAcceptedFriendRequests();
 
+    // Comprueba que se haya aceptado nada desde el perfil
+    this.checkAcceptViaProfile();
+
+    // Compruba que se haya rechazado vía perfil
+    this.checkDenyViaProfile();
+
+
     /*
     this.sub.add(
       this.ws.onChatMessage(this.me).subscribe(chat => {
@@ -135,6 +142,22 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     let userVideosFrom = this.videoManager.mapVideos(request.extraData.videos);
 
     this.router.navigate(['/profile', userDataFrom.id], {state: { userDataFrom, userVideosFrom }});
+  }
+
+  checkAcceptViaProfile(){
+    this.sub.add(
+      this.friendService.accepted$.subscribe(({ from }) => {
+        this.notifications = this.notifications.filter(n => !(n.type === 'FRIEND_REQUEST' && n.from === from));
+      })
+    );
+  }
+
+  checkDenyViaProfile(){
+    this.sub.add(
+      this.friendService.rejected$.subscribe(({ from }) => {
+        this.notifications = this.notifications.filter(n => !(n.type === 'FRIEND_REQUEST' && n.from === from));
+      })
+    );
   }
 
   /** cerrar panel al pinchar fuera */
