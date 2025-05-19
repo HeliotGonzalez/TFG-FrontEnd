@@ -29,8 +29,9 @@
                     <button class="btn btn-danger btn-sm me-2" (click)="deny()">Recahazar</button>
                 } @else if(!this.isFriend) {
                     <button class="btn btn-primary btn-sm me-2" (click)="sendFriendRequest()">Agregar</button>
+                } @else if(this.isFriend) {
+                <button class="btn btn-outline-secondary btn-sm" routerLink="/chat">Enviar mensaje</button>
                 }
-                <button class="btn btn-outline-secondary btn-sm">Mensaje</button>
             }
 
             <!-- Stats -->

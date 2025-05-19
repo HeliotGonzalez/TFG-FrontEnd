@@ -1,0 +1,66 @@
+<br><br><br>
+<div class="d-flex" style="height: 92vh;">
+  <!-- ───── Sidebar: buscador + conversaciones ───── -->
+  <aside class="border-end d-flex flex-column" style="width: 300px;">
+    <div class="p-3">
+      <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="searchText"/>
+    </div>
+
+    <ul class="list-group list-group-flush flex-grow-1 overflow-auto">
+      @for (last of conversationList; track last.ts) {
+        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+          [class.active]="selectedUserId === (last.from === me ? last.to : last.from)"
+          (click)="selectChat(last.from === me ? last.to : last.from)">
+          <div class="d-flex align-items-center">
+            <span>
+              {{ usersMeta[last.from === me ? last.to : last.from].name || '...' }}
+            </span>
+          </div>
+          <small class="text-muted">
+            {{ last.text ? (last.ts | date:'shortTime') : 'Nueva conversación' }}
+          </small>
+        </li>
+      }
+    </ul>
+  </aside>
+
+  <!-- ───── Panel principal ───── -->
+  <section class="flex-grow-1 d-flex flex-column">
+    <!-- Mensajes o pantalla de bienvenida -->
+      @if (selectedUserId){
+        <div class="flex-grow-1 overflow-auto p-3 chat-body">
+          @for (m of conversations.get(selectedUserId!) || []; track m) {
+            <div class="d-flex mb-2" [ngClass]="{'justify-content-end': m.from === me, 'justify-content-start': m.from !== me}">
+              <div class="p-2 rounded"
+                [ngClass]="{ 'bg-primary text-white': m.from === me, 'bg-light text-dark': m.from !== me}"
+                style="max-width: 70%; word-break: break-word;">
+                <div class="small text-muted mb-1" *ngIf="m.from !== me">
+                  {{ usersMeta[m.from].name }}
+                </div>
+
+                <div>{{ m.text }}</div>
+
+                <div class="text-end small text-muted mt-1">
+                  {{ m.ts | date:'shortTime' }}
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Barra de envío -->
+        <form class="d-flex border-top p-2" (submit)="send(messageInput.value); messageInput.value=''; $event.preventDefault()">
+          <input #messageInput type="text" class="form-control me-2" placeholder="Escribe un mensaje…" autocomplete="off"/>
+          <button class="btn btn-primary" type="submit">
+            <i class="bi bi-send"></i>
+          </button>
+        </form>
+      } @else {
+        <div class="d-flex flex-grow-1 align-items-center justify-content-center">
+          <p class="text-muted fs-5 m-0">
+            Selecciona (o busca) un contacto para iniciar un chat
+          </p>
+        </div>
+      }
+  </section>
+</div>  

@@ -159,8 +159,20 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/getNotFriendsUsers/${userID}`);
   }
 
+  getFriends(userID: number){
+    return this.http.get(`${this.apiUrl}/getFriends/${userID}`);
+  }
+
   getMyFriendsVideos(userID: number){
     return this.http.get(`${this.apiUrl}/getMyFriendsVideos/${userID}`);
+  }
+
+  getMyConversations(userID: number): Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/getMyConversations/${userID}`);
+  }
+
+  sendChatMessage(from: number, to: number, text: string) {
+    return this.http.post(`${this.apiUrl}/sendMessage`, { from, to, text });
   }
     
 }

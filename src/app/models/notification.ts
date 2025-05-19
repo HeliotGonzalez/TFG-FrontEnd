@@ -1,7 +1,7 @@
 export interface Notification {
-    type: 'FRIEND_REQUEST' | 'CHAT' | 'FRIEND_ACCEPTED';
-    from: number;
-    payload: any;
-    extraData: any;
-    fromName: String;
+  type: 'FRIEND_REQUEST' | 'chat' | 'FRIEND_ACCEPTED';
+  from: number;
+  fromName: string;
+  payload: any;
+  extraData: any;
 }

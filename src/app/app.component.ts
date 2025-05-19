@@ -7,8 +7,6 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { WebsocketService } from './services/websocket-service.service';
-import { VideoManagerService } from './services/video-manager.service';
 import { NotificationsComponent } from './notifications/notifications.component';
 
 @Component({
@@ -35,8 +33,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private headerService: HeaderVisibilityService,
     private router: Router,
     private loadingBar: LoadingBarService,
-    private websocketService: WebsocketService,
-    private videoManagerService: VideoManagerService
   ) {}
 
   ngOnInit(): void {

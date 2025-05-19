@@ -73,6 +73,23 @@ export class WebsocketService implements OnDestroy {
     );
   }
 
+  /** stream de mensajes de chat que me impliquen */
+  public onChatMessage(me: number) {
+    return this.messages$.pipe(
+      filter(msg =>
+        msg.type === 'chat' &&
+        (+msg.to === me || +msg.from === me)
+      ),
+      map(msg => ({
+        from: +msg.from,
+        to:   +msg.to,
+        text: msg.message,
+        ts:   Number(msg.ts) || Date.now()
+      }))
+    );
+  }
+
+
   public onAcceptedFriendRequest(me: number): Observable<FriendRequest> {
     return this.messages$.pipe(
       filter(msg => msg.type === 'friend-accepted' && msg.to === me),

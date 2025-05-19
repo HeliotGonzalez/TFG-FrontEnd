@@ -26,7 +26,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     private videoManager: VideoManagerService,
     private apiService: ApiService,
     private router: Router,
-    private friendService: FriendServiceService
+    private friendService: FriendServiceService,
   ) {
     this.me = this.videoManager.ensureAuthenticated();
   }
@@ -46,7 +46,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   get chats() {
-    return this.notifications.filter(n => n.type === 'CHAT');
+    return this.notifications.filter(n => n.type === 'chat');
   }
 
   ngOnInit(): void {
@@ -65,19 +65,32 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     // Compruba que se haya rechazado vía perfil
     this.checkDenyViaProfile();
 
+    // Comprueba mensajes entrantes
+    this.checkRealTimeMessages();
+  }
 
-    /*
+  checkRealTimeMessages() {
     this.sub.add(
       this.ws.onChatMessage(this.me).subscribe(chat => {
-        this.notifications.push({
-          type: 'CHAT',
-          from: chat.from,
-          payload: { text: chat.text }
+        const otherId = chat.from === this.me ? chat.to : chat.from;
+
+        this.apiService.getUserData(otherId, this.me).subscribe({
+          next: (res: any) => {
+            this.notifications.push({
+              type: 'chat',
+              from: otherId,
+              fromName: res.user.name,
+              payload: { text: chat.text },
+              extraData: res
+            });
+          },
+          error: err =>
+            console.log('Error fetching user data for chat notification:', err)
         });
       })
     );
-    */
   }
+
 
   getIncomingFriendRequests(){
     this.sub.add(
