@@ -26,6 +26,7 @@ import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 import { ChatComponent } from './chat/chat.component';
 import { ExpertStatsComponent } from './expert-stats/expert-stats.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 export const routes: Routes = [
   // Rutas públicas sólo para invitados
@@ -41,6 +42,7 @@ export const routes: Routes = [
   { path: 'videoLoader',     component: VideoDisplayerComponent },
   { path: 'recentlyUploaded', component: RecentlyUploadedComponent },
   { path: 'themes',          component: ThemesComponent },
+  { path: 'AboutUs',          component: AboutUsComponent },
 
   // Rutas que requieren estar autenticado
   { path: 'word-register',   component: WordRegisterComponent,   canActivate: [authGuard] },

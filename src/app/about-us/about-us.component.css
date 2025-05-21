@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* ===== HERO ===== */
+.about-header {
+  position: relative;
+  height: 60vh;
+  background: url('/assets/hero-bg.jpg') center/cover no-repeat;
+}
+.about-header .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.about-header .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== SECCIONES ===== */
+.mission img,
+.vision img {
+  width: 100%;
+  height: auto;
+}
+.vision .row {
+  flex-direction: row-reverse;
+}
+
+/* ===== EQUIPO ===== */
+.team-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.team-img:hover {
+  transform: scale(1.1);
+}
+
+/* ===== CTA ===== */
+.cta {
+  background-color: #0A6847;
+}
+.cta .btn-light {
+  color: #0A6847;
+  font-weight: 600;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background-color: #f8f9fa;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .about-header {
+    height: 40vh;
+  }
+  .team-img {
+    width: 80px;
+    height: 80px;
+  }
+}
