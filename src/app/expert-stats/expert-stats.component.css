@@ -1,0 +1,18 @@
+.kpi-card {
+  border-width: 2px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.list-group-item span:first-child {
+  font-weight: 500;
+}
+
+.body{
+    min-height: 100vh;
+    background-color: #F6E6B2;
+}

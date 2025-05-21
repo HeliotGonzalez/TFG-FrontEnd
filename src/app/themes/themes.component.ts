@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Video } from '../models/video';
 import { VideoManagerService } from '../services/video-manager.service';
@@ -12,7 +12,7 @@ import { ApiService } from '../services/api.service';
   templateUrl: './themes.component.html',
   styleUrl: './themes.component.css'
 })
-export class ThemesComponent implements OnInit {
+export class ThemesComponent implements OnInit, AfterViewInit {
   tagsFromApi: string[] = [];
   tags: string[] = [];
   videos: Video[] = [];
@@ -28,6 +28,10 @@ export class ThemesComponent implements OnInit {
       next: (response: string[]) => (this.tagsFromApi = response),
       error: (err) => console.error('Error al obtener las etiquetas:', err)
     });
+  }
+
+  ngAfterViewInit(): void {
+      scrollTo(0, 0);
   }
 
   toggleDropdown(): void {

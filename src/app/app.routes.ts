@@ -25,6 +25,7 @@ import { UploadedByMyFriendsComponent } from './uploaded-by-my-friends/uploaded-
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 import { ChatComponent } from './chat/chat.component';
+import { ExpertStatsComponent } from './expert-stats/expert-stats.component';
 
 export const routes: Routes = [
   // Rutas públicas sólo para invitados
@@ -56,6 +57,7 @@ export const routes: Routes = [
   { path: 'search',          component: SearchContactsComponent,   canActivate: [authGuard] },
   { path: 'uploadedByMyFriends', component: UploadedByMyFriendsComponent, canActivate: [authGuard] },
   { path: 'chat', component: ChatComponent, canActivate: [authGuard] },
+  { path: 'ExpertStats', component: ExpertStatsComponent, canActivate: [authGuard]},
 
 
   // Wildcard

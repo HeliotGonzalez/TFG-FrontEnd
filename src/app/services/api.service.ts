@@ -174,5 +174,9 @@ export class ApiService {
   sendChatMessage(from: number, to: number, text: string) {
     return this.http.post(`${this.apiUrl}/sendMessage`, { from, to, text });
   }
+
+  getExpertStatData(){
+    return this.http.get(`${this.apiUrl}/getExpertStatData`);
+  }
     
 }
