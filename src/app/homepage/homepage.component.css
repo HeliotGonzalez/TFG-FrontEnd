@@ -1,4 +1,3 @@
-
 .main{
     background-color: #F6E6B2;
     background-image: url(/Pollito2.png);
@@ -65,13 +64,12 @@
     border-radius: 10px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  
-    &:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
-  }
-  
+}
+.option-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 .icon-img {
   width: 40px;
   height: 40px;
@@ -95,4 +93,77 @@
 .alfabeto{
     text-decoration: none;
     color: inherit;
+}
+/* --------  Tablets (<992 px)  -------- */
+@media (max-width: 991.98px){
+  .main--div{
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+  .main__img--div{
+      margin: 2em 0 0 0;
+      width: 70%;
+      height: auto;
+  }
+  .main--div3{
+      margin: 3em auto 0 auto;
+  }
+}
+
+/* --------  Móviles (<768 px)  -------- */
+@media (max-width: 767.98px){
+  /* Elimina el “desbordamiento” lateral */
+  .main{
+      width: 100% !important; 
+      margin-left: 0;
+      margin-right: 0;
+      background-position: center top;
+  }
+
+  .main__p--div,
+  .main__p--div4{
+      font-size: 1.35em;
+      margin-left: .5em;
+      max-width: 100%;
+  }
+
+  #Title{
+      margin-top: 1.5em;
+  }
+
+  /* Tarjetas en bloque */
+  .option-card{
+      width: 100%;
+  }
+
+  /* Contenedores sin bordes redondos en móvil */
+  .fondo{
+      border-radius: 0;
+  }
+
+  /* === Buscador === */
+  .main--div3{
+      width: 100%;
+      padding: 0 1rem;
+      margin-left: 0;
+  }
+  .main--div3 app-searching-bar{
+      display: block;  
+      width: 90%;
+      max-width: 320px; 
+      margin: 0 auto; 
+  }
+}
+
+/* --------  Móviles muy pequeños (<576 px)  -------- */
+@media (max-width: 575.98px){
+  .main__img--div{
+      width: 90%;
+  }
+  /* Buscador ocupa casi todo pero sin pegarse al borde */
+  .main--div3 app-searching-bar{
+      width: 95%;
+      max-width: none;
+  }
 }

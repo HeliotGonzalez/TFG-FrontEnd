@@ -1,8 +1,5 @@
-<br>
-<br>
-<br>
-<br>
 <body>
+    <br><br><br>
     <main class="main" style="width: 100.8%;">
         <br>
         <div class="main--div">
@@ -23,19 +20,17 @@
             <app-searching-bar (searchResults)="onSearchResults($event)" styleVariant="main__input--div3"></app-searching-bar>
         </div>
 
-        <br>
-        <br><br>
+        <br><br><br>
     </main>
+
     <div class="explorar-section">
         <div class="container-fluid mt-4 fondo">
             <h5 class="fw-bold fs-2">Explorar</h5>
             <div class="d-flex justify-content-start flex-wrap gap-3">
-                <a class='alfabeto' routerLink="/alphabetical">
-                    <div class="card text-center p-3 option-card">
-                        <i class="bi bi-sort-alpha-down fs-2 text-secondary"></i>
-                        <p class="mt-2">Buscar por orden alfabético</p>
-                    </div>
-                </a>
+                <div class="card text-center p-3 option-card alfabeto" routerLink="/alphabetical">
+                    <i class="bi bi-sort-alpha-down fs-2 text-secondary"></i>
+                    <p class="mt-2">Buscar por orden alfabético</p>
+                </div>
 
                 <div class="card text-center p-3 option-card" routerLink="/themes">
                     <i class="bi bi-chat-quote-fill fs-2 text-secondary"></i>
@@ -59,6 +54,7 @@
             </div>
         </div>
     </div>
+
     <div class="estudiante-section">
         <div class="container-fluid mt-4 fondo">
             <h5 class="fw-bold fs-2">Estudiante</h5>
@@ -88,12 +84,12 @@
                         <i class="bi bi-camera-video fs-2 text-success"></i>
                         <i class="bi bi-check2-circle fs-5 text-success"></i>
                     </div>
-
                     <p class="mt-2">Ver mis vídeos corregidos</p>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="experto-section">
         <div class="container-fluid mt-4 fondo">
             <h5 class="fw-bold fs-2">Experto</h5>

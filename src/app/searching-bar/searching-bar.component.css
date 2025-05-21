@@ -1,28 +1,51 @@
-.main__input--div3{
-    width: 991px;
-    height: 56px;
-    border-radius: 20px;
-    font-size: 1.5em;
-    padding-left: 0.75em;
-    box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.75);
-    border: none;
+.main--div3 form {
+  position: relative;
+  width: 100%;
+  max-width: 991px;
+  margin: 0 auto;
 }
 
-.main__input--div2{
-    width: 991px;
-    height: 56px;
-    border-radius: 20px;
-    font-size: 1.5em;
-    padding-left: 0.75em;
-    box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.75);
-    border: none;
-    margin-left: 18em;
+/* Input ocupa todo el contenedor */
+.main__input--div3,
+.main__input--div2 {
+  width: 100%;
+  height: 56px;
+  border-radius: 20px;
+  font-size: 1.5em;
+  padding: 0 0.75em;
+  padding-right: 3em;
+  box-shadow: 4px 4px 4px rgba(0,0,0,0.75);
+  border: none;
+  box-sizing: border-box;
 }
 
-.lupita{
-    font-size: 2em;
-    color: #0A6847;
+/* Icono */
+.lupita {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2em;
+  color: #0A6847;
+  cursor: pointer;
+}
 
-    margin-left: -1.5em;
-    margin-top: 0.1em;
+@media (min-width: 992px) {
+  .main--div3 form {
+    max-width: 991px;
+    margin: 3em 0 0 0em;
+  }
+}
+
+/* --------  Tablets y móviles  -------- */
+@media (max-width: 991.98px) {
+  .main--div3 form {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .main--div3 form {
+    max-width: 320px;
+  }
 }

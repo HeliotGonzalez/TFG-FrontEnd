@@ -32,4 +32,49 @@
 body {
     overflow-x: hidden;
 }
+
+/* ——— Mobile/Tablet: wrap y ancho automático ——— */
+@media (max-width: 991.98px) {
+  .palabras .d-flex.flex-nowrap {
+    flex-wrap: wrap !important;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .palabras .d-flex.flex-nowrap > .p-1 {
+    flex: 0 1 auto;
+  }
+  .palabras .card-hover {
+    width: auto !important;
+    min-width: 40px;
+    max-width: 51px;
+    padding: 0.3rem 0;
+  }
+  @media (max-width: 576px) {
+    .palabras .card-title {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+/* ——— Desktop (≥992px): volver al estado original ——— */
+@media (min-width: 992px) {
+  .palabras .d-flex.flex-nowrap {
+    flex-wrap: nowrap !important;
+    justify-content: center; 
+  }
+  .palabras .d-flex.flex-nowrap > .p-1 {
+    flex: 0 0 auto;
+  }
+  .palabras .card-hover {
+    width: 51px !important;
+    min-width: unset;
+    max-width: unset;
+    padding: 0;
+  }
+  .palabras .card-title {
+    font-size: 1rem;
+  }
+}
+
+
   
