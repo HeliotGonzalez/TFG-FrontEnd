@@ -29,6 +29,7 @@ import { ExpertStatsComponent } from './expert-stats/expert-stats.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ColaborateComponent } from './colaborate/colaborate.component';
 import { SendSuggestionComponent } from './send-suggestion/send-suggestion.component';
+import { AyudaComponent } from './ayuda/ayuda.component';
 
 export const routes: Routes = [
   // Rutas públicas sólo para invitados
@@ -47,6 +48,7 @@ export const routes: Routes = [
   { path: 'AboutUs',          component: AboutUsComponent },
   { path: 'colaborate',          component: ColaborateComponent },
   { path: 'sendSuggestion',          component: SendSuggestionComponent },
+  { path: 'help',                 component: AyudaComponent },
 
 
   // Rutas que requieren estar autenticado

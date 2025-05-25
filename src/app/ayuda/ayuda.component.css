@@ -1,0 +1,41 @@
+/* Hero */
+.help-hero {
+  height: 35vh;
+  background: url('/assets/help-hero.jpg') center/cover no-repeat;
+  position: relative;
+}
+.help-hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+.help-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fondo general */
+.help-page {
+  background-color: #f6e6b2;
+}
+
+/* Estilos FAQ */
+.accordion-button {
+  font-weight: 600;
+}
+.accordion-button:not(.collapsed) {
+  color: #0a6847;
+  background-color: #d0ecd9;
+}
+
+/* Búsqueda */
+input.form-control {
+  border-radius: 50px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  .help-hero {
+    height: 25vh;
+  }
+}
