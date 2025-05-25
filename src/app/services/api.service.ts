@@ -178,5 +178,9 @@ export class ApiService {
   getExpertStatData(){
     return this.http.get(`${this.apiUrl}/getExpertStatData`);
   }
+
+  sendSuggestion(suggestion: string){
+    return this.http.post(`${this.apiUrl}/sendSuggestion`, { suggestion });
+  }
     
 }

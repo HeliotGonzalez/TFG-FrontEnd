@@ -1,0 +1,48 @@
+<div class="suggestions-page d-flex flex-column min-vh-100">
+    <br><br>
+    <section class="suggestions-hero text-white d-flex align-items-center justify-content-center">
+        <div class="overlay"></div>
+        <div class="container position-relative text-center">
+            <h1 class="display-6 fw-bold mb-2">¿Tienes una idea?</h1>
+            <p class="lead mb-0">Cuéntanos cómo mejorar la plataforma.</p>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <main class="flex-grow-1 py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-4">
+                            <h2 class="h5 mb-3 text-center">Envía tu sugerencia</h2>
+                            <form [formGroup]="suggestionForm" (ngSubmit)="onSubmit()" novalidate>
+                                <div class="mb-3">
+                                <label for="content" class="form-label">Tu sugerencia</label>
+                                <textarea id="content" class="form-control" rows="5" formControlName="content" placeholder="Escribe aquí tu idea..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-success w-100" [disabled]="suggestionForm.invalid || loading">
+                                    <ng-container *ngIf="!loading; else spinner">Enviar sugerencia</ng-container>
+                                </button>
+                                <ng-template #spinner>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                </ng-template>
+                            </form>
+                        </div>
+                    </div>
+
+                <!-- FAQ / instrucciones -->
+                <section class="mt-5 text-muted small">
+                    <h3 class="h6">¿Qué sucede después?</h3>
+                    <ol class="ps-3 mb-3">
+                    <li>Revisamos tu idea.</li>
+                    <li>Evaluamos su impacto y factibilidad.</li>
+                    <li>Si procede, la añadimos a nuestra hoja de ruta.</li>
+                    </ol>
+                </section>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
