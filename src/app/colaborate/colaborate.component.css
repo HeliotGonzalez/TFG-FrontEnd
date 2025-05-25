@@ -1,7 +1,6 @@
 .colaborar-wrapper {
-  background-color: #F6E6B2;
+  background-color: #7d7559;
   max-height: 60em;
-
 }
 
 .colaborar-wrapper .card {
@@ -17,11 +16,11 @@
   border-radius: 50px;
 }
 .collaborative-btn:hover {
-  background-color: #0a5a3d;
+  background-color: #F6E6B2;
 }
 
 .orgs-collab {
-  background-color: #0a5a3d;
+  background-color: #F6E6B2;
 }
 .orgs-collab .card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;

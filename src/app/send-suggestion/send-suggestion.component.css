@@ -1,6 +1,5 @@
 .suggestions-hero {
   height: 35vh;
-  background: url('/assets/suggestions-hero.jpg') center/cover no-repeat;
   position: relative;
 }
 .suggestions-hero .overlay {
@@ -13,11 +12,9 @@
   z-index: 1;
 }
 
-/* Page background */
 .suggestions-page {
   background-color: #F6E6B2;
 }
-
 
 textarea { resize: vertical; }
 
