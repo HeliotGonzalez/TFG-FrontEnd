@@ -27,6 +27,7 @@ import { guestGuard } from './guards/guest.guard';
 import { ChatComponent } from './chat/chat.component';
 import { ExpertStatsComponent } from './expert-stats/expert-stats.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { ColaborateComponent } from './colaborate/colaborate.component';
 
 export const routes: Routes = [
   // Rutas públicas sólo para invitados
@@ -43,6 +44,8 @@ export const routes: Routes = [
   { path: 'recentlyUploaded', component: RecentlyUploadedComponent },
   { path: 'themes',          component: ThemesComponent },
   { path: 'AboutUs',          component: AboutUsComponent },
+  { path: 'colaborate',          component: ColaborateComponent },
+
 
   // Rutas que requieren estar autenticado
   { path: 'word-register',   component: WordRegisterComponent,   canActivate: [authGuard] },
