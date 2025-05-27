@@ -1,7 +1,7 @@
 .header {
   margin-top: -0.5em;
   margin-right: -0.5em;
-  margin-left: -1.5em;
+  margin-left: -3.5em;
   height: 4.8em;
   padding: 22px;
   border-bottom: 2px solid #000;
@@ -115,6 +115,12 @@
   cursor: pointer;
 }
 
+.lupita {
+  font-size: 1.45em;
+  color: #0A6847;
+  cursor: pointer;
+}
+
 /* ——— MÓVIL (≤768px) ——— */
 @media (max-width: 915px) {
   .hamburger {
@@ -126,6 +132,12 @@
     z-index: 1001;
   }
 
+  .lupita {
+    margin-left: 4em;
+    font-size: 1.45em;
+    color: #0A6847;
+    cursor: pointer;
+  }
   .header--nav {
     display: none;
     flex-direction: column;
@@ -138,6 +150,7 @@
     padding: 1rem 0;
     margin-right: 0; 
   }
+
   .header--nav.open {
     display: flex;
     transform: translateY(0);

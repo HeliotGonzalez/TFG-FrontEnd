@@ -8,6 +8,9 @@
     <li class="header--h1__nav" id="name">
       <a class="header--a__li" (click)="goTo('homepage')">Nombre de la página</a>
     </li>
+
+    <i class="bi bi-search lupita" style="cursor: pointer;" (click)="search()"></i>
+
     <li class="header--h1__nav" (click)="goTo('AboutUs')" [ngClass]="{ 'active': activeRoute === 'AboutUs' }" style="cursor: pointer;"><a>Sobre Nosotros</a></li>
     <li class="header--h1__nav" (click)="goTo('colaborate')" [ngClass]="{ 'active': activeRoute === 'colaborate' }" style="cursor: pointer;"><a>Colaborar</a></li>
     <li class="header--h1__nav" (click)="goTo('sendSuggestion')" [ngClass]="{ 'active': activeRoute === 'sendSuggestion' }" style="cursor: pointer;"><a>Enviar Sugerencias</a></li>

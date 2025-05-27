@@ -30,6 +30,12 @@ export class HeaderComponent {
     this.menuOpen = false;
   }
 
+  search(){
+    this.router.navigate(['/words-by-search']);
+    this.dropdownOpen = false;
+    this.menuOpen = false;
+  }
+
   openDropdown(event: Event): void {
     event.preventDefault();
     event.stopPropagation();

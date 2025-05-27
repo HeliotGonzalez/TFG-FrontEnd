@@ -15,7 +15,6 @@ export class HomepageComponent {
   constructor(private router: Router) {}
 
   onSearchResults(words: any[]): void {
-    // Redirigimos al componente 'words-by-search' con state
     this.router.navigate(['/words-by-search'], { state: { words } });
   }
 }

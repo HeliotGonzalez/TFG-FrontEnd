@@ -39,7 +39,6 @@ export class SearchingBarComponent {
           }
           return word;
         });
-        // Emitimos los resultados para el componente padre
         this.searchResults.emit(this.words);
       },
       error: (error: any) => {
