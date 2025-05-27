@@ -23,7 +23,7 @@ export class ChekingVideosComponent implements OnInit, AfterViewInit  {
   constructor(private videoManager: VideoManagerService, private apiService: ApiService) { }
 
   ngOnInit(): void {
-      this.videoManager.getVideosUncorrected().subscribe({
+      this.videoManager.getVideosUncorrected(this.videoManager.ensureAuthenticated()).subscribe({
         next: (response: Video[]) => {
           this.videos = response;
         },

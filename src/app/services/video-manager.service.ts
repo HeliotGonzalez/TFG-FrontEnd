@@ -63,8 +63,8 @@ export class VideoManagerService {
     return this.handleVideosStream(stream$, 'testYourself');
   }
 
-  getVideosUncorrected(): Observable<Video[]> {
-    const stream$ = this.apiService.getVideosUncorrected();
+  getVideosUncorrected(userId: number): Observable<Video[]> {
+    const stream$ = this.apiService.getVideosUncorrected(userId);
     return this.handleVideosStream(stream$, 'getVideosUncorrected');
   }
 

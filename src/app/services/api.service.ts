@@ -102,8 +102,8 @@ export class ApiService {
     return this.http.get<string[]>(`${this.apiUrl}/getTags`);
   }
 
-  getVideosUncorrected(){
-    return this.http.get(`${this.apiUrl}/getVideosUncorrected`);
+  getVideosUncorrected(userID: number){
+    return this.http.get(`${this.apiUrl}/getVideosUncorrected/${userID}`);
   }
 
   correctVideo(data: { videoId: number, action: 'accept' | 'deny', comment: string }) {
