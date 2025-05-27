@@ -6,20 +6,15 @@
   <!-- ahora el nav recibe la clase `.open` cuando menuOpen = true -->
   <nav class="header--nav" [class.open]="menuOpen">
     <li class="header--h1__nav" id="name">
-      <a class="header--a__li" routerLink="/homepage">Nombre de la página</a>
+      <a class="header--a__li" (click)="goTo('homepage')">Nombre de la página</a>
     </li>
-    <li class="header--h1__nav" routerLink="/AboutUs"><a class="header--a__li">Sobre Nosotros</a></li>
-    <li class="header--h1__nav" routerLink="/colaborate" style="cursor: pointer;"><a>Colaborar</a></li>
-    <li class="header--h1__nav" routerLink="/sendSuggestion" style="cursor: pointer;"><a>Enviar Sugerencias</a></li>
-    <li class="header--h1__nav" routerLink="/help" style="cursor: pointer;"><a>Ayuda</a></li>
+    <li class="header--h1__nav" (click)="goTo('AboutUs')" [ngClass]="{ 'active': activeRoute === 'AboutUs' }" style="cursor: pointer;"><a>Sobre Nosotros</a></li>
+    <li class="header--h1__nav" (click)="goTo('colaborate')" [ngClass]="{ 'active': activeRoute === 'colaborate' }" style="cursor: pointer;"><a>Colaborar</a></li>
+    <li class="header--h1__nav" (click)="goTo('sendSuggestion')" [ngClass]="{ 'active': activeRoute === 'sendSuggestion' }" style="cursor: pointer;"><a>Enviar Sugerencias</a></li>
+    <li class="header--h1__nav" (click)="goTo('help')" [ngClass]="{ 'active': activeRoute === 'help' }" style="cursor: pointer;"><a>Ayuda</a></li>
 
-    <li
-      class="header--h1__nav user"
-      *ngIf="(authService.currentUser$ | async) as user; else noUser"
-    >
-      <a class="header--a__li" id="Perfil" (click)="openDropdown($event)">
-        Perfil ▾
-      </a>
+    <li class="header--h1__nav user" *ngIf="(authService.currentUser$ | async) as user; else noUser">
+      <a class="header--a__li" id="Perfil" (click)="openDropdown($event)">Perfil ▾</a>
       <ul class="dropdown-menu" [class.show]="dropdownOpen">
         <li><a [routerLink]="['/profile', userID]">Ver Perfil</a></li>
         <li><a routerLink="/chat">Mensajes</a></li>

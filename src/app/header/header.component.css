@@ -108,6 +108,13 @@
   border-radius: 2px;
 }
 
+.header--h1__nav.active {
+  border-bottom: 2px solid #0a5a3d;
+  text-decoration: none;
+  color: #0a5a3d;
+  cursor: pointer;
+}
+
 /* ——— MÓVIL (≤768px) ——— */
 @media (max-width: 915px) {
   .hamburger {
