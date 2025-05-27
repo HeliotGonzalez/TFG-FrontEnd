@@ -1,58 +1,48 @@
 <body>
-    <br><br><br>
+    <br><br>
     <!-- ======= MISIÓN ======= -->
-    <section class="d-flex justify-content-center mission py-5">
+    <section class="d-flex justify-content-center mission py-5" style="background-color: #7d7559;">
         <div class="container">
             <div class="row align-items-center text-center">
-                <h2 class="mb-3">Nuestra Misión</h2>
-                <p>
-                    Queremos derribar las barreras del lenguaje creando un espacio colaborativo en el que tanto a personas sordas como oyentes,  
-                    puedan aprender, enseñar y compartir la lengua de signos. 
-                    Aquí, cada palabra aportada y cada vídeo subido acercan un mundo más conectado, sin prejuicios ni limitaciones.
-                </p>
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <img src="mision.png" alt="Misión Lengua de Signos" class="img-fluid rounded shadow" style="width: 250px; height: 250px; object-fit: cover;">
+                </div>
+                <div class="col-12 col-md-8">
+                    <h2 class="mb-3 text-white">Nuestra Misión</h2>
+                    <p class="text-white">
+                        Queremos derribar las barreras del lenguaje creando un espacio colaborativo en el que tanto a personas sordas como oyentes,  
+                        puedan aprender, enseñar y compartir la lengua de signos. 
+                        Aquí, cada palabra aportada y cada vídeo subido acercan un mundo más conectado, sin prejuicios ni limitaciones.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ======= VISIÓN ======= -->
-    <section class="d-flex justify-content-center vision bg-light py-5">
+    <section class="d-flex justify-content-center vision py-5" style="background-color: #F6E6B2;">
         <div class="container">
-            <div class="row align-items-center text-center">
-
-                <h2 class="mb-3">Nuestra Visión</h2>
-                <p>
-                    Nuestra visión es crear un espacio donde sordos y oyentes se entiendan con naturalidad, sin barreras ni complicaciones. 
-                    Un lugar abierto, cercano y colaborativo, en el que cada persona se sienta bienvenida.
-                </p>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ======= EQUIPO ======= -->
-    <section class="d-flex justify-content-center team py-5">
-        <div class="container text-center">
-            <h2 class="mb-4">Conoce al Equipo</h2>
-            <div class="row justify-content-center">
-                <div class="col-6 col-sm-4 col-md-3 mb-4" *ngFor="let member of this.members">
-                    <img [src]="member.avatar" alt="Nombre" class="rounded-circle team-img mb-2">
-                    <h5 class="mb-1">{{ member.name }}</h5>
-                    <p class="text-muted">{{ member.role }}</p>
+            <div class="row align-items-center text-center flex-md-row-reverse">
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <img src="vision.png" alt="Visión Comunidad" class="img-fluid rounded shadow" style="width: 250px; height: 250px; object-fit: cover;">
+                </div>
+                <div class="col-12 col-md-8">
+                    <h2 class="mb-3">Nuestra Visión</h2>
+                    <p>
+                        Nuestra visión es crear un espacio donde sordos y oyentes se entiendan con naturalidad, sin barreras ni complicaciones. 
+                        Un lugar abierto, cercano y colaborativo, en el que cada persona se sienta bienvenida.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ======= Llamada a la acción ======= -->
-    <section class="d-flex justify-content-center cta text-white text-center py-5" style="background-color: #F6E6B2;">
+    <section class="d-flex justify-content-center cta text-white text-center py-5" style="background-color: #7d7559;">
         <div class="container">
-            <h2 class="mb-3 text-dark fw-bold">¡Únete a Nuestra Comunidad!</h2>
-            <p class="mb-4 text-dark fw-bold">Empieza a participar, compartir y aprender lengua de signos hoy mismo.</p>
+            <h2 class="mb-3 text-dark fw-bold text-white">¡Únete a Nuestra Comunidad!</h2>
+            <p class="mb-4 text-dark fw-bold text-white">Empieza a participar, compartir y aprender lengua de signos hoy mismo.</p>
             <button class="btn btn-success btn-lg p-2" routerLink="/login">Regístrate</button>
         </div>
     </section>
-
-    <footer class="text-center py-4">
-        <p class="mb-0">&copy; 2025 Nombre de la Página. Todos los derechos reservados.</p>
-    </footer>
 </body>
