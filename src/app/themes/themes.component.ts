@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Video } from '../models/video';
 import { VideoManagerService } from '../services/video-manager.service';
 import { VideoListComponent } from '../video-list/video-list.component';
 import { ApiService } from '../services/api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-themes',
@@ -13,6 +14,8 @@ import { ApiService } from '../services/api.service';
   styleUrl: './themes.component.css'
 })
 export class ThemesComponent implements OnInit, AfterViewInit {
+  @Input() initialTag?: string; 
+
   tagsFromApi: string[] = [];
   tags: string[] = [];
   videos: Video[] = [];
@@ -20,14 +23,24 @@ export class ThemesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private videoService: VideoManagerService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getTagsFromApi().subscribe({
-      next: (response: string[]) => (this.tagsFromApi = response),
-      error: (err) => console.error('Error al obtener las etiquetas:', err)
-    });
+      this.apiService.getTagsFromApi().subscribe({
+        next: (response: string[]) => (this.tagsFromApi = response),
+        error: (err) => console.error('Error al obtener las etiquetas:', err)
+      });
+
+    
+    const paramTag = this.route.snapshot.paramMap.get('tag');
+
+    const seedTag = paramTag?.trim() || this.initialTag?.trim();
+    if (seedTag) {
+      this.tags = [seedTag];
+      this.getVideosFromApi(this.tags);
+    }
   }
 
   ngAfterViewInit(): void {

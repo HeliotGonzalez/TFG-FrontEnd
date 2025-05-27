@@ -26,7 +26,7 @@
                                 <div class="col d-flex align-items-center">
                                     <strong class="me-2">Etiquetas:</strong>
                                     @for(etiqueta of video.etiquetas; track etiqueta.nombre) {
-                                        <span class="badge bg-light text-dark border border-secondary me-1">
+                                        <span class="badge bg-light text-dark border border-secondary me-1" (click)="navigateToTheme(etiqueta.nombre)" style="cursor: pointer;">
                                             {{ etiqueta.nombre }}
                                         </span>
                                     }

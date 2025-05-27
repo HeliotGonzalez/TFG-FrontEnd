@@ -45,6 +45,7 @@ export const routes: Routes = [
   { path: 'videoLoader',     component: VideoDisplayerComponent },
   { path: 'recentlyUploaded', component: RecentlyUploadedComponent },
   { path: 'themes',          component: ThemesComponent },
+  { path: 'themes/:tag',          component: ThemesComponent },
   { path: 'AboutUs',          component: AboutUsComponent },
   { path: 'colaborate',          component: ColaborateComponent },
   { path: 'sendSuggestion',          component: SendSuggestionComponent },

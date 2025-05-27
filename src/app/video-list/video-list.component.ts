@@ -209,6 +209,10 @@ export class VideoListComponent {
     return;
   }
 
+  navigateToTheme(tag: string) {
+    this.router.navigate(['/themes', tag]);
+  }
+
   goToUserProfile(name: string){
     this.apiService.getUserDataByName(name, this.videoManager.ensureAuthenticated()).subscribe({
       next: (response: any) => {
