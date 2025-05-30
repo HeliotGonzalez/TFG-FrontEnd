@@ -189,6 +189,11 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.notifications = this.notifications.filter(x => x !== request);
   }
 
+  goToChat(chat: Notification){
+    this.router.navigate(['/chat'], { state: { chatWith: chat.from, chatWithName: chat.fromName } });
+    this.dismissA(chat);
+  }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }

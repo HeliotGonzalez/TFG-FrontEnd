@@ -67,6 +67,10 @@
                           {{ chat.payload.text }}
                         </div>
 
+                        <button class="btn btn-sm btn-outline-secondary" (click)="goToChat(chat)">
+                          <i class="bi bi-eye"></i>
+                        </button>
+
                         <button class="btn btn-sm btn-outline-secondary" (click)="dismissA(chat)">
                           <i class="bi bi-x"></i>
                         </button>

@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
 import { ApiService } from '../services/api.service';
 import { WebsocketService } from '../services/websocket-service.service';
 import { VideoManagerService } from '../services/video-manager.service';
 import { User } from '../services/auth-service.service';
 import { Message, UserToMessage} from '../models/message';
+import { Router } from '@angular/router';
 
 interface CachedUserMeta {
   name: string;
@@ -23,6 +23,7 @@ interface CachedUserMeta {
 })
 export class ChatComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
+  private pendingSelectId?: number;
   me = -1;
   searchText = '';
   conversations = new Map<number, Message[]>();
@@ -55,8 +56,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     return filtered;
   }
 
-  constructor(private ws: WebsocketService, private api: ApiService, private vm: VideoManagerService) {
+  constructor(private ws: WebsocketService, private api: ApiService, private vm: VideoManagerService, private router: Router, private location: Location) {
     this.me = this.vm.ensureAuthenticated();
+    const navState = (this.router.getCurrentNavigation()?.extras.state || this.location.getState()) as
+      { chatWith?: number; chatWithName?: string };
+
+    if (navState?.chatWith) {
+      this.pendingSelectId = navState.chatWith;
+      if (navState.chatWithName) {
+        this.usersMeta[navState.chatWith] = { name: navState.chatWithName };
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -74,6 +84,11 @@ export class ChatComponent implements OnInit, OnDestroy {
       next: (friends: any) => {
         this.friends = friends;
         friends.forEach((u: User) => (this.usersMeta[u.id] = { name: u.name }));
+
+        if (this.pendingSelectId && friends.some((f: User) => f.id === this.pendingSelectId)) {
+          this.selectChat(this.pendingSelectId);
+          this.pendingSelectId = undefined;
+        }
       },
       error: err => console.error('Error cargando amigos', err)
     });
