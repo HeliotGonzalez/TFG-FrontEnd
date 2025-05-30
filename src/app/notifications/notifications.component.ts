@@ -5,8 +5,9 @@ import { VideoManagerService } from '../services/video-manager.service';
 import { ApiService } from '../services/api.service';
 import { Notification } from '../models/notification';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd} from '@angular/router';
 import { FriendServiceService } from '../services/friend-service.service';
+import { EMPTY, filter, map, startWith, switchMap, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-notifications',
@@ -50,42 +51,34 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Buscar por peticiones antiguas
     this.getUnacceptedFriendRequests();
-
-    // Escuchar nuevas peticiones en tiempo real
     this.getIncomingFriendRequests();
-
-    // Escuchar por peticiones acpetadas
     this.getAcceptedFriendRequests();
-
-    // Comprueba que se haya aceptado nada desde el perfil
     this.checkAcceptViaProfile();
-
-    // Compruba que se haya rechazado vía perfil
     this.checkDenyViaProfile();
-
-    // Comprueba mensajes entrantes
     this.checkRealTimeMessages();
   }
 
   checkRealTimeMessages() {
     this.sub.add(
-      this.ws.onChatMessage(this.me).subscribe(chat => {
+      this.router.events.pipe(startWith(null as unknown as NavigationEnd), filter(ev => ev === null || ev instanceof NavigationEnd),
+        map(() => !this.router.url.startsWith('/chat')),
+        distinctUntilChanged(),
+        switchMap(shouldNotify => shouldNotify
+            ? this.ws.onChatMessage(this.me)   
+            : EMPTY
+        )
+      ).subscribe(chat => {
         const otherId = chat.from === this.me ? chat.to : chat.from;
-
         this.apiService.getUserData(otherId, this.me).subscribe({
-          next: (res: any) => {
-            this.notifications.push({
-              type: 'chat',
-              from: otherId,
-              fromName: res.user.name,
-              payload: { text: chat.text },
-              extraData: res
-            });
-          },
-          error: err =>
-            console.log('Error fetching user data for chat notification:', err)
+          next: (res: any) => this.notifications.push({
+            type: 'chat',
+            from: otherId,
+            fromName: res.user.name,
+            payload: { text: chat.text },
+            extraData: res
+          }),
+          error: err => console.error('Error fetching user data:', err)
         });
       })
     );
