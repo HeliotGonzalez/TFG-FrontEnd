@@ -182,5 +182,8 @@ export class ApiService {
   sendSuggestion(suggestion: string){
     return this.http.post(`${this.apiUrl}/sendSuggestion`, { suggestion });
   }
-    
+
+  getUnseenVideosCorrected(userID: number){
+    return this.http.get(`${this.apiUrl}/getUnseenVideosCorrected/${userID}`);
+  }
 }

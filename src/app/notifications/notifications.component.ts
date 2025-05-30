@@ -5,7 +5,7 @@ import { VideoManagerService } from '../services/video-manager.service';
 import { ApiService } from '../services/api.service';
 import { Notification } from '../models/notification';
 import { CommonModule } from '@angular/common';
-import { Router, NavigationEnd} from '@angular/router';
+import { Router, NavigationEnd, RouterModule} from '@angular/router';
 import { FriendServiceService } from '../services/friend-service.service';
 import { EMPTY, filter, map, startWith, switchMap, distinctUntilChanged } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { EMPTY, filter, map, startWith, switchMap, distinctUntilChanged } from '
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
   me: number = -1;
@@ -50,6 +50,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     return this.notifications.filter(n => n.type === 'chat');
   }
 
+  get videosCorrected() {
+    return this.notifications.filter(n => n.type === 'VIDEO_CORRECTED');
+  }
+
   ngOnInit(): void {
     this.getUnacceptedFriendRequests();
     this.getIncomingFriendRequests();
@@ -57,8 +61,51 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.checkAcceptViaProfile();
     this.checkDenyViaProfile();
     this.checkRealTimeMessages();
+    this.getRealTimeVideoCorrected();
+    this.getUnseenVideosCorrected();
   }
 
+  getUnseenVideosCorrected(){
+    this.apiService.getUnseenVideosCorrected(this.me).subscribe({
+      next: (response: any) => {
+        if (response && response.length > 0){
+          console.log('Unseen videos corrected:', response);
+          this.notifications.push({
+            type: 'VIDEO_CORRECTED',
+            from: this.me,
+            fromName: '',
+            payload: { },
+            extraData: ''
+          });
+        }
+      },
+      error: (err: any) => {
+        console.error('Error fetching unseen videos corrected:', err);
+      }
+    });
+  }
+
+  getRealTimeVideoCorrected(){
+    this.sub.add(
+      this.ws.onVideoCorrected(this.me).subscribe((video: any) => {
+        const userId = video.user_id ?? video.from ?? video.userId;
+        const videoId = video.id ?? video.videoId;
+        this.apiService.getUserData(userId, this.me).subscribe({
+          next: (res: any) => {
+            this.notifications.push({
+              type: 'VIDEO_CORRECTED',
+              from: userId,
+              fromName: res.user.name,
+              payload: { videoId: videoId, status: video.status },
+              extraData: res
+            });
+          },
+          error: err => console.error('Error fetching user data:', err)
+        });
+      })
+    );
+  }
+  
   checkRealTimeMessages() {
     this.sub.add(
       this.router.events.pipe(startWith(null as unknown as NavigationEnd), filter(ev => ev === null || ev instanceof NavigationEnd),
@@ -187,6 +234,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   dismissA(request: any) {
     this.notifications = this.notifications.filter(x => x !== request);
+  }
+
+  deleteVideoCorrected(){
+    this.notifications = this.notifications.filter(n => n.type !== 'VIDEO_CORRECTED');
   }
 
   goToChat(chat: Notification){

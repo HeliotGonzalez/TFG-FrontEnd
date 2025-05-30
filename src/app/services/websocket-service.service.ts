@@ -97,6 +97,13 @@ export class WebsocketService implements OnDestroy {
     );
   }
 
+  public onVideoCorrected(me: number): Observable<FriendRequest> {
+    return this.messages$.pipe(
+      filter(msg => msg.type === 'video-corrected' && msg.to === me),
+      map(msg => ({from: msg.from, status: msg.status}))
+    );
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
