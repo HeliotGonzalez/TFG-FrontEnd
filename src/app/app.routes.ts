@@ -30,6 +30,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { ColaborateComponent } from './colaborate/colaborate.component';
 import { SendSuggestionComponent } from './send-suggestion/send-suggestion.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
+import { DailyChallengeComponent } from './daily-challenge/daily-challenge.component';
 
 export const routes: Routes = [
   // Rutas públicas sólo para invitados
@@ -59,6 +60,7 @@ export const routes: Routes = [
   { path: 'study',           component: StudyComponent,           canActivate: [authGuard] },
   { path: 'flashcards',      component: FlashccardsComponent,     canActivate: [authGuard] },
   { path: 'personalQuizz',   component: PersonalQuizzComponent,    canActivate: [authGuard] },
+  { path: 'dailyChallenge',   component: DailyChallengeComponent,    canActivate: [authGuard] },
   { path: 'checkingVideo',   component: ChekingVideosComponent,   canActivate: [authGuard] },
   { path: 'myVideosCorrected', component: MyVideosCorrectedComponent, canActivate: [authGuard] },
   { path: 'wordRequested',   component: WordsRequiredComponent,    canActivate: [authGuard] },

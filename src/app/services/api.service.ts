@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DailyChallengeItem } from '../daily-challenge-item';
 
 @Injectable({
   providedIn: 'root'
@@ -185,5 +186,17 @@ export class ApiService {
 
   getUnseenVideosCorrected(userID: number){
     return this.http.get(`${this.apiUrl}/getUnseenVideosCorrected/${userID}`);
+  }
+
+  getDailyChallenge(): Observable<DailyChallengeItem[]> {
+    return this.http.get<DailyChallengeItem[]>(`${this.apiUrl}/getDailyChallenge`);
+  }
+
+  checkLastDailyChallenge(userID: number) {
+    return this.http.get(`${this.apiUrl}/checkLastDailyChallenge/${userID}`);
+  }
+
+  sendResults(correctAnswers: number, userID: number){
+    return this.http.post(`${this.apiUrl}/sendResults`, { correctAnswers, userID });
   }
 }

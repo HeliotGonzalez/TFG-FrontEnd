@@ -1,11 +1,11 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { VideoManagerService } from '../services/video-manager.service';
 import { Video } from '../models/video';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-study',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './study.component.html',
   styleUrl: './study.component.css'
 })
@@ -30,13 +30,4 @@ export class StudyComponent implements AfterViewInit{
       }
     });
   }
-
-
-
-  iniciarCuestionarioDiario(){
-
-  }
-
-  
-
 }

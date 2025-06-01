@@ -69,7 +69,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.apiService.getUnseenVideosCorrected(this.me).subscribe({
       next: (response: any) => {
         if (response && response.length > 0){
-          console.log('Unseen videos corrected:', response);
           this.notifications.push({
             type: 'VIDEO_CORRECTED',
             from: this.me,

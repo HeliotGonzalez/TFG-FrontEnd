@@ -1,6 +1,6 @@
 // personal-quizz.component.ts
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Video } from '../models/video';
@@ -34,7 +34,6 @@ export class PersonalQuizzComponent implements OnInit {
   quizFinished = false;
 
   constructor(
-    private sanitizer: DomSanitizer,
     private videoManager: VideoManagerService,
     private route: ActivatedRoute
   ) {}
@@ -101,12 +100,15 @@ export class PersonalQuizzComponent implements OnInit {
   get totalQuestions(): number {
     return this.results.length;
   }
+
   get correctCount(): number {
     return this.results.filter(r => r.correct).length;
   }
+  
   get wrongCount(): number {
     return this.results.filter(r => !r.correct).length;
   }
+
   get wrongWords(): string[] {
     return this.results.filter(r => !r.correct).map(r => r.word);
   }
