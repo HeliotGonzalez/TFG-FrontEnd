@@ -81,9 +81,11 @@ export class WebsocketService implements OnDestroy {
         (+msg.to === me || +msg.from === me)
       ),
       map(msg => ({
+        id: msg.id,
         from: +msg.from,
         to:   +msg.to,
         text: msg.message,
+        read: 0,
         ts:   Number(msg.ts) || Date.now()
       }))
     );

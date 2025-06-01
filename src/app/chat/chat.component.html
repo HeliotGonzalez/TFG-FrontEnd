@@ -8,17 +8,26 @@
 
     <ul class="list-group list-group-flush flex-grow-1 overflow-auto">
       @for (last of conversationList; track last.ts) {
-        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+        <li
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
           [class.active]="selectedUserId === (last.from === me ? last.to : last.from)"
-          (click)="selectChat(last.from === me ? last.to : last.from)">
-          <div class="d-flex align-items-center">
-            <span>
-              {{ usersMeta[last.from === me ? last.to : last.from].name || '...' }}
-            </span>
+          (click)="selectChat(last.from === me ? last.to : last.from)"
+        >
+          <div>
+            {{ usersMeta[last.from === me ? last.to : last.from].name || '...' }}
           </div>
-          <small class="text-muted">
-            {{ last.text ? (last.ts | date:'shortTime') : 'Nueva conversación' }}
+
+          <!-- Hora del último mensaje -->
+          <small class="text-muted me-2">
+            {{ last.text ? (last.ts | date:'shortTime') : 'Nueva' }}
           </small>
+
+          <!-- Badge rojo con nº de no leídos -->
+           @if (unread[last.from === me ? last.to : last.from] > 0){
+            <span class="badge bg-danger rounded-pill">
+              {{ unread[last.from === me ? last.to : last.from] }}
+            </span>
+           }
         </li>
       }
     </ul>
@@ -34,9 +43,12 @@
               <div class="p-2 rounded"
                 [ngClass]="{ 'bg-primary text-white': m.from === me, 'bg-light text-dark': m.from !== me}"
                 style="max-width: 70%; word-break: break-word;">
-                <div class="small text-muted mb-1" *ngIf="m.from !== me">
-                  {{ usersMeta[m.from].name }}
-                </div>
+                @if (m.from !== me){
+                  <div class="small text-muted mb-1">
+                    {{ usersMeta[m.from].name }}
+                  </div>
+                }
+
 
                 <div>{{ m.text }}</div>
 

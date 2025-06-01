@@ -199,4 +199,8 @@ export class ApiService {
   sendResults(correctAnswers: number, userID: number){
     return this.http.post(`${this.apiUrl}/sendResults`, { correctAnswers, userID });
   }
+
+  markChatAsRead(to: number, from: number) {
+    return this.http.patch(`${this.apiUrl}/markChatAsRead`, { to, from });
+  }
 }

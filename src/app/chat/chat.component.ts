@@ -49,6 +49,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           from: this.me,
           to: f.id,
           text: '',
+          read: 1,
           ts: 0
         }));
     }
@@ -96,10 +97,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private loadConversationHistory(): void {
     this.api.getMyConversations(this.me).subscribe(rows => {
+      console.log(rows);
       rows.forEach(row => this.pushMessage({
+        id:   row.id,
         from: row.from,
         to: row.to,
         text: row.message,
+        read: row.read,
         ts: new Date(row.created_at).getTime()
       }));
     });
@@ -114,8 +118,26 @@ export class ChatComponent implements OnInit, OnDestroy {
   /** Añade un mensaje al mapa de conversaciones */
   private pushMessage(msg: Message): void {
     const other = this.getOtherUserId(msg);
-    if (!this.conversations.has(other)) this.conversations.set(other, []);
+
+    // 1) Guarda el mensaje en la conversación
+    if (!this.conversations.has(other)) {
+      this.conversations.set(other, []);
+    }
     this.conversations.get(other)!.push(msg);
+
+    // 2) Si proviene de “otro” y NO está abierto ese chat:
+    if (msg.from !== this.me && msg.read === 0 && other !== this.selectedUserId) {
+      this.unread[other] = (this.unread[other] || 0) + 1;
+      return;
+    }
+
+    // 3) Si proviene de “otro” y SÍ está abierto ese chat:
+    //    en ese caso, si read === 0, lo marcamos como leído
+    if (msg.from !== this.me && msg.read === 0 && other === this.selectedUserId) {
+      console.log('Aquí');
+      this.markRead(other);
+      return;
+    }
   }
 
   /** Devuelve el ID de la otra persona en un mensaje */
@@ -128,8 +150,27 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   /** Selección de chat */
   selectChat(userId: number): void {
-    if (!this.friends.some(f => f.id === userId)) return; // Seguridad: sólo amigos
+    if (!this.friends.some(f => f.id === userId)) return;
     this.selectedUserId = userId;
+
+    // Marca todos los no leídos con ese usuario
+    this.markRead(userId);
+  }
+
+  /** Marca como leídos todos los mensajes pendientes con userId */
+  private markRead(otherId: number): void {
+    const conv = this.conversations.get(otherId);
+    if (!conv) return;
+
+    // 1) Actualiza UI
+    conv.forEach(m => { if (m.read === 0) m.read = 1; });
+    this.unread[otherId] = 0;
+
+    // 2) Notifica al backend
+    this.api.markChatAsRead(this.me, otherId).subscribe({
+      error: err => console.error('No se pudieron marcar como leídos', err)
+    });
+    
   }
 
   /** Envío de nuevo mensaje */
@@ -142,6 +183,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       from: this.me,
       to:   this.selectedUserId,
       text,
+      read: 0,
       ts:   Date.now()
     });
 
