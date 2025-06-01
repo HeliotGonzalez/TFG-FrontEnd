@@ -28,8 +28,8 @@ export class ViewReportsComponent implements OnInit {
       });
   }
 
-  banVideo(id: number){
-    this.apiService.banVideo(id).subscribe({
+  banVideo(id: number, reportID: number){
+    this.apiService.banVideo(id, reportID).subscribe({
       next: (response: any) => {
         console.log('Video baneado:', response);
         this.reports = this.reports.filter((report: any) => report.id !== id);

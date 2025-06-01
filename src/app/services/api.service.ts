@@ -208,7 +208,7 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/getAllReports`);
   }
 
-  banVideo(id: number) {
-    return this.http.patch(`${this.apiUrl}/banVideo`, { id });
+  banVideo(id: number, reportID: number) {
+    return this.http.patch(`${this.apiUrl}/banVideo`, { id, reportID });
   }
 }
