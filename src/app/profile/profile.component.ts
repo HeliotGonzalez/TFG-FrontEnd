@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   currentUserId!: number;
   profileUserId!: number;
   beingAdded: boolean = false;
+  Nfriends: number = 0;
 
   constructor(
     private apiService: ApiService,
@@ -40,12 +41,25 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  get formattedDate(): string {
+    if (!this.userData?.created_at) return '';
+    const d = new Date(this.userData.created_at);
+    
+    return d.toLocaleDateString('es', {
+      day:   'numeric',
+      month: 'long',
+      year:  'numeric'
+    });
+  }
+
   ngOnInit(): void {
     if (this.State){
       this.apiService.getUserData(this.currentUserId, this.profileUserId).subscribe({
         next: (response: any) => {
+          console.log(response);
           this.userData = response.user;
           this.userVideos = this.videoManager.mapVideos(response.videos);
+          this.Nfriends = response.NAmigos;
           console.log(this.userVideos, this.userData);
         },
         error: (err: any) => {
