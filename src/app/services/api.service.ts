@@ -211,4 +211,8 @@ export class ApiService {
   banVideo(id: number, reportID: number) {
     return this.http.patch(`${this.apiUrl}/banVideo`, { id, reportID });
   }
+
+  hideReport(reportID: number) {
+    return this.http.patch(`${this.apiUrl}/hideReport`, { reportID });
+  }
 }

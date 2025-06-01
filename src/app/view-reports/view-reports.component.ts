@@ -39,4 +39,15 @@ export class ViewReportsComponent implements OnInit {
       }
     });
   }
+
+  hideReport(id: number){
+    this.apiService.hideReport(id).subscribe({
+      next: (response: any) => {
+        this.reports = this.reports.filter((report: any) => report.id !== id);
+      },
+      error: (error: any) => {
+        console.error('Error al banear el video:', error);
+      }
+    });
+  }
 }

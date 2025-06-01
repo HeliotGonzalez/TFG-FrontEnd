@@ -26,13 +26,18 @@
 
                         @if (report.video.user) {
                             <p class="text-muted mb-3">
-                            Vídeo subido por <em>{{ report.video.user.name }}</em>
+                                Vídeo subido por <em>{{ report.video.user.name }}</em>
                             </p>
                         }
 
                         <button class="btn btn-outline-danger btn-sm" (click)="banVideo(report.video.id, report.id)">
                             <i class="bi bi-check-circle me-1"></i>
                             Banear vídeo
+                        </button>
+
+                        <button class="btn btn-outline-primary btn-sm ms-2" (click)="hideReport(report.id)">
+                            <i class="bi bi-check-circle me-1"></i>
+                            Ocultar
                         </button>
                     </div>
                 </div>
