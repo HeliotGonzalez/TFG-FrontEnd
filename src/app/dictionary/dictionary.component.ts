@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { AuthService } from '../services/auth-service.service';
 import { Video } from '../models/video';
-import { Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AfterViewInit } from '@angular/core';
 import { VideoListComponent } from '../video-list/video-list.component';
 import { FormsModule } from '@angular/forms';
@@ -22,10 +18,10 @@ export class DictionaryComponent implements OnInit, AfterViewInit {
   userID: number = -1;
   searchTag: string = '';
   searchName: string = '';
-  sortDirection: 'asc' | 'desc' = 'desc';  // Valor por defecto (puedes cambiarlo)
+  sortDirection: 'asc' | 'desc' = 'desc';
   originalVideos: Video[] = [];
 
-  constructor(private apiService: ApiService, private videoManager: VideoManagerService, private authService: AuthService, private router: Router, private sanitizer: DomSanitizer) {
+  constructor(private videoManager: VideoManagerService) {
     this.userID = this.videoManager.ensureAuthenticated();
   }
 

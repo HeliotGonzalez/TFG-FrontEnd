@@ -203,4 +203,12 @@ export class ApiService {
   markChatAsRead(to: number, from: number) {
     return this.http.patch(`${this.apiUrl}/markChatAsRead`, { to, from });
   }
+
+  getReports(){
+    return this.http.get(`${this.apiUrl}/getAllReports`);
+  }
+
+  banVideo(id: number) {
+    return this.http.patch(`${this.apiUrl}/banVideo`, { id });
+  }
 }

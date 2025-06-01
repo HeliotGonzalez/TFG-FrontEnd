@@ -31,6 +31,7 @@ import { ColaborateComponent } from './colaborate/colaborate.component';
 import { SendSuggestionComponent } from './send-suggestion/send-suggestion.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { DailyChallengeComponent } from './daily-challenge/daily-challenge.component';
+import { ViewReportsComponent } from './view-reports/view-reports.component';
 
 export const routes: Routes = [
   // Rutas públicas sólo para invitados
@@ -70,6 +71,8 @@ export const routes: Routes = [
   { path: 'uploadedByMyFriends', component: UploadedByMyFriendsComponent, canActivate: [authGuard] },
   { path: 'chat', component: ChatComponent, canActivate: [authGuard] },
   { path: 'ExpertStats', component: ExpertStatsComponent, canActivate: [authGuard]},
+  { path: 'reports', component: ViewReportsComponent, canActivate: [authGuard]},
+
 
 
   // Wildcard

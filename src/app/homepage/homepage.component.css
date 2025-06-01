@@ -9,6 +9,13 @@
     margin-bottom: 0em;
 }
 
+.admin-section {
+  background-color: antiquewhite;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  padding: 20px;
+}
+
 .main--div{
     display: flex;
 }
