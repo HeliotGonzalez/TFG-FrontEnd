@@ -15,6 +15,7 @@ export class ExpertStatsComponent implements OnInit, AfterViewInit {
   NVideosLastMonth: number = -1;
   NWords: number = -1;
   NVideosUncorrected = -1;
+  mostPoints: any[] = [];
 
 
   constructor(private apiService: ApiService){}
@@ -28,6 +29,7 @@ export class ExpertStatsComponent implements OnInit, AfterViewInit {
           this.NVideosLastMonth = response[2];
           this.NWords = response[3];
           this.NVideosUncorrected = response[4];
+          this.mostPoints = response[5];
           console.log(this.UserVideo);
         },
         error: (err: any) => {
