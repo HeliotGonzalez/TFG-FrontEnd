@@ -39,4 +39,8 @@ export class AuthService {
     this.currentUserSubject.next(null);
     localStorage.removeItem('currentUser');
   }
+
+  getCurrentUser(): User | null {
+    return this.currentUserSubject.value;
+  }
 }

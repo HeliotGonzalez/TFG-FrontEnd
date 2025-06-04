@@ -91,11 +91,8 @@ export class VideoManagerService {
 
   // Verifica que el usuario esté autenticado y redirige en caso contrario.
   public ensureAuthenticated(): number {
-    let userID = -1;
-    this.authService.currentUser$.subscribe(user => {
-        if (user) userID = user.id;
-    });
-    return userID;
+    const user = this.authService.getCurrentUser();
+    return user ? user.id : -1;
   }
 
   /**
