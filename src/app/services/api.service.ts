@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DailyChallengeItem } from '../daily-challenge-item';
+import { DailyChallengeItem } from '../models/daily-challenge-item';
+import { Paginated } from '../models/paginated';
+import { AppUser } from '../models/app-user';
 
 @Injectable({
   providedIn: 'root'
@@ -215,4 +217,14 @@ export class ApiService {
   hideReport(reportID: number) {
     return this.http.patch(`${this.apiUrl}/hideReport`, { reportID });
   }
+
+  getUsers(page = 1, perPage = 10): Observable<Paginated<AppUser>> {
+    return this.http.get<Paginated<AppUser>>(`${this.apiUrl}/users`,{ params: { page, per_page: perPage } });  
+  }
+
+  banUser(id: number, userID: number | undefined): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/banUser`, { id, userID });
+  }
+
+
 }

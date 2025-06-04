@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule }  from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ApiService } from '../services/api.service';
-import { DailyChallengeItem } from '../daily-challenge-item';
+import { DailyChallengeItem } from '../models/daily-challenge-item';
 import { VideoManagerService } from '../services/video-manager.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
