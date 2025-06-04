@@ -1,16 +1,23 @@
 <body class="body">
-    <br><br>
+    <br><br><br>
     <div class="container my-4">
         <h3 class="mb-4 fw-bold">Reportes de la comunidad</h3>
 
-        @if (!reports.length) {
-            <div class="alert alert-info">No hay reportes pendientes.</div>
+        <!-- sin reportes -->
+        @if (!this.reports.length && !this.NotVisibleReports.length) {
+        <div class="alert alert-info">No hay reportes pendientes.</div>
         }
 
-        <!-- lista de reportes -->
-        @for (report of reports; track report.id) {
+        <!-- ========== VISIBLES (pendientes) ========== -->
+        @if (this.reports.length) {
+        <h5 class="fw-semibold mb-3">
+            Pendientes de moderación ({{ this.reports.length }})
+        </h5>
+
+        @for (report of this.reports; track report.id) {
             <div class="list-group-item list-group-item-action mb-3 shadow-sm rounded">
                 <div class="row g-3 align-items-start bg-white rounded">
+
                     <!-- vídeo -->
                     <div class="col-12 col-md-5">
                         <div class="ratio ratio-16x9">
@@ -18,31 +25,79 @@
                         </div>
                     </div>
 
-                    <!-- texto + botón: 7/12 -->
                     <div class="col-12 col-md-7">
                         <p class="mb-2">
                             <span class="fw-bold me-1">Motivo:</span>{{ report.contenido }}
                         </p>
 
-                        @if (report.video.user) {
+                        @if (report.user) {
                             <p class="text-muted mb-3">
-                                Vídeo subido por <em>{{ report.video.user.name }}</em>
+                            Vídeo subido por <em>{{ report.user.name }}</em>
                             </p>
                         }
 
-                        <button class="btn btn-outline-danger btn-sm" (click)="banVideo(report.video.id, report.id)">
-                            <i class="bi bi-check-circle me-1"></i>
+                        <button class="btn btn-outline-danger btn-sm"
+                                (click)="banVideo(report.video.id, report.id)">
+                            <i class="bi bi-shield-x me-1"></i>
                             Banear vídeo
                         </button>
 
-                        <button class="btn btn-outline-primary btn-sm ms-2" (click)="hideReport(report.id)">
-                            <i class="bi bi-check-circle me-1"></i>
+                        <button class="btn btn-outline-primary btn-sm ms-2"
+                                (click)="hideReport(report.id)">
+                            <i class="bi bi-eye-slash me-1"></i>
                             Ocultar
                         </button>
                     </div>
+
                 </div>
             </div>
         }
+        <hr class="my-4" />
+        }
+
+        <!-- ========== OCULTOS ========== -->
+        @if (this.NotVisibleReports.length) {
+        <h5 class="fw-semibold mb-3">
+            Reportes ocultos ({{ this.NotVisibleReports.length }})
+        </h5>
+        @if (this.showingNotVisible){
+            <i class="bi bi-plus-circle-fill" (click)="updateShowingReports()" style="cursor: pointer;"></i>
+        } @else {
+            <i class="bi bi-dash-circle-fill" (click)="updateShowingReports()" style="cursor: pointer;"></i>
+            @for (report of this.NotVisibleReports; track report.id) {
+                <div class="list-group-item mb-3 shadow-sm rounded mt-3">
+                    <div class="row g-3 align-items-start bg-light rounded mt-3">
+
+                        <!-- vídeo -->
+                        <div class="col-12 col-md-5">
+                            <div class="ratio ratio-16x9">
+                                <iframe class="rounded" [src]="report.video.url" allowfullscreen style="border:0"></iframe>
+                            </div>
+                        </div>
+
+
+                        <!-- texto (sin acciones) -->
+                        <div class="col-12 col-md-7">
+                            <p class="mb-2">
+                                <span class="fw-bold me-1">Motivo:</span>{{ report.contenido }}
+                            </p>
+                            
+                            <button class="btn btn-outline-danger btn-sm mx-50" (click)="banVideo(report.video.id, report.id)">
+                                <i class="bi bi-shield-x me-1"></i>
+                                Banear vídeo
+                            </button>
+
+                            @if (report.user) {
+                                <p class="text-muted mb-0">
+                                Vídeo subido por <em>{{ report.user.name }}</em>
+                                </p>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+        }
     </div>
 </body>
-

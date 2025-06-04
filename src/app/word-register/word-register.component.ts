@@ -61,11 +61,11 @@ export class WordRegisterComponent implements AfterViewInit{
     etiquetas: HTMLInputElement
   ): boolean {
     //Comprobar la longitud del campo 'nombre'
-    if (!this.checkingLenght(nombre, 'nombre', 3)){
+    if (!this.checkingLength(nombre, 'nombre', 3)){
       return false;
     }
 
-    if (!this.checkingLenght(descripcion, 'descripcion', 10)){
+    if (!this.checkingLength(descripcion, 'descripcion', 10)){
       return false;
     }
   
@@ -88,7 +88,7 @@ export class WordRegisterComponent implements AfterViewInit{
     return true;
   }
 
-  checkingLenght(campo: any, nombre: string, longitud: number){
+  checkingLength (campo: any, nombre: string, longitud: number){
     if(campo.value.length > 250){
       Swal.fire({
         icon: 'error',
