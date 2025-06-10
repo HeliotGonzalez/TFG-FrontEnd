@@ -1,0 +1,55 @@
+<body class="body"> 
+    <div class="container my-4">
+        <br><br><br>
+        <h4 class="d-flex justify-content-center mb-3">Sugerencias de la comunidad</h4>
+
+        @if (!suggestions.length) {
+            <div class="alert alert-info">No hay sugerencias.</div>
+        }
+
+        @if (suggestions.length) {
+        <ul class="list-group mb-3">
+            @for (s of suggestions; track s.id) {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ s.suggestion_text }}</span>
+                
+                <button class="btn btn-outline-danger btn-sm px-2" (click)="hideSuggestion(s.id)">
+                    <i class="bi bi-shield-x"></i>
+                    Marcar como hecha
+                </button>
+            </li>
+            }
+        </ul>
+        }
+
+        @if (meta){
+            <nav class="d-flex justify-content-center">
+                <ul class="pagination mb-0">
+                    <li class="page-item" [class.disabled]="!canPrev">
+                        <button class="page-link"
+                                (click)="loadPage(page - 1)"
+                                [disabled]="!canPrev">
+                        &laquo; Anterior
+                        </button>
+                    </li>
+
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                        Página {{ meta.current_page }} / {{ meta.last_page }}
+                        </span>
+                    </li>
+
+                    <li class="page-item" [class.disabled]="!canNext">
+                        <button class="page-link"
+                                (click)="loadPage(page + 1)"
+                                [disabled]="!canNext">
+                        Siguiente &raquo;
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        }
+
+    </div>
+</body>
+

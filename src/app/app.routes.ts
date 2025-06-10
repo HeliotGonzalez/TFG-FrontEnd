@@ -33,6 +33,7 @@ import { AyudaComponent } from './ayuda/ayuda.component';
 import { DailyChallengeComponent } from './daily-challenge/daily-challenge.component';
 import { ViewReportsComponent } from './view-reports/view-reports.component';
 import { ListOfUsersComponent } from './list-of-users/list-of-users.component';
+import { ListOfSuggestionsComponent } from './list-of-suggestions/list-of-suggestions.component';
 
 export const routes: Routes = [
   // Rutas públicas sólo para invitados
@@ -74,6 +75,7 @@ export const routes: Routes = [
   { path: 'ExpertStats', component: ExpertStatsComponent, canActivate: [authGuard]},
   { path: 'reports', component: ViewReportsComponent, canActivate: [authGuard]},
   { path: 'userList', component: ListOfUsersComponent, canActivate: [authGuard]},
+  { path: 'suggestionsList', component: ListOfSuggestionsComponent, canActivate: [authGuard]},
 
 
 

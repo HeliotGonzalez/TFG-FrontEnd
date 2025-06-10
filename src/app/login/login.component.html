@@ -12,15 +12,19 @@
                 <input type="password" class="form-control" id="password" required #password>
             </div>
             <div class="mb-3 text-end">
-                <a (click)="forgotPassword()" class="text-decoration-none text-primary">Olvidé mi contraseña</a>
+                <a (click)="forgotPassword()" class="text-decoration-none text-primary" style="cursor: pointer;">Olvidé mi contraseña</a>
             </div>
             <button type="button" class="btn btn-success w-100" (click)="login(email, password)">Iniciar sesión</button>
+            
+            <!--
             <div class="my-3">
                 <button type="button" class="btn btn-light btn-google w-100">
                     <img src="./GoogleLogo.png" alt="Google Logo">
                     Iniciar sesión con Google
                 </button>
             </div>
+            -->
+            <br><br><br>
         </form>
         <p class="mt-3">¿Aún no tienes cuenta? <a routerLink="/register" class="text-success">Crear cuenta</a></p>
     </div>
