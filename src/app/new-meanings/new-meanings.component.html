@@ -1,0 +1,67 @@
+<body class="body">
+    <br><br><br>
+    <div class="container py-3">
+        <div class="row g-3">
+            <!-- Tarjeta por propuesta -->
+            @for (p of possibleNewMeanings; track p.id){
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+
+                        <!-- Cabecera: usuario -->
+                        <div class="card-header d-flex align-items-center gap-2">
+                            <i class="bi bi-person-circle fs-4"></i>
+                            <span class="fw-semibold">{{ p.user.username }}</span>
+                        </div>
+
+                        <!-- Cuerpo: palabra y significados -->
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <p class="fw-bold">Palabra: </p>
+                                <span class="badge bg-primary">{{ p.palabra }}</span>
+                            </h5>
+
+                            <p class="mb-2">
+                                <strong>Antiguo:</strong><br>
+                                <span class="text-muted">{{ p.descripcion_antigua }}</span>
+                            </p>
+
+                            <p>
+                                <strong>Propuesto:</strong><br>
+                                {{ p.descripcion_propuesta }}
+                            </p>
+                        </div>
+
+                        <!-- Pie: botones -->
+                        <div class="card-footer d-flex justify-content-between">
+                            <button class="btn btn-outline-danger w-50 me-1"
+                                    [disabled]="loadingId === p.id"
+                                    (click)="deny(p)">
+                                <i class="bi bi-x-lg"></i> Denegar
+                            </button>
+
+                            <button class="btn btn-success w-50 ms-1"
+                                    [disabled]="loadingId === p.id"
+                                    (click)="accept(p)">
+                                <i class="bi bi-check-lg"></i> Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+            <!-- Mensaje si no hay propuestas -->
+            @if(possibleNewMeanings.length === 0){
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        No hay significados pendientes de revisión.
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</body>
+
+

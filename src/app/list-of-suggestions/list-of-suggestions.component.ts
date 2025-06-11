@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector:   'app-list-of-suggestions',
-  standalone: true,
   imports:    [CommonModule],
   templateUrl:'./list-of-suggestions.component.html',
   styleUrls:  ['./list-of-suggestions.component.css']

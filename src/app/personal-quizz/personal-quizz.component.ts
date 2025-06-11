@@ -20,7 +20,6 @@ interface Result {
 
 @Component({
   selector: 'app-personal-quizz',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './personal-quizz.component.html',
   styleUrls: ['./personal-quizz.component.css']

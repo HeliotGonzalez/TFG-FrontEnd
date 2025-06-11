@@ -61,7 +61,7 @@ export class WordRegisterComponent implements AfterViewInit{
     etiquetas: HTMLInputElement
   ): boolean {
     //Comprobar la longitud del campo 'nombre'
-    if (!this.checkingLength(nombre, 'nombre', 3)){
+    if (!this.checkingLength(nombre, 'nombre', 1)){
       return false;
     }
 

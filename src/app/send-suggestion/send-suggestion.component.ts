@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-suggestions',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: 'send-suggestion.component.html',
   styleUrls: ['send-suggestion.component.css']

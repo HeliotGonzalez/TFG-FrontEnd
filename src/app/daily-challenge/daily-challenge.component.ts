@@ -20,7 +20,6 @@ interface Result {
 
 @Component({
   selector: 'app-daily-challenge',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './daily-challenge.component.html',
   styleUrls: ['./daily-challenge.component.css']

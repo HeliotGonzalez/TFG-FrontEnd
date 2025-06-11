@@ -34,6 +34,7 @@ import { DailyChallengeComponent } from './daily-challenge/daily-challenge.compo
 import { ViewReportsComponent } from './view-reports/view-reports.component';
 import { ListOfUsersComponent } from './list-of-users/list-of-users.component';
 import { ListOfSuggestionsComponent } from './list-of-suggestions/list-of-suggestions.component';
+import { NewMeaningsComponent } from './new-meanings/new-meanings.component';
 
 export const routes: Routes = [
   // Rutas públicas sólo para invitados
@@ -76,6 +77,8 @@ export const routes: Routes = [
   { path: 'reports', component: ViewReportsComponent, canActivate: [authGuard]},
   { path: 'userList', component: ListOfUsersComponent, canActivate: [authGuard]},
   { path: 'suggestionsList', component: ListOfSuggestionsComponent, canActivate: [authGuard]},
+  { path: 'newMeanings', component: NewMeaningsComponent, canActivate: [authGuard]},
+
 
 
 

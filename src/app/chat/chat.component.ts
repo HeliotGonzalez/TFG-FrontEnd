@@ -16,7 +16,6 @@ interface CachedUserMeta {
 
 @Component({
   selector: 'app-chat',
-  standalone: true,
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
   imports: [CommonModule, FormsModule]

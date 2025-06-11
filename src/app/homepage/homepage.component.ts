@@ -9,7 +9,6 @@ import { AuthService } from '../services/auth-service.service';
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
-  standalone: true, 
   imports: [CommonModule, SearchingBarComponent, RouterModule]
 })
 export class HomepageComponent { 

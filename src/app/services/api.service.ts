@@ -238,5 +238,23 @@ export class ApiService {
     return this.http.patch(`${this.apiUrl}/hideSuggestion`, { id });
   }
 
+  updateWord(word: string, userID: number, significado: string, significadoAntiguo: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/updateWord`,   {word: word, significadoNuevo: significado, 
+        significadoAntiguo: significadoAntiguo,
+        userID: userID
+    });
+  }
+
+  getNewMeanings() {
+    return this.http.get(`${this.apiUrl}/newMeanings`);
+  }
+
+  rejectMeaning(id: number){
+    return this.http.delete(`${this.apiUrl}/rejectMeaning/${id}`);
+  }
+
+  approveMeaning(id: number, palabra: string, descripcion_antigua: string, descripcion_propuesta: string) {
+    return this.http.patch(`${this.apiUrl}/approveMeaning`, { id, palabra, descripcion_antigua, descripcion_propuesta});
+  }
 
 }

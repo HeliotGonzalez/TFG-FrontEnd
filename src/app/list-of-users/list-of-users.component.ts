@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-of-users',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './list-of-users.component.html',
   styleUrls: ['./list-of-users.component.css']

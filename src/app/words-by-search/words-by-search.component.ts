@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-words-by-search',
-  standalone: true,
   imports: [SearchingBarComponent, WordListComponent],
   templateUrl: './words-by-search.component.html',
   styleUrls: ['./words-by-search.component.css']
