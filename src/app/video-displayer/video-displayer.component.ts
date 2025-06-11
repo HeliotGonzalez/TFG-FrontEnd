@@ -27,7 +27,7 @@ export class VideoDisplayerComponent {
       this.descripcion = params['descripcion'];
     });
 
-    this.videoManager.getVideos(this.descripcion).subscribe({
+    this.videoManager.getVideos(this.descripcion, this.nombre).subscribe({
       next: (response: Video[]) => {
         this.videos = response;
       },

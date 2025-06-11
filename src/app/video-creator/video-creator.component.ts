@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class VideoCreatorComponent implements OnInit {
   @Input() significado: string = '';
+  @Input() nombre: string = '';
   videoForm: FormGroup;
   submitted = false;
 
@@ -27,12 +28,13 @@ export class VideoCreatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.significado = this.route.snapshot.params['significado'] || '';
+    this.nombre      = this.route.snapshot.params['palabra'] || '';
   }
 
   onSubmit(): void {
     this.submitted = true;
     if (this.videoForm.valid) {
-      this.apiService.storeVideo(this.videoForm.value.videoUrl, this.videoForm.value.corregir, this.significado, this.videoManager.ensureAuthenticated()).subscribe({
+      this.apiService.storeVideo(this.videoForm.value.videoUrl, this.videoForm.value.corregir, this.significado, this.videoManager.ensureAuthenticated(), this.nombre).subscribe({
         next: (response) => {
           console.log('Video stored successfully:', response);
           Swal.fire({

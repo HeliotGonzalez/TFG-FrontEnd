@@ -47,8 +47,8 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/getWords/${letter}`);
   }
 
-  getVideos(descripcion: string, userID: number) {
-    return this.http.get(`${this.apiUrl}/getVideos/${descripcion}/${userID}`);
+  getVideos(descripcion: string, palabra: string, userID: number) {
+    return this.http.get(`${this.apiUrl}/getVideos/${descripcion}/${userID}/${palabra}`);
   }
 
   sendVideoLikes(id: number, likes: number, dislikes: number, action: string, userID: number) {
@@ -76,8 +76,8 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/getPersonalDictionary/${userID}`);
   }
 
-  storeVideo(videoUrl: string, corregido: boolean = false, significado: string, userID: number) {
-    let data = { videoUrl, corregido, significado, userID };
+  storeVideo(videoUrl: string, corregido: boolean = false, significado: string, userID: number, palabra: string) {
+    let data = { videoUrl, corregido, significado, userID, palabra};
     console.log(data);
     return this.http.post(`${this.apiUrl}/storeVideo`, data);
   }

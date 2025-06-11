@@ -48,8 +48,8 @@ export class VideoManagerService {
     }));
   }
 
-  getVideos(descripcion: string): Observable<Video[]> {
-    const stream$ = this.apiService.getVideos(descripcion, this.ensureAuthenticated());
+  getVideos(descripcion: string, palabra: string): Observable<Video[]> {
+    const stream$ = this.apiService.getVideos(descripcion, palabra, this.ensureAuthenticated());
     return this.handleVideosStream(stream$, 'getVideos');
   }
 
