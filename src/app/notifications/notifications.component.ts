@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterModule} from '@angular/router';
 import { FriendServiceService } from '../services/friend-service.service';
 import { EMPTY, filter, map, startWith, switchMap, distinctUntilChanged } from 'rxjs';
+import { AuthService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-notifications',
@@ -28,8 +29,19 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private router: Router,
     private friendService: FriendServiceService,
+    private authService: AuthService
   ) {
     this.me = this.videoManager.ensureAuthenticated();
+
+    this.sub.add(
+      this.authService.getUserId$().subscribe(id => {
+        if (id && id !== this.me) {
+          this.me = id
+          this.resetSubscriptions(); 
+          this.loadNotifications(); 
+        }
+      })
+    );
   }
 
   /** cuántas no leídas */
@@ -55,6 +67,15 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loadNotifications();
+  }
+
+  private resetSubscriptions() {
+    this.sub.unsubscribe();         
+    this.sub = new Subscription();   
+  }
+
+  private loadNotifications(){
     this.getUnacceptedFriendRequests();
     this.getIncomingFriendRequests();
     this.getAcceptedFriendRequests();

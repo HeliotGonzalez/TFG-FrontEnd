@@ -1,104 +1,105 @@
-<!-- Campana fija -->
-<div class="notif-container">
-    <button class="btn btn-light shadow-sm notif-btn" (click)="panelOpen = !panelOpen">
-      <i class="bi bi-bell-fill fs-4"></i>
-      @if (unreadCount){
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          {{ unreadCount }}
-        </span>
-      }
-    </button>
-  
-    <!-- Panel -->
-    @if (panelOpen){
-        <div class="card notif-panel shadow">
-            <ul class="nav nav-tabs small" role="tablist">
-              <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#frTab" type="button">Solicitudes</button>
-              </li>
-              <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#chatTab" type="button">Mensajes</button>
-              </li>
-            </ul>
-        
-            <div class="tab-content p-2" style="max-height: 260px; overflow-y: auto;">
-              <!-- Friend requests -->
-              <div class="tab-pane fade show active" id="frTab">
-                <div *ngIf="friendRequests.length || acceptedFriendRequests.length || videosCorrected.length; else noFr">
-                    @for (request of friendRequests; track request) {
-                      <div class="d-flex align-items-center mb-2">
-                      <span class="me-auto">Solicitud de <strong (click)="goToUserProfile(request)" style="cursor: pointer;">{{ request.fromName }}</strong></span>
-                      <button class="btn btn-sm btn-success me-1" (click)="acceptFriend(request)">
-                          <i class="bi bi-check"></i>
-                      </button>
-                      <button class="btn btn-sm btn-outline-secondary" (click)="dismiss(request)">
-                          <i class="bi bi-x"></i>
-                      </button>
-                      </div>
-                    }
-                    
-                    <hr class="my-1">
-                    @for (req of acceptedFriendRequests; track req) {
-                      <div class="d-flex align-items-center mb-1">
-                        <span class="me-auto">
-                          Tu solicitud a
-                          <strong (click)="goToUserProfile(req)" style="cursor:pointer;">{{ req.fromName }}</strong>
-                          ha sido aceptada.
-                        </span>
-                        <button class="btn btn-sm btn-outline-secondary" (click)="dismissA(req)">
-                          <i class="bi bi-x"></i>
+
+@if (this.me > 0){
+  <!-- Campana fija -->
+  <div class="notif-container">
+      <button class="btn btn-light shadow-sm notif-btn" (click)="panelOpen = !panelOpen">
+        <i class="bi bi-bell-fill fs-4"></i>
+        @if (unreadCount){
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ unreadCount }}
+          </span>
+        }
+      </button>
+    
+      <!-- Panel -->
+      @if (panelOpen){
+          <div class="card notif-panel shadow">
+              <ul class="nav nav-tabs small" role="tablist">
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#frTab" type="button">Solicitudes</button>
+                </li>
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#chatTab" type="button">Mensajes</button>
+                </li>
+              </ul>
+          
+              <div class="tab-content p-2" style="max-height: 260px; overflow-y: auto;">
+                <!-- Friend requests -->
+                <div class="tab-pane fade show active" id="frTab">
+                  <div *ngIf="friendRequests.length || acceptedFriendRequests.length || videosCorrected.length; else noFr">
+                      @for (request of friendRequests; track request) {
+                        <div class="d-flex align-items-center mb-2">
+                        <span class="me-auto">Solicitud de <strong (click)="goToUserProfile(request)" style="cursor: pointer;">{{ request.fromName }}</strong></span>
+                        <button class="btn btn-sm btn-success me-1" (click)="acceptFriend(request)">
+                            <i class="bi bi-check"></i>
                         </button>
-                      </div>
-                    }
-
-                    @if (videosCorrected.length){
-                      <div class="d-flex align-items-center mb-1">
-                        <span class="me-auto"> Se te ha corregido un vídeo </span>
-
-                        <button class="btn btn-sm btn-outline-secondary me-1" routerLink="/myVideosCorrected">
-                          <i class="bi bi-eye"></i>
+                        <button class="btn btn-sm btn-outline-secondary" (click)="dismiss(request)">
+                            <i class="bi bi-x"></i>
                         </button>
-
-                        <button class="btn btn-sm btn-outline-secondary" (click)="deleteVideoCorrected()">
-                          <i class="bi bi-x"></i>
-                        </button>
-                      </div>
-                    }
-              </div>
-
-                <ng-template #noFr>
-                  <p class="text-muted small m-0">Sin solicitudes</p>
-                </ng-template>
-              </div>
-        
-              <!-- Chats -->
-              <div class="tab-pane fade" id="chatTab">
-                <div *ngIf="chats.length; else noChats">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                    @for (chat of chats; track chat) {
-                        <div>
-                          <strong (click)="goToUserProfile(chat)" style="cursor: pointer;">{{ chat.fromName }}:</strong>
-                          {{ chat.payload.text }}
                         </div>
+                      }
+                      
+                      <hr class="my-1">
+                      @for (req of acceptedFriendRequests; track req) {
+                        <div class="d-flex align-items-center mb-1">
+                          <span class="me-auto">
+                            Tu solicitud a
+                            <strong (click)="goToUserProfile(req)" style="cursor:pointer;">{{ req.fromName }}</strong>
+                            ha sido aceptada.
+                          </span>
+                          <button class="btn btn-sm btn-outline-secondary" (click)="dismissA(req)">
+                            <i class="bi bi-x"></i>
+                          </button>
+                        </div>
+                      }
 
-                        <button class="btn btn-sm btn-outline-secondary" (click)="goToChat(chat)">
-                          <i class="bi bi-eye"></i>
-                        </button>
+                      @if (videosCorrected.length){
+                        <div class="d-flex align-items-center mb-1">
+                          <span class="me-auto"> Se te ha corregido un vídeo </span>
 
-                        <button class="btn btn-sm btn-outline-secondary" (click)="dismissA(chat)">
-                          <i class="bi bi-x"></i>
-                        </button>
-                    }
-                    </div>
+                          <button class="btn btn-sm btn-outline-secondary me-1" routerLink="/myVideosCorrected">
+                            <i class="bi bi-eye"></i>
+                          </button>
+
+                          <button class="btn btn-sm btn-outline-secondary" (click)="deleteVideoCorrected()">
+                            <i class="bi bi-x"></i>
+                          </button>
+                        </div>
+                      }
                 </div>
-                <ng-template #noChats>
-                  <p class="text-muted small m-0">Sin mensajes</p>
-                </ng-template>
+
+                  <ng-template #noFr>
+                    <p class="text-muted small m-0">Sin solicitudes</p>
+                  </ng-template>
+                </div>
+          
+                <!-- Chats -->
+                <div class="tab-pane fade" id="chatTab">
+                  <div *ngIf="chats.length; else noChats">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                      @for (chat of chats; track chat) {
+                          <div>
+                            <strong (click)="goToUserProfile(chat)" style="cursor: pointer;">{{ chat.fromName }}:</strong>
+                            {{ chat.payload.text }}
+                          </div>
+
+                          <button class="btn btn-sm btn-outline-secondary" (click)="goToChat(chat)">
+                            <i class="bi bi-eye"></i>
+                          </button>
+
+                          <button class="btn btn-sm btn-outline-secondary" (click)="dismissA(chat)">
+                            <i class="bi bi-x"></i>
+                          </button>
+                      }
+                      </div>
+                  </div>
+                  <ng-template #noChats>
+                    <p class="text-muted small m-0">Sin mensajes</p>
+                  </ng-template>
+                </div>
               </div>
-            </div>
-        </div>
-    }
+          </div>
+      }
 
-</div>
-
-  
+  </div>
+}

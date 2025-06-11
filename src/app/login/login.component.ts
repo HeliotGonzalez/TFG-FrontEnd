@@ -36,7 +36,7 @@ export class LoginComponent {
         console.log(response);
         const user: User = response;
         this.authService.setUser(user);
-        this.websocketsService.ngOnDestroy();
+        this.websocketsService.disconnect();
         this.websocketsService.connect(user.id);
         if (response instanceof Object) this.router.navigate(['/']);
       },

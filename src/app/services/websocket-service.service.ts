@@ -112,4 +112,10 @@ export class WebsocketService implements OnDestroy {
     this.stopHeartbeat();
     if (this.socket) this.socket.close();
   }
+
+  disconnect(): void {
+    if (this.socket) {
+      this.socket.close();
+    }
+  }
 }
