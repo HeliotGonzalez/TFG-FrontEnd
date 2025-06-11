@@ -6,6 +6,7 @@ import { AuthService, User } from '../services/auth-service.service';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
+import { WebsocketService } from '../services/websocket-service.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent {
   
-  constructor(private headerService: HeaderVisibilityService, private apiService: ApiService, private router: Router, private authService: AuthService) {}
+  constructor(private headerService: HeaderVisibilityService, private apiService: ApiService, private router: Router, private authService: AuthService, private websocketsService: WebsocketService) {}
 
   ngOnInit() {
     this.headerService.hide();
@@ -35,6 +36,8 @@ export class LoginComponent {
         console.log(response);
         const user: User = response;
         this.authService.setUser(user);
+        this.websocketsService.ngOnDestroy();
+        this.websocketsService.connect(user.id);
         if (response instanceof Object) this.router.navigate(['/']);
       },
       error: (error: any) => {

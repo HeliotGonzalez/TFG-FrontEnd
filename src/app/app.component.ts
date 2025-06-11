@@ -47,8 +47,6 @@ export class AppComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationStart) {
         // Inicia la barra de carga
         this.loadingBar.start();
-
-        // Incrementa progresivamente cada 100ms (ajusta el valor según necesites)
         this.progressInterval = setInterval(() => {
           this.loadingBar.increment(3);
         }, 100);
