@@ -1,64 +1,90 @@
  <body class="body">
     <br><br><br>
-    <div class="quiz-container my-4">
+    <div class="quiz-container my-5">
         <!-- Quiz activo -->
-        <ng-container *ngIf="!quizFinished; else quizSummary">
-          <div class="card shadow-sm">
-            <div class="card-header text-center">
-              <h5 class="mb-0">
-                Pregunta {{ currentIndex + 1 }} de {{ quizCards.length }}
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="video-responsive mb-4">
-                <iframe
-                  [src]="quizCards[currentIndex].videoUrl"
-                  frameborder="0"
-                  allowfullscreen
-                ></iframe>
+        @if (!quizFinished){
+            <div class="card shadow-sm">
+              <div class="card-header text-center">
+                <h5 class="mb-0">
+                  Pregunta {{ currentIndex + 1 }} de {{ quizCards.length }}
+                </h5>
               </div>
-              <form (ngSubmit)="verificar()">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Escribe la palabra" [(ngModel)]="userAnswer" name="answer" autocomplete="off" required/>
-                  <button class="btn btn-primary" type="submit" [disabled]="!userAnswer.trim()">Comprobar</button>
+              <div class="card-body">
+                <div class="video-responsive mb-4">
+                  <iframe [src]="quizCards[currentIndex].videoUrl" frameborder="0" allowfullscreen></iframe>
                 </div>
-              </form>
-            </div>
-          </div>
-        </ng-container>
-      
-        <!-- Resumen al terminar -->
-        <ng-template #quizSummary>
-          <div class="card text-center shadow-sm">
-            <div class="card-header">
-              <h5 class="mb-0">Resumen del Quiz</h5>
-            </div>
-            <div class="card-body">
-              <p class="mb-1"><strong>Total preguntas: </strong> {{ totalQuestions }}</p>
-              <p class="mb-1">
-                <strong>Aciertos: </strong>
-                <span class="badge bg-success">{{ correctCount }}</span>
-              </p>
-              <p class="mb-3">
-                <strong>Fallos: </strong>
-                <span class="badge bg-danger">{{ wrongCount }}</span>
-              </p>
-      
-              <div *ngIf="wrongCount">
-                <p class="mb-1"><strong>Palabras incorrectas: </strong></p>
-                <ul class="list-group list-group-flush mb-3">
-                  <li class="list-group-item" *ngFor="let word of wrongWords">
-                    {{ word }}
-                  </li>
-                </ul>
+                <form (ngSubmit)="verificar()">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Escribe la palabra" [(ngModel)]="userAnswer" name="answer" autocomplete="off" required/>
+                    <button class="btn btn-primary" type="submit" [disabled]="!userAnswer.trim()">Comprobar</button>
+                  </div>
+                </form>
               </div>
-      
-              <button class="btn btn-success" (click)="currentIndex = 0; results = []; quizFinished = false">
-                Volver a empezar
-              </button>
+            </div>
+        } @else {
+        <div class="card shadow-sm">
+          <div class="card-header text-center">
+            <h5 class="mb-0 fw-bold">Resumen del Quiz</h5>
+          </div>
+
+          <div class="card-body">
+
+            <!-- Totales -->
+            <p class="mb-1 d-flex justify-content-center align-content-center">
+              <strong class="fw-bold me-2">Total: </strong> {{ totalQuestions }}
+              &nbsp;—&nbsp;
+              <strong class="me-2 ms-2">Aciertos:</strong>
+              <span class="badge bg-success ms-1">{{ correctCount }}</span>
+              &nbsp;—&nbsp;
+              <strong class="me-2 ms-1">Fallos:</strong>
+              <span class="badge bg-danger ms-1">{{ wrongCount }}</span>
+            </p>
+
+            <!-- ===== Resultados uno a uno ===== -->
+            @if (currentResult; as r) {
+              <div class="results-list my-4">
+                <div class="result-item d-flex align-items-center p-3" style="border-radius:8px;">
+                  <!-- Vídeo -->
+                  <div class="me-4" style="width:460px;">
+                    <div class="video-responsive mb-4">
+                      <iframe [src]="r.video" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center" style="gap: 24px;">
+                    <div style="min-width:150px;">
+                      <p class="fw-semibold mb-0">La respuesta es: {{ r.word }}</p>
+                    </div>
+
+                    <div style="min-width:150px;">
+                      <span [ngClass]="{'text-success': r.correct, 'text-danger': !r.correct}">
+                        Tu respuesta fue: {{ r.answer || '—' }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Botones de navegación -->
+                <div class="d-flex justify-content-between mt-4">
+                  <button class="btn btn-outline-secondary" (click)="prev()" [disabled]="currentResultIndex === 0">
+                    ← Anterior
+                  </button>
+
+                  <button class="btn btn-outline-secondary" (click)="next()" [disabled]="currentResultIndex === results.length - 1">
+                    Siguiente →
+                  </button>
+                </div>
+              </div>
+            }
+
+            <div class="d-flex justify-content-center align-content center">
+                <button class="btn btn-success mt-4" (click)="resetQuizz()">
+                    Volver a empezar
+                </button>
             </div>
           </div>
-        </ng-template>
+        </div>
+        }
     </div>
  </body>
 

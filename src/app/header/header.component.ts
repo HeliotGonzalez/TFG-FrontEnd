@@ -3,6 +3,7 @@ import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth-service.service';
 import { VideoManagerService } from '../services/video-manager.service';
+import { WebsocketService } from '../services/websocket-service.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class HeaderComponent {
   userID: number = 0;
   activeRoute: string = '';
 
-  constructor(public authService: AuthService, private router: Router, private el: ElementRef, private videoManager: VideoManagerService) {
+  constructor(public authService: AuthService, private router: Router, private el: ElementRef, private videoManager: VideoManagerService, private websocketService: WebsocketService) {
     this.userID = this.videoManager.ensureAuthenticated();
   }
 
@@ -45,9 +46,10 @@ export class HeaderComponent {
 
   logout(): void {
     this.authService.logout();
+    this.websocketService.disconnect();
     this.dropdownOpen = false;
     this.menuOpen     = false;
-    this.router.navigate(['/login']);
+    window.location.reload();
   }
 
   @HostListener('document:click', ['$event'])

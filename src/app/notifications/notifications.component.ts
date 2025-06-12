@@ -35,6 +35,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
     this.sub.add(
       this.authService.getUserId$().subscribe(id => {
+        console.log('id', id);
         if (id && id !== this.me) {
           this.me = id
           this.resetSubscriptions(); 

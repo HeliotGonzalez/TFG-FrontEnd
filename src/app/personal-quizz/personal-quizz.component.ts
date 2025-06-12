@@ -16,6 +16,7 @@ interface Result {
   word: string;
   answer: string;
   correct: boolean;
+  video: any;
 }
 
 @Component({
@@ -31,6 +32,7 @@ export class PersonalQuizzComponent implements OnInit {
   currentIndex = 0;
   userAnswer = '';
   quizFinished = false;
+  currentResultIndex = 0;
 
   constructor(
     private videoManager: VideoManagerService,
@@ -66,10 +68,17 @@ export class PersonalQuizzComponent implements OnInit {
     this.quizFinished = false;
   }
 
+  resetQuizz(){
+    this.currentIndex = 0; 
+    this.results = []; 
+    this.quizFinished = false;
+    this.buildQuizCards();
+  }
+
   verificar(): void {
     const correctWord = this.quizCards[this.currentIndex].word;
     const answer = this.userAnswer.trim().toLowerCase();
-    this.results.push({ word: correctWord, answer, correct: answer === correctWord });
+    this.results.push({ word: correctWord, answer, correct: answer === correctWord, video: this.quizCards[this.currentIndex].videoUrl });
     this.userAnswer = '';
     this.currentIndex++;
     if (this.currentIndex >= this.quizCards.length) {
@@ -79,20 +88,25 @@ export class PersonalQuizzComponent implements OnInit {
 
   private mostrarResumen(): void {
     this.quizFinished = true;
-    const correctCount = this.correctCount;
-    const total = this.totalQuestions;
-    const wrongs = this.wrongWords;
-    Swal.fire({
-      title: `Resultados: ${correctCount}/${total} aciertos`,
-      icon: correctCount === total ? 'success' : 'info',
-      html: `
-        <p>Has acertado <strong>${correctCount}</strong> de ${total} preguntas.</p>
-        <p>Palabras incorrectas: <em>${wrongs.length ? wrongs.join(', ') : 'ninguna'}</em></p>
-      `,
-      confirmButtonText: 'Cerrar',
-      customClass: { confirmButton: 'btn btn-primary' },
-      buttonsStyling: false
-    });
+  }
+
+    /** Navega al resultado anterior */
+  prev(): void {
+    if (this.currentResultIndex > 0) {
+      this.currentResultIndex--;
+    }
+  }
+
+  /** Navega al resultado siguiente */
+  next(): void {
+    if (this.currentResultIndex < this.results.length - 1) {
+      this.currentResultIndex++;
+    }
+  }
+
+    /** Resultado que se muestra en pantalla */
+  get currentResult() {
+    return this.results?.[this.currentResultIndex] ?? null;
   }
 
   // Getters para estadísticas

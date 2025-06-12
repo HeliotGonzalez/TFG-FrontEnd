@@ -6,7 +6,7 @@ import { ApiService } from '../services/api.service';
 import { DailyChallengeItem } from '../models/daily-challenge-item';
 import { VideoManagerService } from '../services/video-manager.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 interface QuizCard {
   videoUrl: SafeResourceUrl;
@@ -16,11 +16,12 @@ interface Result {
   word: string;
   answer: string;
   correct: boolean;
+  video: SafeResourceUrl;
 }
 
 @Component({
   selector: 'app-daily-challenge',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './daily-challenge.component.html',
   styleUrls: ['./daily-challenge.component.css']
 })
@@ -29,6 +30,7 @@ export class DailyChallengeComponent implements OnInit {
   quizCards: QuizCard[] = [];
   results:    Result[]  = [];
   currentIndex = 0;
+  currentResultIndex = 0;
   userAnswer  = '';
   quizFinished = false;
   loading = true;
@@ -82,7 +84,14 @@ export class DailyChallengeComponent implements OnInit {
   verificar(): void {
     const correctWord = this.quizCards[this.currentIndex].word;
     const answer      = this.userAnswer.trim().toLowerCase();
-    this.results.push({ word: correctWord, answer, correct: answer === correctWord });
+
+    this.results.push({
+      word: correctWord,
+      answer,
+      correct: answer === correctWord,
+      video:   this.quizCards[this.currentIndex].videoUrl      // ⬅︎ guardamos vídeo
+    });
+
     this.userAnswer = '';
     this.currentIndex++;
 
@@ -91,42 +100,37 @@ export class DailyChallengeComponent implements OnInit {
 
   private mostrarResumen(): void {
     this.quizFinished = true;
-    const correct = this.correctCount;
-    const total   = this.totalQuestions;
-    const wrongs  = this.wrongWords;
 
     Swal.fire({
-      title: `Resultados: ${correct}/${total} aciertos`,
-      icon:  correct === total ? 'success' : 'info',
-      html: `
-        <p>Has acertado <strong>${correct}</strong> de ${total} preguntas.</p>
-        <p>Palabras incorrectas: <em>${wrongs.length ? wrongs.join(', ') : 'ninguna'}</em></p>
-      `,
-      confirmButtonText: 'Cerrar',
+      title: `Resultados: ${this.correctCount}/${this.totalQuestions} aciertos`,
+      icon:  this.correctCount === this.totalQuestions ? 'success' : 'info',
+      html:  `<p>Has acertado <strong>${this.correctCount}</strong> de ${this.totalQuestions} preguntas.</p>
+              <p>Palabras incorrectas: 
+                 <em>${this.wrongWords.length ? this.wrongWords.join(', ') : 'ninguna'}</em></p>`,
+      confirmButtonText: 'Ver detalles',
       customClass: { confirmButton: 'btn btn-primary' },
       buttonsStyling: false
-    }).then(() => {
-      this.router.navigate(['/']);
     });
-
-    this.api.sendResults(this.correctCount, this.vm.ensureAuthenticated()).subscribe({
-      next: (response: any) => {
-        console.log('Resultados enviados correctamente:', response);
-      },
-      error: (err: any) => {
-        console.error('Error al enviar resultados:', err);
-      }
-    });
+    
+    this.api.sendResults(this.correctCount, this.vm.ensureAuthenticated());
   }
 
-  private resetQuizState() {
-    this.currentIndex = 0;
-    this.results      = [];
-    this.quizFinished = false;
+  private resetQuizState(): void {
+    this.currentIndex       = 0;
+    this.results            = [];
+    this.quizFinished       = false;
+    this.currentResultIndex = 0;          // ⬅︎ reiniciar también
   }
 
-  /* ---- Getters para estadísticas ---- */
+  /* ---------- getters ---------- */
+  get currentResult(): Result | null {
+    return this.results[this.currentResultIndex] ?? null;
+  }
   get totalQuestions(): number { return this.results.length; }
   get correctCount(): number   { return this.results.filter(r => r.correct).length; }
   get wrongWords(): string[]   { return this.results.filter(r => !r.correct).map(r => r.word); }
+
+  /* ---------- navegación entre resultados ---------- */
+  prev(): void { if (this.currentResultIndex > 0) this.currentResultIndex--; }
+  next(): void { if (this.currentResultIndex < this.results.length - 1) this.currentResultIndex++;}
 }

@@ -1,4 +1,3 @@
-// auth.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, distinctUntilChanged, shareReplay } from 'rxjs/operators';
@@ -20,7 +19,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
   
-  private readonly userId$   = this.currentUser$.pipe(map(u => u?.id ?? null), distinctUntilChanged(), shareReplay({ bufferSize: 1, refCount: true }));
+  private readonly userId$ = this.currentUser$.pipe(map(u => u?.id ?? null), distinctUntilChanged(), shareReplay({ bufferSize: 1, refCount: true }));
 
   constructor() {
     const storedUser = localStorage.getItem('currentUser');

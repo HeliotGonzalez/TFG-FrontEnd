@@ -28,9 +28,59 @@
     }
 
     @if (quizFinished){
-        <section class="text-center py-5">
-            <h5>¡Reto diario completado!</h5>
-            <button class="btn btn-secondary mt-3" routerLink="/">Volver al inicio</button>
+        <section class="container py-5">
+            
+            <!-- Totales -->
+            <p class="mb-3 text-center fs-5">
+            <strong>Total:</strong> {{ totalQuestions }}
+            &nbsp;—&nbsp;
+            <strong>Aciertos:</strong> <span class="badge bg-success">{{ correctCount }}</span>
+            &nbsp;—&nbsp;
+            <strong>Fallos:</strong>   <span class="badge bg-danger">{{ totalQuestions - correctCount }}</span>
+            </p>
+
+            <!-- Resultado actual -->
+            @if (currentResult; as r) {
+            <div class="result-item d-flex flex-column flex-md-row align-items-center gap-4 p-3 border rounded">
+
+                <!-- Vídeo -->
+                <div style="width: 460px;" class="ratio ratio-16x9">
+                <iframe [src]="r.video" allowfullscreen></iframe>
+                </div>
+
+                <!-- Texto -->
+                <div class="flex-grow-1 text-center text-md-start">
+                <p class="mb-1 fs-5 fw-bold">
+                    La respuesta correcta era: <strong>{{ r.word }}</strong>
+                </p>
+                <p class="mb-0 fw-bold">
+                    Tu respuesta:&nbsp;
+                    <span [ngClass]="{ 'text-success': r.correct, 'text-danger': !r.correct }">
+                    {{ r.answer || '—' }}
+                    </span>
+                </p>
+                </div>
+            </div>
+
+            <!-- Navegación -->
+            <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-outline-secondary"
+                        (click)="prev()" 
+                        [disabled]="currentResultIndex === 0">
+                ← Anterior
+                </button>
+                <button class="btn btn-outline-secondary"
+                        (click)="next()"
+                        [disabled]="currentResultIndex === results.length - 1">
+                Siguiente →
+                </button>
+            </div>
+            }
+
+            <!-- Fin -->
+            <div class="text-center mt-5">
+                <button class="btn btn-secondary" routerLink="/">Volver al inicio</button>
+            </div>
         </section>
     }
 </body>
