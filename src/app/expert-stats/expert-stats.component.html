@@ -1,106 +1,133 @@
 <body class="body">
-    <br><br><br>
-    @if (NVideos !== -1){
-    <div class="container py-4">
-        <h2 class="text-center mb-4">Estadísticas de la página</h2>
+    <br><br>
+    @if (videosPerMonth.length){
+        <div class="container py-4">
+            <h2 class="text-center mb-4">Estadísticas de la página</h2>
 
-        <!-- KPI tiles -->
-        <div class="row g-4">
-            @if (NVideos >= 0){
-                <div class="col-6 col-md-3" routerLink="/recentlyUploaded" style="cursor: pointer;">
-                    <div class="card text-center shadow kpi-card h-100 border-success">
-                        <div class="card-body">
-                            <h1 class="display-6 fw-bold mb-0">{{ NVideos }}</h1>
-                            <p class="text-muted mb-0">Vídeos totales</p>
-                        </div>
-                    </div>
-                </div>
-            }
+            <!-- KPI tiles -->
 
-            @if (NVideosLastMonth >= 0){
-                <div class="col-6 col-md-3" routerLink="/recentlyUploaded" style="cursor: pointer;">
-                    <div class="card text-center shadow kpi-card h-100 border-info">
-                        <div class="card-body">
-                            <h1 class="display-6 fw-bold mb-0">{{ NVideosLastMonth }}</h1>
-                            <p class="text-muted mb-0">Vídeos último mes</p>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            @if (NWords >= 0){
-                <div class="col-6 col-md-3" routerLink="/alphabetical" style="cursor: pointer;">
-                    <div class="card text-center shadow kpi-card h-100 border-warning">
-                        <div class="card-body">
-                            <h1 class="display-6 fw-bold mb-0">{{ NWords }}</h1>
-                            <p class="text-muted mb-0">Palabras totales</p>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            @if (NVideosUncorrected >= 0){
-                <div class="col-6 col-md-3" routerLink="/checkingVideo" style="cursor: pointer;">
-                    <div class="card text-center shadow kpi-card h-100 border-danger">
-                        <div class="card-body">
-                            <h1 class="display-6 fw-bold mb-0">{{ NVideosUncorrected }}</h1>
-                            <p class="text-muted mb-0">Vídeos sin corregir</p>
-                        </div>
-                    </div>
-                </div>
-            }
-
-        </div>
-
-        <!-- Top 3 usuarios con más vídeos -->
-            @if (UserVideo?.length){
-                <div class="row mt-5">
-                    <div class="col-12">
-                        <div class="card shadow">
-                            <div class="card-header bg-success text-white">
-                                <h5 class="mb-0">Top 3 usuarios por vídeos subidos</h5>
+            <div class="row g-4">
+                @if (nVideos >= 0){
+                    <div class="col-6 col-md-3" routerLink="/recentlyUploaded" style="cursor: pointer">
+                        <div class="card text-center shadow kpi-card h-100 border-success">
+                            <div class="card-body">
+                                <h1 class="display-6 fw-bold mb-0">{{ nVideos }}</h1>
+                                <p class="text-muted mb-0">Vídeos totales</p>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                @for (user of UserVideo; track user){
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>{{ user.user.name }}</span>
-                                        <span class="badge bg-primary rounded-pill">{{ user.total }}</span>
-                                    </li>
-                                }
-                            </ul>
                         </div>
                     </div>
-                </div>
-            }
+                }
 
-        <!-- Top 3 usuarios con más puntos -->
-        @if (this.mostPoints){
+                @if (nVideosLastMonth >= 0){
+                    <div class="col-6 col-md-3" routerLink="/recentlyUploaded" style="cursor: pointer">
+                        <div class="card text-center shadow kpi-card h-100 border-info">
+                            <div class="card-body">
+                                <h1 class="display-6 fw-bold mb-0">{{ nVideosLastMonth }}</h1>
+                                <p class="text-muted mb-0">Vídeos último mes</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+                @if (nWords >= 0){
+                    <div class="col-6 col-md-3" routerLink="/alphabetical" style="cursor: pointer">
+                        <div class="card text-center shadow kpi-card h-100 border-warning">
+                            <div class="card-body">
+                                <h1 class="display-6 fw-bold mb-0">{{ nWords }}</h1>
+                                <p class="text-muted mb-0">Palabras totales</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (nVideosUncorrected >= 0){
+                    <div class="col-6 col-md-3" routerLink="/checkingVideo" style="cursor: pointer">
+                        <div class="card text-center shadow kpi-card h-100 border-danger">
+                            <div class="card-body">
+                                <h1 class="display-6 fw-bold mb-0">
+                                {{ nVideosUncorrected }}
+                                </h1>
+                                <p class="text-muted mb-0">Vídeos sin corregir</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <!-- Vídeos por mes -->
             <div class="row mt-5">
                 <div class="col-12">
                     <div class="card shadow">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0">Top mejores puntuaciones en los retos semanales</h5>
+                        <div class="card-header text-white" style="background-color: #0A6847;">
+                            <h5 class="mb-0">
+                            Vídeos subidos por mes
+                            </h5>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            @for (user of this.mostPoints; track user){
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>{{ user.username }}</span>
-                                    <span class="badge bg-success rounded-pill">{{ user.points }}</span>
-                                </li>
-                            }
-                        </ul>
+                        <div class="card-body">
+                            <canvas #videosChart></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-        }        
 
-    </div>
-    } @else {
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Cargando…</span>
+            <!-- Top 3 usuarios con más vídeos -->
+            @if (userVideo.length){
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="card shadow">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">Top 3 usuarios por vídeos subidos</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            @for (user of userVideo; track user.user.id) {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ user.user.name }}</span>
+                                <span class="badge bg-success rounded-pill" style="color: #ffffff;">
+                                {{ user.total }}
+                                </span>
+                            </li>
+                            }
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+            <!-- Top 3 usuarios con más puntos -->
+            @if (mostPoints.length){
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="card shadow">
+                        <div class="card-header" style="background-color: #F3CA52;">
+                            <h5 class="mb-0">
+                            Top mejores puntuaciones en los retos semanales
+                            </h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            @for (user of mostPoints; track user.username) {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ user.username }}</span>
+                                <span class="badge bg-success rounded-pill">
+                                {{ user.points }}
+                                </span>
+                            </li>
+                            }
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+
         </div>
-    </div>
+    } @else {
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Cargando…</span>
+            </div>
+        </div>
     }
 </body>
 
