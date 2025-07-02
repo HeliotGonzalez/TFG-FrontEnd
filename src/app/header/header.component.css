@@ -25,7 +25,6 @@
   font-size: 1.5em;
   display: inline;
   margin-left: 2em;
-  margin-right: 0;
   font-family: sans-serif;
 }
 
@@ -119,6 +118,7 @@
   font-size: 1.45em;
   color: #0A6847;
   cursor: pointer;
+  margin-left: 50px;
 }
 
 /* ——— MÓVIL (≤768px) ——— */
@@ -138,6 +138,7 @@
     color: #0A6847;
     cursor: pointer;
   }
+  
   .header--nav {
     display: none;
     flex-direction: column;

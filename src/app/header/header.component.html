@@ -6,7 +6,8 @@
   <!-- ahora el nav recibe la clase `.open` cuando menuOpen = true -->
   <nav class="header--nav" [class.open]="menuOpen">
     <li class="header--h1__nav" id="name">
-      <a class="header--a__li" (click)="goTo('homepage')">Nombre de la página</a>
+      <img src="icono.png" alt="" width="40" height="40" class="header--img__li rounded-circle ms-5">
+      <a class="header--a__li" (click)="goTo('homepage')">Signario</a>
     </li>
 
     <i class="bi bi-search lupita" style="cursor: pointer;" (click)="search()"></i>
