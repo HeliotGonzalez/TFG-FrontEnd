@@ -1,6 +1,6 @@
 # TFG-FrontEnd
 
-Aplicación frontend para una plataforma de aprendizaje de lengua de signos española construida con [Angular CLI](https://github.com/angular/angular-cli) 19. Permite a los usuarios buscar y compartir vídeos de señas, desafiarse con cuestionarios y gestionar sus perfiles. El proyecto utiliza Bootstrap para el estilo y Ngx Loading Bar para la retroalimentación de navegación.
+Aplicación frontend para una plataforma de aprendizaje de lengua de signos española construida con [Angular CLI](https://github.com/angular/angular-cli) 19. Permite a los usuarios buscar y compartir vídeos de signando en LSE, desafiarse con cuestionarios y gestionar sus perfiles. El proyecto utiliza Bootstrap para el estilo y Ngx Loading Bar para la retroalimentación de navegación.
 
 ## 
 Para ejecutar el proyecto es necesario tener también ejecutando [TFG-Backend](https://github.com/HeliotGonzalez/TFG-Backend) y [TFG-Websockets](https://github.com/HeliotGonzalez/TFG-Websockets) y, en Docker, tener Redis instalado y ejecutándose.
@@ -14,20 +14,6 @@ ng serve
 ```
 
 Una vez en funcionamiento, abre el navegador en `http://localhost:4200/`. La aplicación se recargará automáticamente cuando los archivos cambien.
-
-## Compilación y pruebas
-
-Para crear una compilación optimizada para producción ejecuta:
-
-```bash
-ng build
-```
-
-Las pruebas unitarias pueden ejecutarse con:
-
-```bash
-ng test
-```
 
 ## Componentes principales
 
